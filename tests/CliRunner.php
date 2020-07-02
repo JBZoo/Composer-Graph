@@ -18,7 +18,7 @@ namespace JBZoo\PHPUnit;
 use JBZoo\Utils\Cli;
 
 /**
- * Class CliExecuter
+ * Class CliRunner
  * @package JBZoo\PHPUnit
  */
 class CliRunner
@@ -34,8 +34,7 @@ class CliRunner
 
         return Cli::exec(
             implode(' ', [
-                'COLUMNS=120',
-                'php',
+                '/usr/bin/php',
                 "{$rootDir}/tests/cli-wrapper.php",
                 $taskName,
                 '--no-interaction'
