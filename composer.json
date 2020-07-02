@@ -32,16 +32,13 @@
         }
     },
 
-    "bin"               : [
-        "jbzoo-composer-graph"
-    ],
-
-    "minimum-stability" : "dev",
-    "prefer-stable"     : true,
-
     "autoload-dev"      : {
         "classmap" : ["tests"]
     },
+
+    "minimum-stability" : "dev",
+    "prefer-stable"     : true,
+    "bin"               : ["jbzoo-composer-graph"],
 
     "config"            : {
         "optimize-autoloader" : true
