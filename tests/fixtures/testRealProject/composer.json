@@ -1,41 +1,24 @@
 {
-    "name"              : "jbzoo/toolbox-dev",
-    "type"              : "library",
-    "description"       : "Developer toolbox only for JBZoo libs on github+travis",
+    "name"              : "jbzoo/toolbox",
+    "description"       : "JBZoo Toolbox",
     "license"           : "MIT",
 
-    "authors"           : [
-        {
-            "name"  : "Denis Smetannikov",
-            "email" : "admin@jbzoo.com",
-            "role"  : "lead"
-        }
-    ],
-
     "require"           : {
-        "php"                         : ">=7.2",
-
-        "jbzoo/phpunit"               : "4.0.x-dev",
-        "jbzoo/codestyle"             : "2.0.x-dev",
-        "jbzoo/jbdump"                : "^1.5.3",
-        "phpbench/phpbench"           : "^0.17.0",
-
-        "symfony/var-dumper"          : "^4.4||^5.0",
-        "php-coveralls/php-coveralls" : "^2.2.0",
-        "roave/security-advisories"   : "dev-master"
+        "jbzoo/assets"      : "3.0.x-dev",
+        "jbzoo/data"        : "4.0.x-dev",
+        "jbzoo/event"       : "3.0.x-dev",
+        "jbzoo/http-client" : "3.0.x-dev",
+        "jbzoo/image"       : "5.0.x-dev",
+        "jbzoo/less"        : "3.0.x-dev",
+        "jbzoo/mermaid-php" : "2.0.x-dev",
+        "jbzoo/path"        : "3.0.x-dev",
+        "jbzoo/utils"       : "4.0.x-dev"
     },
 
-    "autoload"          : {
-        "psr-4" : {
-            "JBZoo\\ToolboxDev\\" : "src"
-        },
-        "files" : [
-            "src/var-dumper.php"
-        ]
-    },
-
-    "autoload-dev"      : {
-        "classmap" : ["tests"]
+    "require-dev"       : {
+        "jbzoo/phpunit"             : "4.0.x-dev",
+        "jbzoo/codestyle"           : "2.0.x-dev",
+        "roave/security-advisories" : "dev-master"
     },
 
     "minimum-stability" : "dev",
@@ -47,7 +30,7 @@
 
     "extra"             : {
         "branch-alias" : {
-            "dev-master" : "1.1.x-dev"
+            "dev-master" : "1.0.x-dev"
         }
     }
 }

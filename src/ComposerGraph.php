@@ -88,9 +88,9 @@ class ComposerGraph
         $this->graphWrapper->addStyle('linkStyle default interpolate basis');
         $this->graphWrapper->addSubGraph($this->graphMain = new Graph(['title' => 'Your package']));
 
-        $this->graphRequire = new Graph(['direction' => $direction, 'title' => 'Required']);
-        $this->graphDev = new Graph(['direction' => $direction, 'title' => 'Required Dev']);
-        $this->graphPlatform = new Graph(['direction' => $direction, 'title' => 'PHP Platform']);
+        $this->graphRequire = new Graph(['direction' => $direction, 'title' => 'Required', 'abc_order' => true]);
+        $this->graphDev = new Graph(['direction' => $direction, 'title' => 'Required Dev', 'abc_order' => true]);
+        $this->graphPlatform = new Graph(['direction' => $direction, 'title' => 'PHP Platform', 'abc_order' => true]);
     }
 
     /**
@@ -234,12 +234,12 @@ class ComposerGraph
             return $this->graphPlatform;
         }
 
-        if ($package->isDirectPackageDev()) {
-            return $this->graphDev;
-        }
-
         if ($package->isDirectPackage()) {
             return $this->graphRequire;
+        }
+
+        if ($package->isDirectPackageDev()) {
+            return $this->graphDev;
         }
 
         if (!$package->isTag($package::TAG_REQUIRE) && $package->isTag($package::TAG_REQUIRE_DEV)) {
