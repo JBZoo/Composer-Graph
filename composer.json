@@ -1,0 +1,55 @@
+{
+    "name"              : "jbzoo/composer-graph",
+    "type"              : "library",
+    "description"       : "Render composer.json dependencies ad graph",
+    "license"           : "MIT",
+
+    "authors"           : [
+        {
+            "name"  : "Denis Smetannikov",
+            "email" : "admin@jbzoo.com",
+            "role"  : "lead"
+        }
+    ],
+
+    "require"           : {
+        "php"               : ">=7.2",
+        "jbzoo/data"        : "4.0.x-dev",
+        "jbzoo/mermaid-php" : "2.0.x-dev",
+        "jbzoo/utils"       : "4.0.x-dev",
+
+        "symfony/console"   : "^4.4||^5.0",
+        "composer/semver"   : "^1.0||^2.0"
+    },
+
+    "require-dev"       : {
+        "jbzoo/toolbox-dev" : "1.1.x-dev"
+    },
+
+    "autoload"          : {
+        "psr-4" : {
+            "JBZoo\\ComposerGraph\\" : "src"
+        }
+    },
+
+    "bin"               : [
+        "jbzoo-composer-graph"
+    ],
+
+    "minimum-stability" : "dev",
+    "prefer-stable"     : true,
+
+    "autoload-dev"      : {
+        "classmap" : ["tests"]
+    },
+
+    "config"            : {
+        "optimize-autoloader" : true
+    },
+
+    "extra"             : {
+        "branch-alias" : {
+            "dev-master" : "1.0.x-dev"
+        }
+    }
+}

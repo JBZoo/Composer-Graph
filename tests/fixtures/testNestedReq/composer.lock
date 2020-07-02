@@ -1,0 +1,39 @@
+{
+    "packages" : [
+        {
+            "name"        : "jbzoo/assets",
+            "version"     : "dev-master",
+            "require"     : {
+                "jbzoo/data" : "4.0.x-dev",
+                "php"        : ">=7.2"
+            },
+            "require-dev" : {
+                "jbzoo\/toolbox-dev"  : "1.1.x-dev",
+                "symfony\/filesystem" : "^4.4|^5.0"
+            },
+            "extra"       : {
+                "branch-alias" : {
+                    "dev-master" : "3.0.x-dev"
+                }
+            }
+        },
+        {
+            "name"        : "jbzoo/data",
+            "version"     : "dev-master",
+            "require"     : {
+                "ext-json" : "*",
+                "php"      : "^7.2"
+            },
+            "require-dev" : {
+                "jbzoo/toolbox-dev" : "1.1.x-dev",
+                "jbzoo/utils"       : "^3.1.2||^4.0",
+                "symfony/yaml"      : "^4.4||^5.0"
+            },
+            "extra"       : {
+                "branch-alias" : {
+                    "dev-master" : "4.0.x-dev"
+                }
+            }
+        }
+    ]
+}

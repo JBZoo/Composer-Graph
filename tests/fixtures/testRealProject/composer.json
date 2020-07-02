@@ -1,0 +1,53 @@
+{
+    "name"              : "jbzoo/toolbox-dev",
+    "type"              : "library",
+    "description"       : "Developer toolbox only for JBZoo libs on github+travis",
+    "license"           : "MIT",
+
+    "authors"           : [
+        {
+            "name"  : "Denis Smetannikov",
+            "email" : "admin@jbzoo.com",
+            "role"  : "lead"
+        }
+    ],
+
+    "require"           : {
+        "php"                         : ">=7.2",
+
+        "jbzoo/phpunit"               : "4.0.x-dev",
+        "jbzoo/codestyle"             : "2.0.x-dev",
+        "jbzoo/jbdump"                : "^1.5.3",
+        "phpbench/phpbench"           : "^0.17.0",
+
+        "symfony/var-dumper"          : "^4.4||^5.0",
+        "php-coveralls/php-coveralls" : "^2.2.0",
+        "roave/security-advisories"   : "dev-master"
+    },
+
+    "autoload"          : {
+        "psr-4" : {
+            "JBZoo\\ToolboxDev\\" : "src"
+        },
+        "files" : [
+            "src/var-dumper.php"
+        ]
+    },
+
+    "autoload-dev"      : {
+        "classmap" : ["tests"]
+    },
+
+    "minimum-stability" : "dev",
+    "prefer-stable"     : true,
+
+    "config"            : {
+        "optimize-autoloader" : true
+    },
+
+    "extra"             : {
+        "branch-alias" : {
+            "dev-master" : "1.1.x-dev"
+        }
+    }
+}

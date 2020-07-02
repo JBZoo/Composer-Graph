@@ -1,0 +1,12 @@
+{
+    "name"        : "test/main",
+
+    "require"     : {
+        "jbzoo/assets" : "4.0.x-dev"
+    },
+
+    "require-dev" : {
+        "jbzoo/data"  : "4.0.x-dev",
+        "jbzoo/event" : "3.0.x-dev"
+    }
+}

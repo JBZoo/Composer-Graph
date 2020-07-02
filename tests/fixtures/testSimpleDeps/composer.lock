@@ -1,0 +1,13 @@
+{
+    "packages" : [
+        {
+            "name"    : "jbzoo/assets",
+            "version" : "dev-master",
+            "extra"   : {
+                "branch-alias" : {
+                    "dev-master" : "3.0.x-dev"
+                }
+            }
+        }
+    ]
+}

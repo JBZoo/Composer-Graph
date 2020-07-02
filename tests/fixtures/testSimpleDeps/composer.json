@@ -1,0 +1,7 @@
+{
+    "name"    : "test/main",
+
+    "require" : {
+        "jbzoo/assets" : "4.0.x-dev"
+    }
+}
