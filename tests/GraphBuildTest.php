@@ -39,36 +39,6 @@ class GraphBuildTest extends PHPUnit
         ]);
 
         isContain('Report is ready', $result);
-
-        isContain(implode("\n", [
-            'graph LR;',
-            '    subgraph "Your package"',
-            '        ae95b4b66d7b4779f897fd831b645ead("jbzoo/composer-graph");',
-            '    end',
-            '    subgraph "Required"',
-            '        30af367723c60d7077c2b53473339821("symfony/polyfill-mbstring");',
-            '        33e43173c7d1f8ec43e3537370f3eb50("jbzoo/data");',
-            '        54ea90bf40100713420d0ca059c678ff("symfony/polyfill-php80");',
-            '        8e05016b1708f493c990b408411d94ad("psr/container");',
-            '        9882cffb18c5ee98106cdc1bbb7ec597("symfony/console");',
-            '        ad92b979cb33eaa9e740f160abb37ab5("symfony/service-contracts");',
-            '        b0ccab8b9f0997e1142c95d922a3e68b("jbzoo/utils");',
-            '        c9e5fecbbf5b863056a58a6ae56c9f30("jbzoo/mermaid-php");',
-            '        cedcfab041a69c3ffaad73e64d65bc4d("composer/semver");',
-            '        e0ffa6511763d63988cbfec1409bd74d("symfony/polyfill-php73");',
-            '        9882cffb18c5ee98106cdc1bbb7ec597-.->30af367723c60d7077c2b53473339821;',
-            '        9882cffb18c5ee98106cdc1bbb7ec597-.->54ea90bf40100713420d0ca059c678ff;',
-            '        9882cffb18c5ee98106cdc1bbb7ec597-.->ad92b979cb33eaa9e740f160abb37ab5;',
-            '        9882cffb18c5ee98106cdc1bbb7ec597-.->e0ffa6511763d63988cbfec1409bd74d;',
-            '        ad92b979cb33eaa9e740f160abb37ab5-.->8e05016b1708f493c990b408411d94ad;',
-            '        ae95b4b66d7b4779f897fd831b645ead ==> 33e43173c7d1f8ec43e3537370f3eb50;',
-            '        ae95b4b66d7b4779f897fd831b645ead ==> 9882cffb18c5ee98106cdc1bbb7ec597;',
-            '        ae95b4b66d7b4779f897fd831b645ead ==> b0ccab8b9f0997e1142c95d922a3e68b;',
-            '        ae95b4b66d7b4779f897fd831b645ead ==> c9e5fecbbf5b863056a58a6ae56c9f30;',
-            '        ae95b4b66d7b4779f897fd831b645ead ==> cedcfab041a69c3ffaad73e64d65bc4d;',
-            '    end',
-            'linkStyle default interpolate basis;',
-        ]), file_get_contents($output));
     }
 
     public function testEmpty()

@@ -16,6 +16,7 @@
 namespace JBZoo\PHPUnit;
 
 use JBZoo\Utils\Cli;
+use JBZoo\Utils\Sys;
 
 /**
  * Class CliRunner
@@ -34,7 +35,7 @@ class CliRunner
 
         return Cli::exec(
             implode(' ', [
-                '/usr/bin/php',
+                Sys::getBinary(),
                 "{$rootDir}/tests/cli-wrapper.php",
                 $taskName,
                 '--no-interaction'
