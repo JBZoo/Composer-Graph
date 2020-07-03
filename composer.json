@@ -23,8 +23,9 @@
     },
 
     "require-dev"       : {
-        "jbzoo/phpunit"   : "4.0.x-dev",
-        "jbzoo/codestyle" : "2.0.x-dev"
+        "jbzoo/phpunit"             : "4.0.x-dev",
+        "jbzoo/codestyle"           : "2.0.x-dev",
+        "roave/security-advisories" : "dev-master"
     },
 
     "autoload"          : {
