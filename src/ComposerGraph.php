@@ -118,7 +118,8 @@ class ComposerGraph
 
         $htmlPath = $this->params->get('output-path');
         file_put_contents($htmlPath, $this->graphWrapper->renderHtml([
-            'title' => $main->getName() . ' - Graph of Dependencies',
+            'version' => '8.5.2',
+            'title'   => $main->getName() . ' - Graph of Dependencies',
         ]));
 
         return $htmlPath;
@@ -207,12 +208,18 @@ class ComposerGraph
             $sourceNode = $this->createNode($source);
             $targetNode = $this->createNode($target);
 
-            $arrow = $source->isMain() && $target->isDirectPackage() ? Link::THICK : Link::DOTTED;
             if (!$this->params->get('link-version')) {
                 $version = '';
             }
 
-            $graph->addLink(new Link($sourceNode, $targetNode, $version, $arrow));
+            if ($source->isMain() && $target->isDirectPackage()) {
+                $graph->addLink(new Link($sourceNode, $targetNode, $version, Link::THICK));
+            } elseif ($source->isMain() && $target->isDirectPackageDev()) {
+                $graph->addLink(new Link($sourceNode, $targetNode, $version, Link::ARROW));
+            } else {
+                $graph->addLink(new Link($sourceNode, $targetNode, $version, Link::DOTTED));
+            }
+
             $createdLinks[$pattern] = true;
             return true;
         }

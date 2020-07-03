@@ -27,3 +27,24 @@ test-all: ##@Project Run all project tests at once
 	@make test
 	@-make report-merge-coverage
 	@make codestyle
+
+
+test-real:
+	@php `pwd`/jbzoo-composer-graph build                                   \
+        --composer-json=`pwd`/tests/fixtures/testRealProject/composer.json  \
+        --composer-lock=`pwd`/tests/fixtures/testRealProject/composer.lock  \
+        --output=$(PATH_BUILD)/manual-test.html                             \
+        --link-version=false                                                \
+        --lib-version=false                                                 \
+        --no-php                                                            \
+        --no-ext                                                            \
+        -vvv
+	@php `pwd`/jbzoo-composer-graph build                                   \
+        --composer-json=`pwd`/tests/fixtures/testRealProject/composer.json  \
+        --composer-lock=`pwd`/tests/fixtures/testRealProject/composer.lock  \
+        --output=$(PATH_BUILD)/manual-test-platform.html                    \
+        --link-version=false                                                \
+        --lib-version=false                                                 \
+        --no-php                                                            \
+        --no-dev                                                            \
+        -vvv

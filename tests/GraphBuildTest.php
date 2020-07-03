@@ -187,7 +187,7 @@ class GraphBuildTest extends PHPUnit
             '    end',
             '    subgraph "Required Dev"',
             '        b639e1b42e0f7a49ac0e6eec145977b3("jbzoo/event@3.0.x-dev");',
-            '        a21583cedf3174136523a39c2b1c715b-. "3.0.x-dev" .-> b639e1b42e0f7a49ac0e6eec145977b3;',
+            '        a21583cedf3174136523a39c2b1c715b-->|"3.0.x-dev"|b639e1b42e0f7a49ac0e6eec145977b3;',
             '    end',
             '    subgraph "PHP Platform"',
             '        4d48b207cdf39d7efea6cb77e287a47d("ext-json");',
