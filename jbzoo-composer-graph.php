@@ -14,7 +14,6 @@
  */
 
 use JBZoo\ComposerGraph\Commands\Build;
-use JBZoo\ComposerGraph\Commands\Cleanup;
 use Symfony\Component\Console\Application;
 
 define('PATH_ROOT', __DIR__);

@@ -29,22 +29,36 @@ test-all: ##@Project Run all project tests at once
 	@make codestyle
 
 
-test-real:
-	@php `pwd`/jbzoo-composer-graph build                                   \
-        --composer-json=`pwd`/tests/fixtures/testRealProject/composer.json  \
-        --composer-lock=`pwd`/tests/fixtures/testRealProject/composer.lock  \
-        --output=$(PATH_BUILD)/manual-test.html                             \
-        --link-version=false                                                \
-        --lib-version=false                                                 \
-        --no-php                                                            \
-        --no-ext                                                            \
-        -vvv
-	@php `pwd`/jbzoo-composer-graph build                                   \
-        --composer-json=`pwd`/tests/fixtures/testRealProject/composer.json  \
-        --composer-lock=`pwd`/tests/fixtures/testRealProject/composer.lock  \
-        --output=$(PATH_BUILD)/manual-test-platform.html                    \
-        --link-version=false                                                \
-        --lib-version=false                                                 \
-        --no-php                                                            \
-        --no-dev                                                            \
-        -vvv
+test-manual:
+	@FIXTURE="lib-project"      make test-manual-internal
+	@FIXTURE="lib-project-libs" make test-manual-internal
+
+
+test-manual-internal:
+	@php `pwd`/jbzoo-composer-graph build                              \
+        --composer-json=`pwd`/tests/fixtures/$(FIXTURE)/composer.json  \
+        --composer-lock=`pwd`/tests/fixtures/$(FIXTURE)/composer.lock  \
+        --output=$(PATH_BUILD)/$(FIXTURE)-manual-full.html             \
+        --no-php --no-ext -vvv
+	@php `pwd`/jbzoo-composer-graph build                              \
+        --composer-json=`pwd`/tests/fixtures/$(FIXTURE)/composer.json  \
+        --composer-lock=`pwd`/tests/fixtures/$(FIXTURE)/composer.lock  \
+        --output=$(PATH_BUILD)/$(FIXTURE)-manual-full-minimal.html     \
+        --link-version=false                                           \
+        --lib-version=false                                            \
+        --no-php --no-ext -vvv
+	@php `pwd`/jbzoo-composer-graph build                              \
+        --composer-json=`pwd`/tests/fixtures/$(FIXTURE)/composer.json  \
+        --composer-lock=`pwd`/tests/fixtures/$(FIXTURE)/composer.lock  \
+        --output=$(PATH_BUILD)/$(FIXTURE)-manual-no-dev.html           \
+        --no-dev                                                       \
+        --no-php --no-ext -vvv
+	@php `pwd`/jbzoo-composer-graph build                              \
+        --composer-json=`pwd`/tests/fixtures/$(FIXTURE)/composer.json  \
+        --composer-lock=`pwd`/tests/fixtures/$(FIXTURE)/composer.lock  \
+        --output=$(PATH_BUILD)/$(FIXTURE)-manual-no-dev-minimal.html   \
+        --link-version=false                                           \
+        --lib-version=false                                            \
+        --no-dev                                                       \
+        --no-php --no-ext -vvv
+
