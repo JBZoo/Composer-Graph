@@ -20,6 +20,7 @@ use JBZoo\ComposerGraph\ComposerGraph;
 use JBZoo\MermaidPHP\Graph;
 use JBZoo\Utils\FS;
 use JBZoo\Utils\Sys;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,7 +32,7 @@ use function JBZoo\Utils\bool;
  * Class Build
  * @package JBZoo\ComposerGraph\Commands
  */
-class Build extends AbstractCommand
+class Build extends Command
 {
     /**
      * @inheritDoc
@@ -67,7 +68,7 @@ class Build extends AbstractCommand
     /**
      * @inheritDoc
      */
-    protected function runCommand(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $startTimer = microtime(true);
 
@@ -94,7 +95,7 @@ class Build extends AbstractCommand
         $totalTime = number_format(microtime(true) - $startTimer, 2);
         $maxMemory = Sys::getMemory();
 
-        $this->output->writeln("Total Time: <info>{$totalTime} sec</info>; " .
+        $output->writeln("Total Time: <info>{$totalTime} sec</info>; " .
             "Peak Memory: <info>{$maxMemory}</info>;\n");
 
         return 0;

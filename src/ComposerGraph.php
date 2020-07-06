@@ -116,7 +116,7 @@ class ComposerGraph
             $this->graphWrapper->addSubGraph($this->graphPlatform);
         }
 
-        $htmlPath = $this->params->get('output-path');
+        $htmlPath = (string)$this->params->get('output-path');
         file_put_contents($htmlPath, $this->graphWrapper->renderHtml([
             'version' => '8.5.2',
             'title'   => $main->getName() . ' - Graph of Dependencies',
@@ -209,7 +209,7 @@ class ComposerGraph
             return $currentNode;
         }
 
-        $node = new Node($nodeId, $package->getName($this->params->get('lib-version')));
+        $node = new Node($nodeId, $package->getName((bool)$this->params->get('lib-version')));
         $graph->addNode($node);
 
         return $node;

@@ -65,7 +65,7 @@ class Collection
             'tags'    => [Package::TAG_PHP]
         ]);
 
-        $this->add($this->composerFile->get('name'), [
+        $this->add((string)$this->composerFile->get('name'), [
             'version'     => $istTest ? null : Helper::getGitVersion(),
             'require'     => $this->composerFile->get('require'),
             'require-dev' => $this->composerFile->get('require-dev'),
