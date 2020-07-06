@@ -29,7 +29,7 @@ class CliRunner
      * @param array  $params
      * @return string
      */
-    public static function task($taskName, array $params = [])
+    public static function task($taskName = '', array $params = [])
     {
         $rootDir = PROJECT_ROOT;
 

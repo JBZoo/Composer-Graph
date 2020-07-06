@@ -53,12 +53,20 @@ class Collection
         $this->buildCollection();
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function buildCollection(): void
     {
-        $this->add('php', ['tags' => [Package::TAG_PHP]]);
+        $istTest = defined('IS_PHPUNIT_TEST') && IS_PHPUNIT_TEST;
+
+        $this->add('php', [
+            'version' => $istTest ? null : PHP_VERSION,
+            'tags'    => [Package::TAG_PHP]
+        ]);
 
         $this->add($this->composerFile->get('name'), [
-            //'version'     => 'dev-master', // TODO: Get it via `git`
+            'version'     => $istTest ? null : Helper::getGitVersion(),
             'require'     => $this->composerFile->get('require'),
             'require-dev' => $this->composerFile->get('require-dev'),
             'tags'        => [Package::TAG_MAIN]
@@ -89,6 +97,7 @@ class Collection
                 $package = json($package);
 
                 $require = (array)$package->get('require');
+                $suggest = (array)$package->get('suggest');
 
                 $version = $package->get('version');
                 $version = $package->find("extra.branch-alias.{$version}") ?: $version;
@@ -96,6 +105,7 @@ class Collection
                 $this->add((string)$package->get('name'), [
                     'version' => $version,
                     'require' => $require,
+                    'suggest' => $suggest,
                     'tags'    => $scopeType
                 ]);
 
@@ -122,6 +132,7 @@ class Collection
             ->setVersion((string)$current->get('version'))
             ->addRequire((array)$current->get('require'))
             ->addRequireDev((array)$current->get('require-dev'))
+            ->addSuggest((array)$current->get('suggest'))
             ->addTags((array)$current->get('tags'));
 
         $this->collection[$packageName] = $package;
@@ -145,15 +156,10 @@ class Collection
 
     /**
      * @param string $packageName
-     * @return Package
+     * @return Package|null
      */
-    public function getByName(string $packageName): Package
+    public function getByName(string $packageName): ?Package
     {
-        $package = $this->collection[$packageName] ?? null;
-        if (!$package) {
-            throw new Exception("Package \"{$packageName}\ not found in collection");
-        }
-
-        return $package;
+        return $this->collection[$packageName] ?? null;
     }
 }

@@ -22,6 +22,8 @@ require_once PROJECT_ROOT . '/vendor/autoload.php';
 
 $cliIndexFile = PROJECT_ROOT . '/jbzoo-composer-graph.php';
 
+define('IS_PHPUNIT_TEST', true);
+
 if (class_exists(CovCatcher::class) && Sys::hasXdebug()) {
     $covCatcher = new CovCatcher(uniqid('prefix-', true), [
         'html'      => 0,

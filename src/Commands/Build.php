@@ -18,6 +18,8 @@ namespace JBZoo\ComposerGraph\Commands;
 use JBZoo\ComposerGraph\Collection;
 use JBZoo\ComposerGraph\ComposerGraph;
 use JBZoo\MermaidPHP\Graph;
+use JBZoo\Utils\FS;
+use JBZoo\Utils\Sys;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -39,6 +41,10 @@ class Build extends AbstractCommand
         $required = InputOption::VALUE_REQUIRED;
         $none = InputOption::VALUE_NONE;
 
+        if (!defined('IS_PHPUNIT_TEST')) {
+            define('IS_PHPUNIT_TEST', false);
+        }
+
         $this
             ->setName('build')
             ->addOption('composer-json', null, $required, 'Path to composer.json file', './composer.json')
@@ -47,6 +53,7 @@ class Build extends AbstractCommand
             ->addOption('no-php', null, $none, 'Exclude PHP')
             ->addOption('no-ext', null, $none, 'Exclude all ext-* nodes')
             ->addOption('no-dev', null, $none, 'Exclude dev requirements')
+            ->addOption('no-suggest', null, $none, 'Exclude suggested requirements')
             ->addOption('link-version', null, $required, 'Show version requirements in link', 'true')
             ->addOption('lib-version', null, $required, 'Show version of package', 'true')
             ->addOption('direction', null, $required, 'Direction of graph. Available <info>' . implode(',', [
@@ -62,6 +69,8 @@ class Build extends AbstractCommand
      */
     protected function runCommand(InputInterface $input, OutputInterface $output): int
     {
+        $startTimer = microtime(true);
+
         $composerJson = json($input->getOption('composer-json'));
         $composerLock = json($input->getOption('composer-lock'));
         $direction = $input->getOption('direction') ?: Graph::LEFT_RIGHT;
@@ -73,12 +82,20 @@ class Build extends AbstractCommand
             'php'          => !$input->getOption('no-php'),
             'ext'          => !$input->getOption('no-ext'),
             'dev'          => !$input->getOption('no-dev'),
+            'suggest'      => !$input->getOption('no-suggest'),
             'link-version' => bool($input->getOption('link-version')),
             'lib-version'  => bool($input->getOption('lib-version')),
             'output-path'  => $input->getOption('output'),
         ]))->build();
 
-        $output->writeln("Report is ready: {$htmlOutputPath}");
+        $htmlOutputPath = './' . FS::getRelative($htmlOutputPath);
+        $output->writeln("Report is ready: <comment>{$htmlOutputPath}</comment>");
+
+        $totalTime = number_format(microtime(true) - $startTimer, 2);
+        $maxMemory = Sys::getMemory();
+
+        $this->output->writeln("Total Time: <info>{$totalTime} sec</info>; " .
+            "Peak Memory: <info>{$maxMemory}</info>;\n");
 
         return 0;
     }

@@ -51,6 +51,11 @@ class Package
     /**
      * @var array
      */
+    private $suggests = [];
+
+    /**
+     * @var array
+     */
     private $tags = [];
 
     /**
@@ -96,6 +101,16 @@ class Package
     public function addRequireDev(array $requiredDev)
     {
         $this->requiredDev = array_merge($this->requiredDev, $requiredDev);
+        return $this;
+    }
+
+    /**
+     * @param array $suggest
+     * @return $this
+     */
+    public function addSuggest(array $suggest)
+    {
+        $this->suggests = array_merge($this->suggests, $suggest);
         return $this;
     }
 
@@ -193,5 +208,13 @@ class Package
     public function getRequiredDev()
     {
         return $this->requiredDev;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSuggested()
+    {
+        return $this->suggests;
     }
 }

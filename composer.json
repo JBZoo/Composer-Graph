@@ -22,10 +22,8 @@
     },
 
     "require-dev"       : {
-        "jbzoo/phpunit"             : "4.0.x-dev",
-        "jbzoo/codestyle"           : "2.0.x-dev",
-        "roave/security-advisories" : "dev-master",
-        "symfony/process"           : "^4.4||^5.0"
+        "jbzoo/toolbox-dev" : "1.1.x-dev",
+        "symfony/process"   : "^4.4||^5.0"
     },
 
     "autoload"          : {

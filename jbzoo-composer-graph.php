@@ -26,14 +26,15 @@ $vendorPaths = [
 
 foreach ($vendorPaths as $file) {
     if (file_exists($file)) {
-        define('PHPUNIT_COMPOSER_INSTALL', $file);
+        define('JBZOO_COMPOSER_GRAPH', $file);
         break;
     }
 }
 
-require PHPUNIT_COMPOSER_INSTALL;
+require JBZOO_COMPOSER_GRAPH;
 
 $application = new Application();
 $application->add(new Build());
+$application->setDefaultCommand('build');
 $application->setAutoExit(false);
 $application->run();

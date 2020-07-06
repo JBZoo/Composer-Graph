@@ -76,6 +76,7 @@ class ComposerGraph
             'php'          => true,
             'ext'          => true,
             'dev'          => true,
+            'suggest'      => true,
             'output-path'  => null,
             'direction'    => Graph::LEFT_RIGHT,
             'link-version' => true,
@@ -85,7 +86,6 @@ class ComposerGraph
         $direction = $this->params->get('direction');
 
         $this->graphWrapper = new Graph(['direction' => $direction, 'abc_order' => true]);
-        $this->graphWrapper->addStyle('linkStyle default interpolate basis');
         $this->graphWrapper->addSubGraph($this->graphMain = new Graph(['title' => 'Your package']));
 
         $this->graphRequire = new Graph(['direction' => $direction, 'title' => 'Required', 'abc_order' => true]);
@@ -128,14 +128,20 @@ class ComposerGraph
     /**
      * @param Package $sourcePackage
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    protected function renderNodeTree($sourcePackage): void
+    protected function renderNodeTree(Package $sourcePackage): void
     {
         $showPhp = $this->params->get('php');
         $showExt = $this->params->get('ext');
+        $showDev = $this->params->get('dev');
+        $showSuggest = $this->params->get('suggest');
 
         foreach ($sourcePackage->getRequired() as $target => $version) {
             $targetPackage = $this->collection->getByName($target);
+            if (!$targetPackage) {
+                return;
+            }
 
             if (!$showPhp && $targetPackage->isPhp()) {
                 continue;
@@ -149,9 +155,31 @@ class ComposerGraph
             $this->addLink($sourcePackage, $targetPackage, $version, $this->getGraph($targetPackage));
         }
 
-        if ($this->params->get('dev')) {
+        if ($showSuggest) {
+            foreach (array_keys($sourcePackage->getSuggested()) as $target) {
+                $targetPackage = $this->collection->getByName((string)$target);
+                if (!$targetPackage) {
+                    return;
+                }
+
+                if (!$showExt && $targetPackage->isPhpExt()) {
+                    continue;
+                }
+
+                if ($targetPackage->isTag(Package::TAG_REQUIRE)) {
+                    $this->addLink($sourcePackage, $targetPackage, 'suggest', $this->getGraph($targetPackage));
+                } elseif ($showDev && $targetPackage->isTag(Package::TAG_REQUIRE_DEV)) {
+                    $this->addLink($sourcePackage, $targetPackage, 'suggest-dev', $this->getGraph($targetPackage));
+                }
+            }
+        }
+
+        if ($showDev) {
             foreach ($sourcePackage->getRequiredDev() as $target => $version) {
                 $targetPackage = $this->collection->getByName($target);
+                if (!$targetPackage) {
+                    return;
+                }
 
                 if (!$showPhp && $targetPackage->isPhp()) {
                     continue;
@@ -207,6 +235,7 @@ class ComposerGraph
         if (!array_key_exists($pattern, $createdLinks)) {
             $sourceNode = $this->createNode($source);
             $targetNode = $this->createNode($target);
+            $isSuggested = 'suggest' === $version;
 
             if (!$this->params->get('link-version')) {
                 $version = '';
@@ -215,9 +244,11 @@ class ComposerGraph
             if ($source->isMain() && $target->isDirectPackage()) {
                 $graph->addLink(new Link($sourceNode, $targetNode, $version, Link::THICK));
             } elseif ($source->isMain() && $target->isDirectPackageDev()) {
-                $graph->addLink(new Link($sourceNode, $targetNode, $version, Link::ARROW));
-            } else {
+                $graph->addLink(new Link($sourceNode, $targetNode, $version, Link::THICK));
+            } elseif ($isSuggested) {
                 $graph->addLink(new Link($sourceNode, $targetNode, $version, Link::DOTTED));
+            } else {
+                $graph->addLink(new Link($sourceNode, $targetNode, $version, Link::ARROW));
             }
 
             $createdLinks[$pattern] = true;

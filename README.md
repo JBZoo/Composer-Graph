@@ -6,8 +6,9 @@
 
 ## Usage
 
-```bash
-$ php jbzoo-composer-graph build --help
+```
+$ php jbzoo-composer-graph --help
+
 Usage:
   build [options]
 
@@ -18,9 +19,17 @@ Options:
       --no-php                       Exclude PHP
       --no-ext                       Exclude all ext-* nodes
       --no-dev                       Exclude dev requirements
+      --no-suggest                   Exclude suggested requirements
       --link-version=LINK-VERSION    Show version requirements in link [default: "true"]
       --lib-version=LIB-VERSION      Show version of package [default: "true"]
       --direction=DIRECTION          Direction of graph. Available LR,TB,BT,RL [default: "LR"]
+  -h, --help                         Display this help message
+  -q, --quiet                        Do not output any message
+  -V, --version                      Display this application version
+      --ansi                         Force ANSI output
+      --no-ansi                      Disable ANSI output
+  -n, --no-interaction               Do not ask any interactive question
+  -v|vv|vvv, --verbose               Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 ```
 
 

@@ -1,0 +1,42 @@
+{
+    "name"              : "jbzoo/toolbox",
+    "description"       : "JBZoo Toolbox",
+    "license"           : "MIT",
+
+    "require"           : {
+        "php"               : ">=7.2",
+
+        "jbzoo/assets"      : "3.0.x-dev",
+        "jbzoo/data"        : "4.0.x-dev",
+        "jbzoo/event"       : "3.0.x-dev",
+        "jbzoo/http-client" : "3.0.x-dev",
+        "jbzoo/image"       : "5.0.x-dev",
+        "jbzoo/less"        : "3.0.x-dev",
+        "jbzoo/mermaid-php" : "2.0.x-dev",
+        "jbzoo/path"        : "3.0.x-dev",
+        "jbzoo/utils"       : "4.0.x-dev"
+    },
+
+    "require-dev"       : {
+        "jbzoo/phpunit"             : "4.0.x-dev",
+        "jbzoo/codestyle"           : "2.0.x-dev",
+        "jbzoo/composer-graph"      : "1.0.x-dev",
+        "roave/security-advisories" : "dev-master",
+
+        "guzzlehttp/guzzle"         : "^6.4.1",
+        "rmccue/requests"           : "^1.7.0"
+    },
+
+    "minimum-stability" : "dev",
+    "prefer-stable"     : true,
+
+    "config"            : {
+        "optimize-autoloader" : true
+    },
+
+    "extra"             : {
+        "branch-alias" : {
+            "dev-master" : "1.0.x-dev"
+        }
+    }
+}
