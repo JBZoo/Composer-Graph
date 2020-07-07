@@ -185,7 +185,7 @@ class Package
      * @param bool $addVersion
      * @return string
      */
-    public function getName($addVersion = true): string
+    public function getName(bool $addVersion = true): string
     {
         if (!$addVersion) {
             return $this->name;
@@ -197,7 +197,7 @@ class Package
     /**
      * @return array
      */
-    public function getRequired()
+    public function getRequired(): array
     {
         return $this->required;
     }
@@ -205,7 +205,7 @@ class Package
     /**
      * @return array
      */
-    public function getRequiredDev()
+    public function getRequiredDev(): array
     {
         return $this->requiredDev;
     }
@@ -213,7 +213,7 @@ class Package
     /**
      * @return array
      */
-    public function getSuggested()
+    public function getSuggested(): array
     {
         return $this->suggests;
     }

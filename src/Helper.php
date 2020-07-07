@@ -29,7 +29,7 @@ class Helper
      * @return string|null
      * @phan-suppress PhanUnusedVariableCaughtException
      */
-    public static function getGitVersion()
+    public static function getGitVersion(): ?string
     {
         try {
             if ($tag = trim(Cli::exec('git describe --abbrev=0 --tags'))) {
