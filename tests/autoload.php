@@ -14,9 +14,13 @@
  */
 
 // main autoload
+use JBZoo\Utils\Cli;
+
 if ($autoload = realpath('./vendor/autoload.php')) {
     require_once $autoload;
 } else {
     echo 'Please execute "composer update" !' . PHP_EOL;
     exit(1);
 }
+
+Cli::exec('make clean-build', [], PROJECT_ROOT);

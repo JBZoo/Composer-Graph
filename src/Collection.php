@@ -55,6 +55,7 @@ class Collection
 
     /**
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function buildCollection(): void
     {
@@ -62,34 +63,36 @@ class Collection
 
         $this->add('php', [
             'version' => $istTest ? null : PHP_VERSION,
-            'tags'    => [Package::TAG_PHP]
+            'tags'    => [Package::PHP, Package::INSTALLED]
         ]);
 
         $this->add((string)$this->composerFile->get('name'), [
             'version'     => $istTest ? null : Helper::getGitVersion(),
             'require'     => $this->composerFile->get('require'),
             'require-dev' => $this->composerFile->get('require-dev'),
-            'tags'        => [Package::TAG_MAIN]
+            'suggest'     => $this->composerFile->get('suggest'),
+            'tags'        => [Package::MAIN, Package::INSTALLED]
         ]);
 
         $mainRequire = array_keys((array)$this->composerFile->get('require'));
         foreach ($mainRequire as $package) {
-            $this->add((string)$package, [
-                'tags' => [Package::TAG_DIRECT, Package::TAG_REQUIRE]
-            ]);
+            $this->add((string)$package, ['tags' => [Package::DIRECT]]);
         }
 
         $mainRequireDev = array_keys((array)$this->composerFile->get('require-dev'));
         foreach ($mainRequireDev as $packageDev) {
-            $this->add((string)$packageDev, [
-                'tags' => [Package::TAG_DIRECT, Package::TAG_REQUIRE_DEV]
-            ]);
+            $this->add((string)$packageDev, ['tags' => [Package::DIRECT]]);
+        }
+
+        $mainSuggest = array_keys((array)$this->composerFile->get('suggest'));
+        foreach ($mainSuggest as $suggest) {
+            $this->add((string)$suggest, ['tags' => [Package::DIRECT, Package::SUGGEST]]);
         }
 
         // Lock file
         $scopes = [
-            Package::TAG_REQUIRE     => (array)$this->lockFile->get('packages'),
-            Package::TAG_REQUIRE_DEV => (array)$this->lockFile->get('packages-dev'),
+            Package::REQUIRED     => (array)$this->lockFile->get('packages'),
+            Package::REQUIRED_DEV => (array)$this->lockFile->get('packages-dev'),
         ];
 
         foreach ($scopes as $scopeType => $scope) {
@@ -106,11 +109,15 @@ class Collection
                     'version' => $version,
                     'require' => $require,
                     'suggest' => $suggest,
-                    'tags'    => $scopeType
+                    'tags'    => [$scopeType, Package::INSTALLED]
                 ]);
 
                 foreach (array_keys($require) as $innerRequired) {
                     $this->add((string)$innerRequired, ['tags' => [$scopeType]]);
+                }
+
+                foreach (array_keys($suggest) as $innerSuggested) {
+                    $this->add((string)$innerSuggested, ['tags' => [$scopeType, Package::SUGGEST]]);
                 }
             }
         }
@@ -124,9 +131,10 @@ class Collection
     private function add(string $packageName, array $packageMeta): Package
     {
         $current = json($packageMeta);
+        $packageAlias = Package::alias($packageName);
 
         /** @var Package $package */
-        $package = $this->collection[$packageName] ?? new Package($packageName);
+        $package = $this->collection[$packageAlias] ?? new Package($packageName);
 
         $package
             ->setVersion((string)$current->get('version'))
@@ -135,7 +143,7 @@ class Collection
             ->addSuggest((array)$current->get('suggest'))
             ->addTags((array)$current->get('tags'));
 
-        $this->collection[$packageName] = $package;
+        $this->collection[$packageAlias] = $package;
 
         return $package;
     }
@@ -156,10 +164,23 @@ class Collection
 
     /**
      * @param string $packageName
-     * @return Package|null
+     * @return Package
      */
-    public function getByName(string $packageName): ?Package
+    public function getByName(string $packageName): Package
     {
-        return $this->collection[$packageName] ?? null;
+        $packageAlias = Package::alias($packageName);
+        if (array_key_exists($packageAlias, $this->collection)) {
+            return $this->collection[$packageAlias];
+        }
+
+        throw new Exception("Package \"{$packageName} ({$packageAlias})\" not found in collection");
+    }
+
+    /**
+     * @return Package[]
+     */
+    public function getAll(): array
+    {
+        return $this->collection;
     }
 }

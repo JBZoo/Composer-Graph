@@ -13,12 +13,9 @@
  * @link       https://github.com/JBZoo/Composer-Graph
  */
 
-namespace JBZoo\ComposerGraph\Commands;
+namespace JBZoo\ComposerGraph;
 
-use JBZoo\ComposerGraph\Collection;
-use JBZoo\ComposerGraph\ComposerGraph;
 use JBZoo\MermaidPHP\Graph;
-use JBZoo\Utils\FS;
 use JBZoo\Utils\Sys;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,13 +23,12 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use function JBZoo\Data\json;
-use function JBZoo\Utils\bool;
 
 /**
  * Class Build
  * @package JBZoo\ComposerGraph\Commands
  */
-class Build extends Command
+class CommandBuild extends Command
 {
     /**
      * @inheritDoc
@@ -51,18 +47,22 @@ class Build extends Command
             ->addOption('composer-json', null, $required, 'Path to composer.json file', './composer.json')
             ->addOption('composer-lock', null, $required, 'Path to composer.lock file', './composer.lock')
             ->addOption('output', null, $required, 'Path to html output.', './build/jbzoo-composer-graph.html')
-            ->addOption('no-php', null, $none, 'Exclude PHP')
-            ->addOption('no-ext', null, $none, 'Exclude all ext-* nodes')
-            ->addOption('no-dev', null, $none, 'Exclude dev requirements')
-            ->addOption('no-suggest', null, $none, 'Exclude suggested requirements')
-            ->addOption('link-version', null, $required, 'Show version requirements in link', 'true')
-            ->addOption('lib-version', null, $required, 'Show version of package', 'true')
-            ->addOption('direction', null, $required, 'Direction of graph. Available <info>' . implode(',', [
+            ->addOption('format', null, $required, 'Output format. Available options: <info>' . implode(',', [
+                    ComposerGraph::FORMAT_HTML,
+                    ComposerGraph::FORMAT_MERMAID,
+                ]) . '</info>', ComposerGraph::FORMAT_HTML)
+            ->addOption('direction', null, $required, 'Direction of graph. Available options: <info>' . implode(',', [
                     Graph::LEFT_RIGHT,
                     Graph::TOP_BOTTOM,
                     Graph::BOTTOM_TOP,
                     Graph::RIGHT_LEFT,
-                ]) . '</info>', Graph::LEFT_RIGHT);
+                ]) . '</info>', Graph::LEFT_RIGHT)
+            ->addOption('show-php', null, $none, 'Show PHP-node')
+            ->addOption('show-ext', null, $none, 'Show all ext-* nodes')
+            ->addOption('show-dev', null, $none, 'Show all dev dependencies')
+            ->addOption('show-suggests', null, $none, 'Show not installed suggests packages')
+            ->addOption('show-link-versions', null, $none, 'Show version requirements in links')
+            ->addOption('show-lib-versions', null, $none, 'Show version of packages');
     }
 
     /**
@@ -78,25 +78,26 @@ class Build extends Command
 
         $collection = new Collection($composerJson, $composerLock);
 
-        $htmlOutputPath = (new ComposerGraph($collection, [
+        $result = (new ComposerGraph($collection, [
             'direction'    => $direction,
-            'php'          => !$input->getOption('no-php'),
-            'ext'          => !$input->getOption('no-ext'),
-            'dev'          => !$input->getOption('no-dev'),
-            'suggest'      => !$input->getOption('no-suggest'),
-            'link-version' => bool($input->getOption('link-version')),
-            'lib-version'  => bool($input->getOption('lib-version')),
+            'php'          => $input->getOption('show-php'),
+            'ext'          => $input->getOption('show-ext'),
+            'dev'          => $input->getOption('show-dev'),
+            'suggest'      => $input->getOption('show-suggests'),
+            'link-version' => $input->getOption('show-link-versions'),
+            'lib-version'  => $input->getOption('show-lib-versions'),
+            'format'       => $input->getOption('format'),
             'output-path'  => $input->getOption('output'),
         ]))->build();
 
-        $htmlOutputPath = './' . FS::getRelative($htmlOutputPath);
-        $output->writeln("Report is ready: <comment>{$htmlOutputPath}</comment>");
+        $output->writeln($result);
 
         $totalTime = number_format(microtime(true) - $startTimer, 2);
         $maxMemory = Sys::getMemory();
 
-        $output->writeln("Total Time: <info>{$totalTime} sec</info>; " .
-            "Peak Memory: <info>{$maxMemory}</info>;\n");
+        if ($output->isDebug()) {
+            $output->writeln("Time: <info>{$totalTime} sec</info>; Peak Memory: <info>{$maxMemory}</info>;\n");
+        }
 
         return 0;
     }

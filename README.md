@@ -16,13 +16,14 @@ Options:
       --composer-json=COMPOSER-JSON  Path to composer.json file [default: "./composer.json"]
       --composer-lock=COMPOSER-LOCK  Path to composer.lock file [default: "./composer.lock"]
       --output=OUTPUT                Path to html output. [default: "./build/jbzoo-composer-graph.html"]
-      --no-php                       Exclude PHP
-      --no-ext                       Exclude all ext-* nodes
-      --no-dev                       Exclude dev requirements
-      --no-suggest                   Exclude suggested requirements
-      --link-version=LINK-VERSION    Show version requirements in link [default: "true"]
-      --lib-version=LIB-VERSION      Show version of package [default: "true"]
-      --direction=DIRECTION          Direction of graph. Available LR,TB,BT,RL [default: "LR"]
+      --format=FORMAT                Output format. Available options: html,mermaid [default: "html"]
+      --direction=DIRECTION          Direction of graph. Available options: LR,TB,BT,RL [default: "LR"]
+      --show-php                     Show PHP-node
+      --show-ext                     Show all ext-* nodes
+      --show-dev                     Show all dev dependencies
+      --show-suggests                Show not installed suggests packages
+      --show-link-versions           Show version requirements in links
+      --show-lib-versions            Show version of packages
   -h, --help                         Display this help message
   -q, --quiet                        Do not output any message
   -V, --version                      Display this application version
@@ -30,6 +31,7 @@ Options:
       --no-ansi                      Disable ANSI output
   -n, --no-interaction               Do not ask any interactive question
   -v|vv|vvv, --verbose               Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
 ```
 
 

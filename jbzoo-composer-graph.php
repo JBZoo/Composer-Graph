@@ -13,7 +13,7 @@
  * @link       https://github.com/JBZoo/Composer-Graph
  */
 
-use JBZoo\ComposerGraph\Commands\Build;
+use JBZoo\ComposerGraph\CommandBuild;
 use Symfony\Component\Console\Application;
 
 define('PATH_ROOT', __DIR__);
@@ -34,7 +34,6 @@ foreach ($vendorPaths as $file) {
 require JBZOO_COMPOSER_GRAPH;
 
 $application = new Application();
-$application->add(new Build());
+$application->add(new CommandBuild());
 $application->setDefaultCommand('build');
-$application->setAutoExit(false);
 $application->run();

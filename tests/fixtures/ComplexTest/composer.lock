@@ -1,0 +1,188 @@
+{
+    "_readme"            : [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash"       : "e59fcb5193f132bebe6216db6ea008ea",
+    "packages"           : [
+        {
+            "name"             : "jbzoo/data",
+            "version"          : "dev-master",
+            "source"           : {
+                "type"      : "git",
+                "url"       : "https://github.com/JBZoo/Data.git",
+                "reference" : "37355defffc357dcc4e1f3670a01b21156939753"
+            },
+            "dist"             : {
+                "type"      : "zip",
+                "url"       : "https://api.github.com/repos/JBZoo/Data/zipball/37355defffc357dcc4e1f3670a01b21156939753",
+                "reference" : "37355defffc357dcc4e1f3670a01b21156939753",
+                "shasum"    : ""
+            },
+            "require"          : {
+                "ext-json" : "*",
+                "php"      : "^7.2"
+            },
+            "require-dev"      : {
+                "jbzoo/toolbox-dev" : "1.1.x-dev",
+                "jbzoo/utils"       : "4.0.x-dev",
+                "symfony/yaml"      : "^4.4||^5.0"
+            },
+            "suggest"          : {
+                "symfony/yaml" : ">=4.4",
+                "ext-filter"   : "*"
+            },
+            "type"             : "library",
+            "extra"            : {
+                "branch-alias" : {
+                    "dev-master" : "4.0.x-dev"
+                }
+            },
+            "autoload"         : {
+                "files" : [
+                    "src/functions.php"
+                ],
+                "psr-4" : {
+                    "JBZoo\\Data\\" : "src"
+                }
+            },
+            "notification-url" : "https://packagist.org/downloads/",
+            "license"          : [
+                "MIT"
+            ],
+            "authors"          : [
+                {
+                    "name"  : "Denis Smetannikov",
+                    "email" : "admin@jbzoo.com",
+                    "role"  : "lead"
+                }
+            ],
+            "description"      : "Extended implementation of ArrayObject",
+            "keywords"         : [
+                "array",
+                "arrayobject",
+                "config",
+                "data",
+                "ini",
+                "json",
+                "params",
+                "yml"
+            ],
+            "time"             : "2020-07-07T02:38:18+00:00"
+        }
+    ],
+    "packages-dev"       : [
+        {
+            "name"             : "jbzoo/utils",
+            "version"          : "dev-master",
+            "source"           : {
+                "type"      : "git",
+                "url"       : "https://github.com/JBZoo/Utils.git",
+                "reference" : "923fa57e175a15ac025d3b8d994441a417797c09"
+            },
+            "dist"             : {
+                "type"      : "zip",
+                "url"       : "https://api.github.com/repos/JBZoo/Utils/zipball/923fa57e175a15ac025d3b8d994441a417797c09",
+                "reference" : "923fa57e175a15ac025d3b8d994441a417797c09",
+                "shasum"    : ""
+            },
+            "require"          : {
+                "ext-filter"   : "*",
+                "ext-gd"       : "*",
+                "ext-intl"     : "*",
+                "ext-mbstring" : "*",
+                "ext-posix"    : "*",
+                "php"          : ">=7.2"
+            },
+            "require-dev"      : {
+                "jbzoo/data"                : "4.0.x-dev",
+                "jbzoo/toolbox-dev"         : "1.1.x-dev",
+                "symfony/polyfill-mbstring" : "^1.12",
+                "symfony/process"           : "^4.4|^5.0"
+            },
+            "suggest"          : {
+                "ext-mbstring"              : "Provides multibyte specific string functions",
+                "jbzoo/data"                : ">=3.0",
+                "symfony/polyfill-mbstring" : "For UTF-8 if ext-mbstring disabled",
+                "symfony/process"           : "For Cli::exec() method only"
+            },
+            "type"             : "library",
+            "extra"            : {
+                "branch-alias" : {
+                    "dev-master" : "4.0.x-dev"
+                }
+            },
+            "autoload"         : {
+                "files" : [
+                    "src/defines.php",
+                    "src/aliases.php"
+                ],
+                "psr-4" : {
+                    "JBZoo\\Utils\\" : "src"
+                }
+            },
+            "notification-url" : "https://packagist.org/downloads/",
+            "license"          : [
+                "MIT"
+            ],
+            "authors"          : [
+                {
+                    "name"  : "SmetDenis",
+                    "email" : "denis@jbzoo.com",
+                    "role"  : "lead"
+                },
+                {
+                    "name"  : "Brandon Wamboldt",
+                    "email" : "brandon.wamboldt@gmail.com"
+                },
+                {
+                    "name"  : "Luís Nóbrega",
+                    "email" : "luis.barros.nobrega@gmail.com"
+                }
+            ],
+            "description"      : "A collection of useful PHP functions, mini classes and snippets that you need every day.",
+            "keywords"         : [
+                "array",
+                "cli",
+                "collection",
+                "command line",
+                "dates",
+                "email",
+                "env",
+                "environment",
+                "filesystem",
+                "filter",
+                "helper",
+                "helpers",
+                "http",
+                "image",
+                "mbstring",
+                "misc",
+                "serialize",
+                "slugify",
+                "string",
+                "timer",
+                "url",
+                "utility",
+                "utils"
+            ],
+            "time"             : "2020-07-07T02:25:58+00:00"
+        }
+    ],
+    "aliases"            : [],
+    "minimum-stability"  : "stable",
+    "stability-flags"    : {
+        "jbzoo/data"  : 20,
+        "jbzoo/utils" : 20
+    },
+    "prefer-stable"      : false,
+    "prefer-lowest"      : false,
+    "platform"           : {
+        "ext-bz2" : "*"
+    },
+    "platform-dev"       : {
+        "ext-curl" : "*"
+    },
+    "plugin-api-version" : "1.1.0"
+}

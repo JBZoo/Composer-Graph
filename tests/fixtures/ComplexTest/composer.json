@@ -1,0 +1,20 @@
+{
+    "name"        : "test/main",
+
+    "require"     : {
+        "ext-bz2"    : "*",
+        "jbzoo/data" : "4.0.x-dev"
+    },
+
+    "require-dev" : {
+        "ext-curl"    : "*",
+        "jbzoo/utils" : "3.0.x-dev"
+    },
+
+    "suggest"     : {
+        "symfony/var-dumper" : "5.1.2",
+        "ext-curl"           : "*",
+        "ext-bz2"            : "*",
+        "ext-core"           : "*"
+    }
+}

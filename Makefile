@@ -29,36 +29,21 @@ test-all: ##@Project Run all project tests at once
 
 
 test-manual:
-	@FIXTURE="lib-clue"    make test-manual-internal
-	@FIXTURE="lib-tp"       make test-manual-internal
 	@FIXTURE="lib-tp-jbzoo" make test-manual-internal
+	@FIXTURE="lib-tp"       make test-manual-internal
 
 
 test-manual-internal:
 	@php `pwd`/jbzoo-composer-graph                                    \
         --composer-json=`pwd`/tests/fixtures/$(FIXTURE)/composer.json  \
         --composer-lock=`pwd`/tests/fixtures/$(FIXTURE)/composer.lock  \
-        --output=$(PATH_BUILD)/$(FIXTURE)-manual-full.html             \
-        --no-php --no-ext -vvv
+        --output=$(PATH_BUILD)/$(FIXTURE)-manual-minimal.html          \
+        --show-suggests                                                \
+        -vvv
 	@php `pwd`/jbzoo-composer-graph                                    \
         --composer-json=`pwd`/tests/fixtures/$(FIXTURE)/composer.json  \
         --composer-lock=`pwd`/tests/fixtures/$(FIXTURE)/composer.lock  \
-        --output=$(PATH_BUILD)/$(FIXTURE)-manual-full-minimal.html     \
-        --link-version=false                                           \
-        --lib-version=false                                            \
-        --no-php --no-ext -vvv
-	@php `pwd`/jbzoo-composer-graph                                    \
-        --composer-json=`pwd`/tests/fixtures/$(FIXTURE)/composer.json  \
-        --composer-lock=`pwd`/tests/fixtures/$(FIXTURE)/composer.lock  \
-        --output=$(PATH_BUILD)/$(FIXTURE)-manual-no-dev.html           \
-        --no-dev                                                       \
-        --no-php -vvv
-	@php `pwd`/jbzoo-composer-graph                                    \
-        --composer-json=`pwd`/tests/fixtures/$(FIXTURE)/composer.json  \
-        --composer-lock=`pwd`/tests/fixtures/$(FIXTURE)/composer.lock  \
-        --output=$(PATH_BUILD)/$(FIXTURE)-manual-no-dev-minimal.html   \
-        --link-version=false                                           \
-        --lib-version=false                                            \
-        --no-dev                                                       \
-        --no-php --no-ext -vvv
-
+        --output=$(PATH_BUILD)/$(FIXTURE)-manual-dev.html              \
+        --show-dev                                                     \
+        --show-suggests                                                \
+        -vvv

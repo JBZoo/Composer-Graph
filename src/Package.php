@@ -21,12 +21,14 @@ namespace JBZoo\ComposerGraph;
  */
 class Package
 {
-    public const TAG_MAIN        = 'main';
-    public const TAG_DIRECT      = 'direct';
-    public const TAG_PHP         = 'php';
-    public const TAG_PHP_EXT     = 'ext';
-    public const TAG_REQUIRE     = 'require';
-    public const TAG_REQUIRE_DEV = 'require-dev';
+    public const MAIN         = 'main';
+    public const DIRECT       = 'direct';
+    public const PHP          = 'php';
+    public const EXT          = 'ext';
+    public const REQUIRED     = 'require';
+    public const REQUIRED_DEV = 'require-dev';
+    public const SUGGEST      = 'suggest';
+    public const INSTALLED    = 'installed';
 
     /**
      * @var string
@@ -64,10 +66,14 @@ class Package
      */
     public function __construct(string $name)
     {
-        $this->name = $name;
+        $this->name = strtolower($name);
 
-        if (preg_match("#ext-[a-z0-9]*#", $this->name) || preg_match("#lib-[a-z0-9]*#", $this->name)) {
-            $this->addTags([self::TAG_PHP_EXT]);
+        if (preg_match("#^ext-[a-z0-9]*#", $this->name) || preg_match("#^lib-[a-z0-9]*#", $this->name)) {
+            $this->addTags([self::EXT]);
+
+            if (extension_loaded($this->name) || extension_loaded(str_replace(['ext-', 'lib-'], '', $this->name))) {
+                $this->addTags([self::INSTALLED]);
+            }
         }
     }
 
@@ -78,7 +84,7 @@ class Package
     public function setVersion(string $version)
     {
         if ($version) {
-            $this->version = $version;
+            $this->version = strtolower($version);
         }
 
         return $this;
@@ -138,7 +144,7 @@ class Package
      */
     public function isDirectPackage(): bool
     {
-        return $this->isTag(self::TAG_DIRECT) && $this->isTag(self::TAG_REQUIRE);
+        return $this->isTag(self::DIRECT) && $this->isTag(self::REQUIRED);
     }
 
     /**
@@ -146,7 +152,7 @@ class Package
      */
     public function isDirectPackageDev(): bool
     {
-        return $this->isTag(self::TAG_DIRECT) && $this->isTag(self::TAG_REQUIRE_DEV);
+        return $this->isTag(self::DIRECT) && $this->isTag(self::REQUIRED_DEV);
     }
 
     /**
@@ -154,7 +160,7 @@ class Package
      */
     public function isPlatform(): bool
     {
-        return !$this->isMain() && ($this->isTag(self::TAG_PHP) || $this->isTag(self::TAG_PHP_EXT));
+        return !$this->isMain() && ($this->isTag(self::PHP) || $this->isTag(self::EXT));
     }
 
     /**
@@ -162,7 +168,7 @@ class Package
      */
     public function isPhp(): bool
     {
-        return $this->isTag(self::TAG_PHP);
+        return $this->isTag(self::PHP);
     }
 
     /**
@@ -170,7 +176,7 @@ class Package
      */
     public function isPhpExt(): bool
     {
-        return $this->isTag(self::TAG_PHP_EXT);
+        return $this->isTag(self::EXT);
     }
 
     /**
@@ -178,7 +184,15 @@ class Package
      */
     public function isMain(): bool
     {
-        return $this->isTag(self::TAG_MAIN);
+        return $this->isTag(self::MAIN);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuggest(): bool
+    {
+        return $this->isTag(self::SUGGEST);
     }
 
     /**
@@ -187,11 +201,25 @@ class Package
      */
     public function getName(bool $addVersion = true): string
     {
-        if (!$addVersion) {
-            return $this->name;
+        $name = strtolower(trim($this->name));
+
+        if ($name === 'php') {
+            $name = 'PHP';
         }
 
-        return $this->version && $this->version !== '*' ? "{$this->name}@{$this->version}" : $this->name;
+        if (!$addVersion) {
+            return $name;
+        }
+
+        return $this->version && $this->version !== '*' ? "{$name}@{$this->version}" : $name;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlatform(): array
+    {
+        return $this->required;
     }
 
     /**
@@ -216,5 +244,22 @@ class Package
     public function getSuggested(): array
     {
         return $this->suggests;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return self::alias($this->getName(false));
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    public static function alias(string $string): string
+    {
+        return str_replace(['/', '-', 'graph'], ['__', '_', 'g_raph'], $string);
     }
 }
