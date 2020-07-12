@@ -26,24 +26,20 @@ update: ##@Project Install/Update all 3rd party dependencies
 test-all: ##@Project Run all project tests at once
 	@make test
 	@make codestyle
+	@make test-self
 
 
-test-manual:
-	@FIXTURE="lib-tp-jbzoo" make test-manual-internal
-	@FIXTURE="lib-tp"       make test-manual-internal
-
-
-test-manual-internal:
-	@php `pwd`/jbzoo-composer-graph                                    \
-        --composer-json=`pwd`/tests/fixtures/$(FIXTURE)/composer.json  \
-        --composer-lock=`pwd`/tests/fixtures/$(FIXTURE)/composer.lock  \
-        --output=$(PATH_BUILD)/$(FIXTURE)-manual-minimal.html          \
-        --show-suggests                                                \
+test-self:
+	$(call title,"Build composer graph of dependencies")
+	@php `pwd`/vendor/bin/jbzoo-composer-graph           \
+        --composer-json=`pwd`/composer.json              \
+        --composer-lock=`pwd`/composer.lock              \
+        --output=$(PATH_BUILD)/composer-graph-full.html  \
+        --show-lib-versions                              \
+        --show-dev                                       \
         -vvv
-	@php `pwd`/jbzoo-composer-graph                                    \
-        --composer-json=`pwd`/tests/fixtures/$(FIXTURE)/composer.json  \
-        --composer-lock=`pwd`/tests/fixtures/$(FIXTURE)/composer.lock  \
-        --output=$(PATH_BUILD)/$(FIXTURE)-manual-dev.html              \
-        --show-dev                                                     \
-        --show-suggests                                                \
+	@php `pwd`/vendor/bin/jbzoo-composer-graph           \
+        --composer-json=`pwd`/composer.json              \
+        --composer-lock=`pwd`/composer.lock              \
+        --output=$(PATH_BUILD)/composer-graph.html       \
         -vvv
