@@ -30,40 +30,6 @@ class GraphBuildTest extends AbstractGraphTest
         isContain($result, $readme);
     }
 
-    public function testSelfMinimal()
-    {
-        isSame(implode("\n", [
-            'graph LR;',
-            '    jbzoo__composer_g_raph ==> jbzoo__data;',
-            '    jbzoo__composer_g_raph ==> jbzoo__mermaid_php;',
-            '    jbzoo__composer_g_raph ==> jbzoo__utils;',
-            '    jbzoo__composer_g_raph ==> symfony__console;',
-            '    symfony__console-->symfony__polyfill_mbstring;',
-            '    symfony__console-->symfony__polyfill_php73;',
-            '    symfony__console-->symfony__polyfill_php80;',
-            '    symfony__console-->symfony__service_contracts;',
-            '    symfony__service_contracts-->psr__container;',
-            '',
-            '    subgraph "Your Package"',
-            '        jbzoo__composer_g_raph("jbzoo/composer-graph");',
-            '    end',
-            '    subgraph "Required"',
-            '        jbzoo__data("jbzoo/data");',
-            '        jbzoo__mermaid_php("jbzoo/mermaid-php");',
-            '        jbzoo__utils("jbzoo/utils");',
-            '        psr__container("psr/container");',
-            '        symfony__console("symfony/console");',
-            '        symfony__polyfill_mbstring("symfony/polyfill-mbstring");',
-            '        symfony__polyfill_php73("symfony/polyfill-php73");',
-            '        symfony__polyfill_php80("symfony/polyfill-php80");',
-            '        symfony__service_contracts("symfony/service-contracts");',
-            '    end',
-        ]), $this->buildGraph([
-            'composer-json' => PROJECT_ROOT . "/composer.json",
-            'composer-lock' => PROJECT_ROOT . "/composer.lock",
-        ], __FUNCTION__));
-    }
-
     public function testEmpty()
     {
         isSame(implode("\n", [
