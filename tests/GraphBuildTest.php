@@ -15,6 +15,11 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\ComposerGraph\Collection;
+use JBZoo\ComposerGraph\ComposerGraph;
+
+use function JBZoo\Data\json;
+
 /**
  * Class GraphBuildTest
  *
@@ -739,7 +744,7 @@ class GraphBuildTest extends AbstractGraphTest
 
     public function testRealProject()
     {
-        isSame(implode("\n", [
+        $excepted = implode("\n", [
             'graph LR;',
             '    amphp__byte_stream-->amphp__amp;',
             '    codedungeon__phpunit_result_printer-->2bj__phanybar;',
@@ -1132,10 +1137,29 @@ class GraphBuildTest extends AbstractGraphTest
             '        webmozart__path_util("webmozart/path-util");',
             '        zendframework__zend_httphandlerrunner(["zendframework/zend-httphandlerrunner"]);',
             '    end',
-        ]), $this->buildGraph([
+        ]);
+
+        isSame($excepted, $this->buildGraph([
             'show-dev'      => null,
             'show-suggests' => null,
         ], __FUNCTION__));
+
+        $composerJson = json(PROJECT_ROOT . '/tests/fixtures/testJBZooToolbox/composer.json');
+        $composerLock = json(PROJECT_ROOT . '/tests/fixtures/testJBZooToolbox/composer.lock');
+
+        $collection = new Collection($composerJson, $composerLock);
+
+        $result = (new ComposerGraph($collection, [
+            'php'          => false,
+            'ext'          => false,
+            'dev'          => true,
+            'suggest'      => true,
+            'link-version' => false,
+            'lib-version'  => false,
+            'format'       => ComposerGraph::FORMAT_MERMAID,
+        ]))->build();
+
+        isSame($excepted, $result);
     }
 
     public function testRealProjectMinimal()

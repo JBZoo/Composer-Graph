@@ -175,12 +175,4 @@ class Collection
 
         throw new Exception("Package \"{$packageName} ({$packageAlias})\" not found in collection");
     }
-
-    /**
-     * @return Package[]
-     */
-    public function getAll(): array
-    {
-        return $this->collection;
-    }
 }

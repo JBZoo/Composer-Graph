@@ -188,14 +188,6 @@ class Package
     }
 
     /**
-     * @return bool
-     */
-    public function isSuggest(): bool
-    {
-        return $this->isTag(self::SUGGEST);
-    }
-
-    /**
      * @param bool $addVersion
      * @return string
      */

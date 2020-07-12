@@ -27,6 +27,7 @@ class Helper
 
     /**
      * @return string|null
+     * @codeCoverageIgnore
      * @phan-suppress PhanUnusedVariableCaughtException
      */
     public static function getGitVersion(): ?string
