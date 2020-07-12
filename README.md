@@ -26,7 +26,7 @@ Options:
   -f, --format=FORMAT          Output format. Available options: html,mermaid [default: "html"]
   -D, --direction=DIRECTION    Direction of graph. Available options: LR,TB,BT,RL [default: "LR"]
   -p, --show-php               Show PHP-node
-  -e, --show-ext               Show all ext-* nodes
+  -e, --show-ext               Show all ext-* nodes (PHP modules)
   -d, --show-dev               Show all dev dependencies
   -s, --show-suggests          Show not installed suggests packages
   -l, --show-link-versions     Show version requirements in links
