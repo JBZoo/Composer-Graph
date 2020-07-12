@@ -34,6 +34,67 @@ Options:
 
 ```
 
+## Examples
+
+### Default output (no args)
+```sh
+php ./vendor/bin/jbzoo-composer-graph
+```
+
+![Default](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/example-default.png)
+
+
+
+### Default output with versions of libs and relations
+```sh
+php ./vendor/bin/jbzoo-composer-graph       \
+                    --show-link-versions    \
+                    --show-lib-versions
+```
+
+![Extend Report](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/example-extend.png)
+
+
+
+### Default output with versions of libs and relations
+```sh
+php ./vendor/bin/jbzoo-composer-graph       \
+                    --show-link-versions    \
+                    --show-lib-versions     \
+                    --show-suggests         \
+                    --show-ext              \
+                    --show-php
+```
+
+![Extend Report](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/example-extend-php.png)
+
+
+
+### Show dev dependencies
+```sh
+php ./vendor/bin/jbzoo-composer-graph       \
+                    --show-dev              \
+```
+
+![Extend Report](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/example-dev-short.png)
+
+
+
+### Full Report (all options enabled)
+```sh
+php ./vendor/bin/jbzoo-composer-graph       \
+                    --show-link-versions    \
+                    --show-lib-versions     \
+                    --show-ext              \
+                    --show-php              \
+                    --show-dev              \
+                    --show-suggests
+```
+
+![Extend Report](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/example-full.png)
+
+
+
 
 ## Unit tests and check code style
 ```sh
