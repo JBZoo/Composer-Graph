@@ -31,15 +31,42 @@ test-all: ##@Project Run all project tests at once
 
 test-self:
 	$(call title,"Build composer graph of dependencies")
-	@php `pwd`/jbzoo-composer-graph                      \
-        --composer-json=`pwd`/composer.json              \
-        --composer-lock=`pwd`/composer.lock              \
-        --output=$(PATH_BUILD)/composer-graph-full.html  \
-        --show-lib-versions                              \
-        --show-dev                                       \
+	@php `pwd`/jbzoo-composer-graph                             \
+        --composer-json=`pwd`/composer.json                     \
+        --composer-lock=`pwd`/composer.lock                     \
+        --output=$(PATH_BUILD)/example.html                     \
         -vvv
-	@php `pwd`/jbzoo-composer-graph                      \
-        --composer-json=`pwd`/composer.json              \
-        --composer-lock=`pwd`/composer.lock              \
-        --output=$(PATH_BUILD)/composer-graph.html       \
+	@php `pwd`/jbzoo-composer-graph                             \
+        --composer-json=`pwd`/composer.json                     \
+        --composer-lock=`pwd`/composer.lock                     \
+        --output=$(PATH_BUILD)/example-extend.html              \
+        --show-link-versions                                    \
+        --show-lib-versions                                     \
+        -vvv
+	@php `pwd`/jbzoo-composer-graph                             \
+        --composer-json=`pwd`/composer.json                     \
+        --composer-lock=`pwd`/composer.lock                     \
+        --output=$(PATH_BUILD)/example-extend-php.html          \
+        --show-link-versions                                    \
+        --show-lib-versions                                     \
+        --show-suggests                                         \
+        --show-ext                                              \
+        --show-php                                              \
+        -vvv
+	@php `pwd`/jbzoo-composer-graph                             \
+        --composer-json=`pwd`/composer.json                     \
+        --composer-lock=`pwd`/composer.lock                     \
+        --output=$(PATH_BUILD)/example-dev-short.html           \
+        --show-dev                                              \
+        -vvv
+	@php `pwd`/jbzoo-composer-graph                             \
+        --composer-json=`pwd`/composer.json                     \
+        --composer-lock=`pwd`/composer.lock                     \
+        --output=$(PATH_BUILD)/example-full.html                \
+        --show-link-versions                                    \
+        --show-lib-versions                                     \
+        --show-ext                                              \
+        --show-php                                              \
+        --show-dev                                              \
+        --show-suggests                                         \
         -vvv
