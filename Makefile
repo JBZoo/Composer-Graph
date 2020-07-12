@@ -26,47 +26,50 @@ update: ##@Project Install/Update all 3rd party dependencies
 test-all: ##@Project Run all project tests at once
 	@make test
 	@make codestyle
-	@make test-self
+	@composer install --working-dir="`pwd`/tests/fixtures/testJBZooToolbox" --no-dev
+	@make prepare-examples
 
 
-test-self:
-	$(call title,"Build composer graph of dependencies")
-	@php `pwd`/jbzoo-composer-graph                             \
-        --composer-json=`pwd`/composer.json                     \
-        --composer-lock=`pwd`/composer.lock                     \
-        --output=$(PATH_BUILD)/example.html                     \
+prepare-examples:
+	@make prepare-one-example OUTPUT="jbzoo" TEST_PATH="`pwd`/tests/fixtures/testJBZooToolbox"
+	@make prepare-one-example OUTPUT="self"  TEST_PATH="`pwd`"
+
+
+prepare-one-example:
+	$(call title,"Build composer graph in different modes")
+	@echo "TEST_PATH=$(TEST_PATH)"
+	@echo "OUTPUT=$(OUTPUT)"
+	@php `pwd`/composer-graph                                     \
+        --root="$(TEST_PATH)"                                     \
+        --output="$(PATH_BUILD)/$(OUTPUT)-minimal.html"           \
         -vvv
-	@php `pwd`/jbzoo-composer-graph                             \
-        --composer-json=`pwd`/composer.json                     \
-        --composer-lock=`pwd`/composer.lock                     \
-        --output=$(PATH_BUILD)/example-extend.html              \
-        --show-link-versions                                    \
-        --show-lib-versions                                     \
+	@php `pwd`/composer-graph                                     \
+        --root="$(TEST_PATH)"                                     \
+        --output="$(PATH_BUILD)/$(OUTPUT)-extensions.html"        \
+        --show-ext                                                \
         -vvv
-	@php `pwd`/jbzoo-composer-graph                             \
-        --composer-json=`pwd`/composer.json                     \
-        --composer-lock=`pwd`/composer.lock                     \
-        --output=$(PATH_BUILD)/example-extend-php.html          \
-        --show-link-versions                                    \
-        --show-lib-versions                                     \
-        --show-suggests                                         \
-        --show-ext                                              \
-        --show-php                                              \
+	@php `pwd`/composer-graph                                     \
+        --root="$(TEST_PATH)"                                     \
+        --output="$(PATH_BUILD)/$(OUTPUT)-versions.html"          \
+        --show-link-versions                                      \
+        --show-package-versions                                   \
         -vvv
-	@php `pwd`/jbzoo-composer-graph                             \
-        --composer-json=`pwd`/composer.json                     \
-        --composer-lock=`pwd`/composer.lock                     \
-        --output=$(PATH_BUILD)/example-dev-short.html           \
-        --show-dev                                              \
+	@php `pwd`/composer-graph                                     \
+        --root="$(TEST_PATH)"                                     \
+        --output="$(PATH_BUILD)/$(OUTPUT)-suggests.html"          \
+        --show-suggests                                           \
         -vvv
-	@php `pwd`/jbzoo-composer-graph                             \
-        --composer-json=`pwd`/composer.json                     \
-        --composer-lock=`pwd`/composer.lock                     \
-        --output=$(PATH_BUILD)/example-full.html                \
-        --show-link-versions                                    \
-        --show-lib-versions                                     \
-        --show-ext                                              \
-        --show-php                                              \
-        --show-dev                                              \
-        --show-suggests                                         \
+	@php `pwd`/composer-graph                                     \
+        --root="$(TEST_PATH)"                                     \
+        --output="$(PATH_BUILD)/$(OUTPUT)-dev.html"               \
+        --show-dev                                                \
+        -vvv
+	@php `pwd`/composer-graph                                     \
+        --root="$(TEST_PATH)"                                     \
+        --output="$(PATH_BUILD)/$(OUTPUT)-full-without-php.html"  \
+        --show-ext                                                \
+        --show-dev                                                \
+        --show-suggests                                           \
+        --show-link-versions                                      \
+        --show-package-versions                                   \
         -vvv

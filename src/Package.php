@@ -28,6 +28,7 @@ class Package
     public const REQUIRED     = 'require';
     public const REQUIRED_DEV = 'require-dev';
     public const SUGGEST      = 'suggest';
+    public const HAS_META     = 'has-meta';
     public const INSTALLED    = 'installed';
 
     /**
@@ -62,18 +63,29 @@ class Package
 
     /**
      * Package constructor.
-     * @param string $name
+     * @param string      $name
+     * @param string|null $vendorDir
      */
-    public function __construct(string $name)
+    public function __construct(string $name, ?string $vendorDir = null)
     {
         $this->name = strtolower($name);
 
-        if (preg_match("#^ext-[a-z0-9]*#", $this->name) || preg_match("#^lib-[a-z0-9]*#", $this->name)) {
-            $this->addTags([self::EXT]);
+        if (
+            strpos($this->name, '/') === false &&
+            (
+                preg_match("#^ext-[a-z0-9]*#", $this->name) ||
+                preg_match("#^lib-[a-z0-9]*#", $this->name)
+            )
+        ) {
+            $this->addTags([self::EXT, self::HAS_META]);
 
             if (extension_loaded($this->name) || extension_loaded(str_replace(['ext-', 'lib-'], '', $this->name))) {
                 $this->addTags([self::INSTALLED]);
             }
+        }
+
+        if ($vendorDir && (is_dir("{$vendorDir}/{$this->name}") || is_dir("{$vendorDir}/{$name}"))) {
+            $this->addTags([self::INSTALLED]);
         }
     }
 
@@ -199,19 +211,18 @@ class Package
             $name = 'PHP';
         }
 
-        if (!$addVersion) {
-            return $name;
+        $prefixNoMeta = '';
+        if (!$this->isTag(self::HAS_META)) {
+            $prefixNoMeta = '* ';
         }
 
-        return $this->version && $this->version !== '*' ? "{$name}@{$this->version}" : $name;
-    }
+        if (!$addVersion) {
+            $result = $name;
+        } else {
+            $result = $this->version && $this->version !== '*' ? "{$name}@{$this->version}" : $name;
+        }
 
-    /**
-     * @return array
-     */
-    public function getPlatform(): array
-    {
-        return $this->required;
+        return $prefixNoMeta . $result;
     }
 
     /**
@@ -252,6 +263,7 @@ class Package
      */
     public static function alias(string $string): string
     {
-        return str_replace(['/', '-', 'graph'], ['__', '_', 'g_raph'], $string);
+        $string = strip_tags($string);
+        return str_replace(['/', '-', 'graph', '(', ')', ' ', '*'], ['__', '_', 'g_raph', '', '', '', ''], $string);
     }
 }

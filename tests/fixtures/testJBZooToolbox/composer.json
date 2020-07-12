@@ -14,16 +14,18 @@
         "jbzoo/less"        : "3.0.x-dev",
         "jbzoo/mermaid-php" : "2.0.x-dev",
         "jbzoo/path"        : "3.0.x-dev",
-        "jbzoo/utils"       : "4.0.x-dev"
+        "jbzoo/utils"       : "4.0.x-dev",
+
+        "guzzlehttp/guzzle" : "^6.4.1"
     },
 
     "require-dev"       : {
         "jbzoo/phpunit"             : "4.0.x-dev",
         "jbzoo/codestyle"           : "2.0.x-dev",
         "jbzoo/composer-graph"      : "1.0.x-dev",
+        "jbzoo/composer-diff"       : "1.0.x-dev",
         "roave/security-advisories" : "dev-master",
 
-        "guzzlehttp/guzzle"         : "^6.4.1",
         "rmccue/requests"           : "^1.7.0"
     },
 

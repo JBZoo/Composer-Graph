@@ -67,7 +67,7 @@ class ComplexTest extends AbstractGraphTest
             '        jbzoo__data("jbzoo/data@4.0.x-dev");',
             '    end',
         ]), $this->buildGraph([
-            'show-lib-versions' => null,
+            'show-package-versions' => null,
         ]));
     }
 
@@ -84,8 +84,8 @@ class ComplexTest extends AbstractGraphTest
             '        jbzoo__data("jbzoo/data@4.0.x-dev");',
             '    end',
         ]), $this->buildGraph([
-            'show-lib-versions'  => null,
-            'show-link-versions' => null,
+            'show-package-versions' => null,
+            'show-link-versions'    => null,
         ]));
     }
 
@@ -102,8 +102,8 @@ class ComplexTest extends AbstractGraphTest
             '    end',
             '    subgraph "Required"',
             '        jbzoo__data("jbzoo/data");',
-            '        symfony__var_dumper(["symfony/var-dumper"]);',
-            '        symfony__yaml(["symfony/yaml"]);',
+            '        symfony__var_dumper(["* symfony/var-dumper"]);',
+            '        symfony__yaml(["* symfony/yaml"]);',
             '    end',
         ]), $this->buildGraph([
             'show-suggests' => null,
@@ -117,8 +117,6 @@ class ComplexTest extends AbstractGraphTest
             '    jbzoo__data-->ext_json;',
             '    test__main ==> jbzoo__data;',
             '    test__main-->ext_bz2;',
-            '    test__main-.->ext_core;',
-            '    test__main-.->ext_curl;',
             '',
             '    subgraph "Your Package"',
             '        test__main("test/main");',
@@ -128,8 +126,6 @@ class ComplexTest extends AbstractGraphTest
             '    end',
             '    subgraph "PHP Platform"',
             '        ext_bz2("ext-bz2");',
-            '        ext_core("ext-core");',
-            '        ext_curl("ext-curl");',
             '        ext_json("ext-json");',
             '    end',
         ]), $this->buildGraph([
@@ -141,7 +137,6 @@ class ComplexTest extends AbstractGraphTest
     {
         isSame(implode("\n", [
             'graph LR;',
-            '    jbzoo__utils-.->jbzoo__data;',
             '    test__main ==> jbzoo__data;',
             '    test__main ==> jbzoo__utils;',
             '',
@@ -163,7 +158,6 @@ class ComplexTest extends AbstractGraphTest
     {
         isSame(implode("\n", [
             'graph LR;',
-            '    jbzoo__utils-. "suggest" .-> jbzoo__data;',
             '    test__main == "3.0.x-dev" ==> jbzoo__utils;',
             '    test__main == "4.0.x-dev" ==> jbzoo__data;',
             '',
@@ -177,9 +171,9 @@ class ComplexTest extends AbstractGraphTest
             '        jbzoo__utils("jbzoo/utils@4.0.x-dev");',
             '    end',
         ]), $this->buildGraph([
-            'show-dev'           => null,
-            'show-lib-versions'  => null,
-            'show-link-versions' => null,
+            'show-dev'              => null,
+            'show-package-versions' => null,
+            'show-link-versions'    => null,
         ]));
     }
 
@@ -188,18 +182,15 @@ class ComplexTest extends AbstractGraphTest
         isSame(implode("\n", [
             'graph LR;',
             '    jbzoo__data-->ext_json;',
-            '    jbzoo__data-.->ext_filter;',
             '    jbzoo__utils-->ext_filter;',
             '    jbzoo__utils-->ext_gd;',
             '    jbzoo__utils-->ext_intl;',
             '    jbzoo__utils-->ext_mbstring;',
             '    jbzoo__utils-->ext_posix;',
-            '    jbzoo__utils-.->jbzoo__data;',
             '    test__main ==> jbzoo__data;',
             '    test__main ==> jbzoo__utils;',
             '    test__main-->ext_bz2;',
             '    test__main-->ext_curl;',
-            '    test__main-.->ext_core;',
             '',
             '    subgraph "Your Package"',
             '        test__main("test/main");',
@@ -212,7 +203,6 @@ class ComplexTest extends AbstractGraphTest
             '    end',
             '    subgraph "PHP Platform"',
             '        ext_bz2("ext-bz2");',
-            '        ext_core("ext-core");',
             '        ext_curl("ext-curl");',
             '        ext_filter("ext-filter");',
             '        ext_gd("ext-gd");',
@@ -244,13 +234,13 @@ class ComplexTest extends AbstractGraphTest
             '    end',
             '    subgraph "Required"',
             '        jbzoo__data("jbzoo/data");',
-            '        symfony__var_dumper(["symfony/var-dumper"]);',
-            '        symfony__yaml(["symfony/yaml"]);',
+            '        symfony__var_dumper(["* symfony/var-dumper"]);',
+            '        symfony__yaml(["* symfony/yaml"]);',
             '    end',
             '    subgraph "Required Dev"',
             '        jbzoo__utils("jbzoo/utils");',
-            '        symfony__polyfill_mbstring(["symfony/polyfill-mbstring"]);',
-            '        symfony__process(["symfony/process"]);',
+            '        symfony__polyfill_mbstring(["* symfony/polyfill-mbstring"]);',
+            '        symfony__process(["* symfony/process"]);',
             '    end',
         ]), $this->buildGraph([
             'show-dev'      => null,
@@ -287,13 +277,13 @@ class ComplexTest extends AbstractGraphTest
             '    end',
             '    subgraph "Required"',
             '        jbzoo__data("jbzoo/data@4.0.x-dev");',
-            '        symfony__var_dumper(["symfony/var-dumper"]);',
-            '        symfony__yaml(["symfony/yaml"]);',
+            '        symfony__var_dumper(["* symfony/var-dumper"]);',
+            '        symfony__yaml(["* symfony/yaml"]);',
             '    end',
             '    subgraph "Required Dev"',
             '        jbzoo__utils("jbzoo/utils@4.0.x-dev");',
-            '        symfony__polyfill_mbstring(["symfony/polyfill-mbstring"]);',
-            '        symfony__process(["symfony/process"]);',
+            '        symfony__polyfill_mbstring(["* symfony/polyfill-mbstring"]);',
+            '        symfony__process(["* symfony/process"]);',
             '    end',
             '    subgraph "PHP Platform"',
             '        PHP("PHP");',
@@ -308,12 +298,12 @@ class ComplexTest extends AbstractGraphTest
             '        ext_posix("ext-posix");',
             '    end',
         ]), $this->buildGraph([
-            'show-php'           => null,
-            'show-ext'           => null,
-            'show-dev'           => null,
-            'show-suggests'      => null,
-            'show-link-versions' => null,
-            'show-lib-versions'  => null,
+            'show-php'              => null,
+            'show-ext'              => null,
+            'show-dev'              => null,
+            'show-suggests'         => null,
+            'show-link-versions'    => null,
+            'show-package-versions' => null,
         ]));
     }
 
@@ -344,7 +334,6 @@ class ComplexTest extends AbstractGraphTest
             'graph LR;',
             '    jbzoo__data-->PHP;',
             '    jbzoo__utils-->PHP;',
-            '    jbzoo__utils-.->jbzoo__data;',
             '    test__main ==> jbzoo__data;',
             '    test__main ==> jbzoo__utils;',
             '',
@@ -385,13 +374,13 @@ class ComplexTest extends AbstractGraphTest
             '    end',
             '    subgraph "Required"',
             '        jbzoo__data("jbzoo/data");',
-            '        symfony__var_dumper(["symfony/var-dumper"]);',
-            '        symfony__yaml(["symfony/yaml"]);',
+            '        symfony__var_dumper(["* symfony/var-dumper"]);',
+            '        symfony__yaml(["* symfony/yaml"]);',
             '    end',
             '    subgraph "Required Dev"',
             '        jbzoo__utils("jbzoo/utils");',
-            '        symfony__polyfill_mbstring(["symfony/polyfill-mbstring"]);',
-            '        symfony__process(["symfony/process"]);',
+            '        symfony__polyfill_mbstring(["* symfony/polyfill-mbstring"]);',
+            '        symfony__process(["* symfony/process"]);',
             '    end',
             '    subgraph "PHP Platform"',
             '        PHP("PHP");',
@@ -408,6 +397,7 @@ class ComplexTest extends AbstractGraphTest
         isSame(implode("\n", [
             'graph LR;',
             '    jbzoo__data-->ext_json;',
+            '    jbzoo__data-.->ext_filter;',
             '    jbzoo__data-.->symfony__yaml;',
             '    test__main ==> jbzoo__data;',
             '    test__main-->ext_bz2;',
@@ -420,13 +410,14 @@ class ComplexTest extends AbstractGraphTest
             '    end',
             '    subgraph "Required"',
             '        jbzoo__data("jbzoo/data");',
-            '        symfony__var_dumper(["symfony/var-dumper"]);',
-            '        symfony__yaml(["symfony/yaml"]);',
+            '        symfony__var_dumper(["* symfony/var-dumper"]);',
+            '        symfony__yaml(["* symfony/yaml"]);',
             '    end',
             '    subgraph "PHP Platform"',
             '        ext_bz2("ext-bz2");',
             '        ext_core("ext-core");',
             '        ext_curl("ext-curl");',
+            '        ext_filter("ext-filter");',
             '        ext_json("ext-json");',
             '    end',
         ]), $this->buildGraph([

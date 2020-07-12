@@ -20,7 +20,7 @@ define('PROJECT_ROOT', dirname(__DIR__));
 
 require_once PROJECT_ROOT . '/vendor/autoload.php';
 
-$cliIndexFile = PROJECT_ROOT . '/jbzoo-composer-graph.php';
+$cliIndexFile = PROJECT_ROOT . '/composer-graph.php';
 
 define('IS_PHPUNIT_TEST', true);
 

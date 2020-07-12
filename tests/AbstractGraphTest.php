@@ -37,36 +37,37 @@ abstract class AbstractGraphTest extends PHPUnit
 
         $testName = getTestName();
         $output = PROJECT_ROOT . "/build/{$testName}.html";
+        $root = PROJECT_ROOT . "/tests/fixtures/{$fixture}";
 
         $params = array_merge([
-            'composer-json' => PROJECT_ROOT . "/tests/fixtures/{$fixture}/composer.json",
-            'composer-lock' => PROJECT_ROOT . "/tests/fixtures/{$fixture}/composer.lock",
-            'output'        => $output,
-            'ansi'          => null,
+            'root'           => $root,
+            'output'         => $output,
+            'abc-order'      => null,
+            'ansi'           => null,
+            'no-interaction' => null,
         ], $params);
 
-        isFile($params['composer-json'], "JSON file not found: {$params['composer-json']}");
-        isFile($params['composer-lock'], "LOCK file not found: {$params['composer-lock']}");
+        isFile("{$root}/composer.json", "JSON file not found.");
+        isFile("{$root}/composer.lock", "LOCK file not found.");
 
-        $cliOutput = $this->task('', array_merge($params, ['format' => 'html']));
+        $cliOutput = $this->task(array_merge($params, ['format' => 'html']));
         isFile($output, "HTML file not found. Output: {$cliOutput}");
 
-        $result = trim($this->task('', array_merge($params, ['format' => 'mermaid'])));
+        $result = trim($this->task(array_merge($params, ['format' => 'mermaid'])));
 
-        //$lines = explode("\n", $result);
-        //foreach ($lines as $line) {
-        //    Cli::out("'{$line}',");
-        //}
+        $lines = explode("\n", $result);
+        foreach ($lines as $line) {
+            //Cli::out("'{$line}',");
+        }
 
         return $result;
     }
 
     /**
-     * @param string $taskName
-     * @param array  $params
+     * @param array $params
      * @return string
      */
-    public function task($taskName = '', array $params = [])
+    public function task(array $params = []): string
     {
         $rootDir = PROJECT_ROOT;
 
@@ -74,8 +75,6 @@ abstract class AbstractGraphTest extends PHPUnit
             implode(' ', [
                 Sys::getBinary(),
                 "{$rootDir}/tests/cli-wrapper.php",
-                $taskName,
-                '--no-interaction'
             ]),
             $params,
             $rootDir,

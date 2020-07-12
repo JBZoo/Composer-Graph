@@ -1,5 +1,5 @@
 {
-    "packages" : [
+    "packages"     : [
         {
             "name"        : "jbzoo/assets",
             "version"     : "dev-master",
@@ -35,5 +35,6 @@
                 }
             }
         }
-    ]
+    ],
+    "packages-dev" : []
 }

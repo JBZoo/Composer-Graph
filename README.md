@@ -4,94 +4,108 @@
 [![Latest Stable Version](https://poser.pugx.org/JBZoo/Composer-Graph/v)](https://packagist.org/packages/JBZoo/Composer-Graph)    [![Latest Unstable Version](https://poser.pugx.org/JBZoo/Composer-Graph/v/unstable)](https://packagist.org/packages/JBZoo/Composer-Graph)    [![Dependents](https://poser.pugx.org/JBZoo/Composer-Graph/dependents)](https://packagist.org/packages/JBZoo/Composer-Graph/dependents?order_by=downloads)    [![GitHub Issues](https://img.shields.io/github/issues/JBZoo/Composer-Graph)](https://github.com/JBZoo/Composer-Graph/issues)    [![Total Downloads](https://poser.pugx.org/JBZoo/Composer-Graph/downloads)](https://packagist.org/packages/JBZoo/Composer-Graph/stats)    [![GitHub License](https://img.shields.io/github/license/JBZoo/Composer-Graph)](https://github.com/JBZoo/Composer-Graph/blob/master/LICENSE)
 
 
+## Installation
+
+```sh
+composer require        jbzoo/composer-graph # For a specific project
+composer require global jbzoo/composer-graph # As global tool
+```
+
+
 ## Usage
 
 ```
-$ php jbzoo-composer-graph --help
+$ php ./vendor/bin/composer-graph --help
 
 Usage:
   build [options]
 
 Options:
-      --composer-json=COMPOSER-JSON  Path to composer.json file [default: "./composer.json"]
-      --composer-lock=COMPOSER-LOCK  Path to composer.lock file [default: "./composer.lock"]
-      --output=OUTPUT                Path to html output. [default: "./build/jbzoo-composer-graph.html"]
-      --format=FORMAT                Output format. Available options: html,mermaid [default: "html"]
-      --direction=DIRECTION          Direction of graph. Available options: LR,TB,BT,RL [default: "LR"]
-      --show-php                     Show PHP-node
-      --show-ext                     Show all ext-* nodes
-      --show-dev                     Show all dev dependencies
-      --show-suggests                Show not installed suggests packages
-      --show-link-versions           Show version requirements in links
-      --show-lib-versions            Show version of packages
-  -h, --help                         Display this help message
-  -q, --quiet                        Do not output any message
-  -V, --version                      Display this application version
-      --ansi                         Force ANSI output
-      --no-ansi                      Disable ANSI output
-  -n, --no-interaction               Do not ask any interactive question
-  -v|vv|vvv, --verbose               Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+  -r, --root=ROOT              The path has to contain "composer.json" and "composer.lock" files [default: "./"]
+  -o, --output=OUTPUT          Path to html output. [default: "./build/composer-graph.html"]
+  -f, --format=FORMAT          Output format. Available options: html,mermaid [default: "html"]
+  -D, --direction=DIRECTION    Direction of graph. Available options: LR,TB,BT,RL [default: "LR"]
+  -p, --show-php               Show PHP-node
+  -e, --show-ext               Show all ext-* nodes
+  -d, --show-dev               Show all dev dependencies
+  -s, --show-suggests          Show not installed suggests packages
+  -l, --show-link-versions     Show version requirements in links
+  -P, --show-package-versions  Show version of packages
+  -O, --abc-order              Strict ABC ordering nodes in graph. It's fine tuning, sometimes it useful.
+  -h, --help                   Display this help message
+  -q, --quiet                  Do not output any message
+  -V, --version                Display this application version
+      --ansi                   Force ANSI output
+      --no-ansi                Disable ANSI output
+  -n, --no-interaction         Do not ask any interactive question
+  -v|vv|vvv, --verbose         Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 ```
+
 
 ## Examples
 
-### Default output (no args)
+All examples are screenshots based on the package [JBZoo/Toolbox](https://github.com/JBZoo/Toolbox).
+
+
+### Default output (no args) - minimal view
 ```sh
-php ./vendor/bin/jbzoo-composer-graph
+php ./vendor/bin/composer-graph
 ```
 
-![Default](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/example-default.png)
+![Example](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/jbzoo-minimal.png)
 
 
 
-### Default output with versions of libs and relations
+### Default output with PHP extensions (modules)
 ```sh
-php ./vendor/bin/jbzoo-composer-graph       \
-                    --show-link-versions    \
-                    --show-lib-versions
+php ./vendor/bin/composer-graph  --show-ext
 ```
 
-![Extend Report](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/example-extend.png)
+![Example](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/jbzoo-extensions.png)
 
 
 
-### Default output with versions of libs and relations
+### Default output with versions of packages and relations
 ```sh
-php ./vendor/bin/jbzoo-composer-graph       \
-                    --show-link-versions    \
-                    --show-lib-versions     \
-                    --show-suggests         \
-                    --show-ext              \
-                    --show-php
+php ./vendor/bin/composer-graph  --show-link-versions  --show-lib-versions
 ```
 
-![Extend Report](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/example-extend-php.png)
+![Example](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/jbzoo-versions.png)
+
+
+
+### Show suggested packages which are not installed
+```sh
+php ./vendor/bin/composer-graph  --show-suggests
+```
+
+![Example](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/jbzoo-suggests.png)
 
 
 
 ### Show dev dependencies
 ```sh
-php ./vendor/bin/jbzoo-composer-graph       \
-                    --show-dev              \
+php ./vendor/bin/composer-graph  --show-dev
 ```
 
-![Extend Report](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/example-dev-short.png)
+![Example](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/jbzoo-dev.png)
 
 
+### Full Report
 
-### Full Report (all options enabled)
+All options are enabled but `--show-php` (too many packages).
+ 
 ```sh
-php ./vendor/bin/jbzoo-composer-graph       \
-                    --show-link-versions    \
-                    --show-lib-versions     \
-                    --show-ext              \
-                    --show-php              \
-                    --show-dev              \
-                    --show-suggests
+php ./vendor/bin/composer-graph            \
+                 --show-ext                \
+                 --show-dev                \
+                 --show-suggests           \
+                 --show-link-versions      \
+                 --show-package-versions
 ```
 
-![Extend Report](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/example-full.png)
+![Example](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/jbzoo-full-without-php.png)
 
 
 

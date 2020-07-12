@@ -19,7 +19,6 @@ use JBZoo\Data\Data;
 use JBZoo\MermaidPHP\Graph;
 use JBZoo\MermaidPHP\Link;
 use JBZoo\MermaidPHP\Node;
-use JBZoo\Utils\FS;
 
 use function JBZoo\Data\data;
 use function JBZoo\Utils\bool;
@@ -38,42 +37,42 @@ class ComposerGraph
     /**
      * @var Graph
      */
-    protected $graphWrapper;
+    private $graphWrapper;
 
     /**
      * @var Graph
      */
-    protected $graphMain;
+    private $graphMain;
 
     /**
      * @var Graph
      */
-    protected $graphRequire;
+    private $graphRequire;
 
     /**
      * @var Graph
      */
-    protected $graphDev;
+    private $graphDev;
 
     /**
      * @var Graph
      */
-    protected $graphPlatform;
+    private $graphPlatform;
 
     /**
      * @var Collection
      */
-    protected $collection;
+    private $collection;
 
     /**
      * @var string[]
      */
-    protected $createdLinks = [];
+    private $createdLinks = [];
 
     /**
-     * @var Node[]
+     * @var array
      */
-    protected $nodes = [];
+    private $renderedNodes = [];
 
     /**
      * @var Data
@@ -91,26 +90,29 @@ class ComposerGraph
 
         $this->params = data(array_merge([
             // view options
-            'php'          => true,
-            'ext'          => true,
-            'dev'          => true,
-            'suggest'      => true,
-            'link-version' => true,
-            'lib-version'  => true,
+            'php'          => false,
+            'ext'          => false,
+            'dev'          => false,
+            'suggest'      => false,
+            'link-version' => false,
+            'lib-version'  => false,
             // output options
             'output-path'  => null,
             'direction'    => Graph::LEFT_RIGHT,
             'format'       => self::FORMAT_HTML,
+            'vendor-dir'   => null,
+            'abc-order'    => false,
         ], $params));
 
         $direction = $this->params->get('direction');
+        $order = $this->params->get('abc-order');
 
-        $this->graphWrapper = new Graph(['direction' => $direction, 'abc_order' => true]);
+        $this->graphWrapper = new Graph(['direction' => $direction, 'abc_order' => $order]);
         $this->graphWrapper->addSubGraph($this->graphMain = new Graph(['title' => 'Your Package']));
 
-        $this->graphRequire = new Graph(['direction' => $direction, 'title' => 'Required', 'abc_order' => true]);
-        $this->graphDev = new Graph(['direction' => $direction, 'title' => 'Required Dev', 'abc_order' => true]);
-        $this->graphPlatform = new Graph(['direction' => $direction, 'title' => 'PHP Platform', 'abc_order' => true]);
+        $this->graphRequire = new Graph(['direction' => $direction, 'title' => 'Required', 'abc_order' => $order]);
+        $this->graphDev = new Graph(['direction' => $direction, 'title' => 'Required Dev', 'abc_order' => $order]);
+        $this->graphPlatform = new Graph(['direction' => $direction, 'title' => 'PHP Platform', 'abc_order' => $order]);
     }
 
     /**
@@ -134,26 +136,26 @@ class ComposerGraph
      */
     public function renderNodeTree(Package $source): bool
     {
-        static $renderedNodes = [];
-
-        if (in_array($source->getId(), $renderedNodes, true)) {
+        if (in_array($source->getId(), $this->renderedNodes, true)) {
             return false;
         }
-
-        $renderedNodes[] = $source->getId();
+        $this->renderedNodes[] = $source->getId();
 
         $showPhp = $this->params->get('php');
         $showExt = $this->params->get('ext');
         $showDev = $this->params->get('dev');
         $showSuggest = $this->params->get('suggest');
 
-        if (!$showSuggest && !$source->isTag(Package::INSTALLED)) {
+        if (!$showSuggest && !$source->isTag(Package::HAS_META)) {
             return false;
         }
 
         foreach ($source->getRequired() as $target => $version) {
             $target = $this->collection->getByName($target);
-            if ((!$showExt && $target->isPhpExt()) || (!$showPhp && $target->isPhp())) {
+            if (
+                (!$showExt && $target->isPhpExt()) ||
+                (!$showPhp && $target->isPhp())
+            ) {
                 continue;
             }
 
@@ -164,7 +166,10 @@ class ComposerGraph
         if ($showDev) {
             foreach ($source->getRequiredDev() as $target => $version) {
                 $target = $this->collection->getByName($target);
-                if ((!$showExt && $target->isPhpExt()) || (!$showPhp && $target->isPhp())) {
+                if (
+                    (!$showExt && $target->isPhpExt()) ||
+                    (!$showPhp && $target->isPhp())
+                ) {
                     continue;
                 }
 
@@ -173,19 +178,23 @@ class ComposerGraph
             }
         }
 
-        foreach (array_keys($source->getSuggested()) as $target) {
-            $target = $this->collection->getByName((string)$target);
-            if (
-                (!$showSuggest && !$target->isTag(Package::INSTALLED)) ||
-                (!$showDev && $target->isTag(Package::REQUIRED_DEV)) ||
-                (!$showExt && $target->isPhpExt()) ||
-                (!$showPhp && $target->isPhp())
-            ) {
-                continue;
-            }
+        if ($showSuggest) {
+            foreach (array_keys($source->getSuggested()) as $target) {
+                $target = $this->collection->getByName((string)$target);
+                if (
+                    (!$showExt && $target->isPhpExt()) ||
+                    (
+                        !$showDev &&
+                        !$target->isTag(Package::REQUIRED) &&
+                        $target->isTag(Package::REQUIRED_DEV)
+                    )
+                ) {
+                    continue;
+                }
 
-            $this->renderNodeTree($target);
-            $this->addLink($source, $target, 'suggest');
+                $this->renderNodeTree($target);
+                $this->addLink($source, $target, 'suggest');
+            }
         }
 
         return true;
@@ -228,7 +237,8 @@ class ComposerGraph
 
             $titlePostfix = '';
             if (count($headerKeys)) {
-                $titlePostfix = ' <br> <small><small> Flags: ' . implode(' / ', $headerKeys) . ' </small></small> ';
+                $flags = implode(' / ', $headerKeys);
+                $titlePostfix = "\n<br><small><small>Flags: {$flags}</small></small>";
             }
 
             $main = $this->collection->getMain();
@@ -237,8 +247,7 @@ class ComposerGraph
                 'title'   => $main->getName() . ' - Graph of Dependencies' . $titlePostfix,
             ]));
 
-            $htmlOutputPath = './' . FS::getRelative($htmlPath);
-            return "Report is ready: <comment>{$htmlOutputPath}</comment>";
+            return $htmlPath;
         }
 
         if (self::FORMAT_MERMAID === $format) {
@@ -263,7 +272,13 @@ class ComposerGraph
             return $currentNode;
         }
 
-        if ($package->isTag(Package::INSTALLED)) {
+        if ($this->params->get('vendor-dir')) {
+            $isInstalled = $package->isTag(Package::INSTALLED);
+        } else {
+            $isInstalled = $package->isTag(Package::HAS_META);
+        }
+
+        if ($isInstalled) {
             $node = new Node($nodeId, $package->getName($showVersion));
         } else {
             $node = new Node($nodeId, $package->getName($showVersion), Node::STADIUM);

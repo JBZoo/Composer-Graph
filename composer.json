@@ -38,7 +38,7 @@
 
     "minimum-stability" : "dev",
     "prefer-stable"     : true,
-    "bin"               : ["jbzoo-composer-graph"],
+    "bin"               : ["composer-graph"],
 
     "config"            : {
         "optimize-autoloader" : true

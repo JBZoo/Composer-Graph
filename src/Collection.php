@@ -41,14 +41,21 @@ class Collection
     private $collection = [];
 
     /**
-     * Collection constructor.
-     * @param JSON $composerFile
-     * @param JSON $lockFile
+     * @var string|null
      */
-    public function __construct(JSON $composerFile, JSON $lockFile)
+    private $vendorDir;
+
+    /**
+     * Collection constructor.
+     * @param JSON        $composerFile
+     * @param JSON        $lockFile
+     * @param string|null $vendorDir
+     */
+    public function __construct(JSON $composerFile, JSON $lockFile, ?string $vendorDir = null)
     {
         $this->composerFile = $composerFile;
         $this->lockFile = $lockFile;
+        $this->vendorDir = $vendorDir;
 
         $this->buildCollection();
     }
@@ -63,7 +70,7 @@ class Collection
 
         $this->add('php', [
             'version' => $istTest ? null : PHP_VERSION,
-            'tags'    => [Package::PHP, Package::INSTALLED]
+            'tags'    => [Package::PHP, Package::HAS_META]
         ]);
 
         $this->add((string)$this->composerFile->get('name'), [
@@ -71,7 +78,7 @@ class Collection
             'require'     => $this->composerFile->get('require'),
             'require-dev' => $this->composerFile->get('require-dev'),
             'suggest'     => $this->composerFile->get('suggest'),
-            'tags'        => [Package::MAIN, Package::INSTALLED]
+            'tags'        => [Package::MAIN, Package::HAS_META]
         ]);
 
         $mainRequire = array_keys((array)$this->composerFile->get('require'));
@@ -109,7 +116,7 @@ class Collection
                     'version' => $version,
                     'require' => $require,
                     'suggest' => $suggest,
-                    'tags'    => [$scopeType, Package::INSTALLED]
+                    'tags'    => [$scopeType, Package::HAS_META]
                 ]);
 
                 foreach (array_keys($require) as $innerRequired) {
@@ -134,7 +141,7 @@ class Collection
         $packageAlias = Package::alias($packageName);
 
         /** @var Package $package */
-        $package = $this->collection[$packageAlias] ?? new Package($packageName);
+        $package = $this->collection[$packageAlias] ?? new Package($packageName, $this->vendorDir);
 
         $package
             ->setVersion((string)$current->get('version'))

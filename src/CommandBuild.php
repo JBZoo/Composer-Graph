@@ -15,6 +15,7 @@
 
 namespace JBZoo\ComposerGraph;
 
+use JBZoo\Data\JSON;
 use JBZoo\MermaidPHP\Graph;
 use JBZoo\Utils\Sys;
 use Symfony\Component\Console\Command\Command;
@@ -31,6 +32,18 @@ use function JBZoo\Data\json;
 class CommandBuild extends Command
 {
     /**
+     * @var InputInterface
+     * @psalm-suppress PropertyNotSetInConstructor
+     */
+    private $input;
+
+    /**
+     * @var OutputInterface
+     * @psalm-suppress PropertyNotSetInConstructor
+     */
+    private $output;
+
+    /**
      * @inheritDoc
      */
     protected function configure(): void
@@ -44,25 +57,27 @@ class CommandBuild extends Command
 
         $this
             ->setName('build')
-            ->addOption('composer-json', null, $required, 'Path to composer.json file', './composer.json')
-            ->addOption('composer-lock', null, $required, 'Path to composer.lock file', './composer.lock')
-            ->addOption('output', null, $required, 'Path to html output.', './build/jbzoo-composer-graph.html')
-            ->addOption('format', null, $required, 'Output format. Available options: <info>' . implode(',', [
+            ->addOption('root', 'r', $required, 'The path has to contain ' .
+                '"composer.json" and "composer.lock" files', './')
+            ->addOption('output', 'o', $required, 'Path to html output.', './build/composer-graph.html')
+            ->addOption('format', 'f', $required, 'Output format. Available options: <info>' . implode(',', [
                     ComposerGraph::FORMAT_HTML,
                     ComposerGraph::FORMAT_MERMAID,
                 ]) . '</info>', ComposerGraph::FORMAT_HTML)
-            ->addOption('direction', null, $required, 'Direction of graph. Available options: <info>' . implode(',', [
+            ->addOption('direction', 'D', $required, 'Direction of graph. Available options: <info>' . implode(',', [
                     Graph::LEFT_RIGHT,
                     Graph::TOP_BOTTOM,
                     Graph::BOTTOM_TOP,
                     Graph::RIGHT_LEFT,
                 ]) . '</info>', Graph::LEFT_RIGHT)
-            ->addOption('show-php', null, $none, 'Show PHP-node')
-            ->addOption('show-ext', null, $none, 'Show all ext-* nodes')
-            ->addOption('show-dev', null, $none, 'Show all dev dependencies')
-            ->addOption('show-suggests', null, $none, 'Show not installed suggests packages')
-            ->addOption('show-link-versions', null, $none, 'Show version requirements in links')
-            ->addOption('show-lib-versions', null, $none, 'Show version of packages');
+            ->addOption('show-php', 'p', $none, 'Show PHP-node')
+            ->addOption('show-ext', 'e', $none, 'Show all ext-* nodes (PHP modules)')
+            ->addOption('show-dev', 'd', $none, 'Show all dev dependencies')
+            ->addOption('show-suggests', 's', $none, 'Show not installed suggests packages')
+            ->addOption('show-link-versions', 'l', $none, 'Show version requirements in links')
+            ->addOption('show-package-versions', 'P', $none, 'Show version of packages')
+            ->addOption('abc-order', 'O', $none, 'Strict ABC ordering nodes in graph. ' .
+                "It's fine tuning, sometimes it useful.");
     }
 
     /**
@@ -72,25 +87,36 @@ class CommandBuild extends Command
     {
         $startTimer = microtime(true);
 
-        $composerJson = json($input->getOption('composer-json'));
-        $composerLock = json($input->getOption('composer-lock'));
-        $direction = $input->getOption('direction') ?: Graph::LEFT_RIGHT;
+        $this->input = $input;
+        $this->output = $output;
 
-        $collection = new Collection($composerJson, $composerLock);
+        $format = $input->getOption('format');
 
-        $result = (new ComposerGraph($collection, [
-            'direction'    => $direction,
-            'php'          => $input->getOption('show-php'),
-            'ext'          => $input->getOption('show-ext'),
-            'dev'          => $input->getOption('show-dev'),
-            'suggest'      => $input->getOption('show-suggests'),
-            'link-version' => $input->getOption('show-link-versions'),
-            'lib-version'  => $input->getOption('show-lib-versions'),
-            'format'       => $input->getOption('format'),
-            'output-path'  => $input->getOption('output'),
-        ]))->build();
+        [$composerJson, $composerLock] = $this->getJsonData();
+        $vendorDir = $this->findVendorDir($composerJson);
 
-        $output->writeln($result);
+        $composerGraph = new ComposerGraph(
+            new Collection($composerJson, $composerLock, $vendorDir),
+            [
+                'direction'    => $input->getOption('direction') ?: Graph::LEFT_RIGHT,
+                'php'          => $input->getOption('show-php'),
+                'ext'          => $input->getOption('show-ext'),
+                'dev'          => $input->getOption('show-dev'),
+                'suggest'      => $input->getOption('show-suggests'),
+                'link-version' => $input->getOption('show-link-versions'),
+                'lib-version'  => $input->getOption('show-package-versions'),
+                'format'       => $format,
+                'output-path'  => $input->getOption('output'),
+                'abc-order'    => $input->getOption('abc-order'),
+            ]
+        );
+
+        $result = $composerGraph->build();
+        if (ComposerGraph::FORMAT_HTML === $format) {
+            $output->writeln("Report is ready: <info>{$result}</info>");
+        } else {
+            $output->writeln($result);
+        }
 
         $totalTime = number_format(microtime(true) - $startTimer, 2);
         $maxMemory = Sys::getMemory();
@@ -100,5 +126,84 @@ class CommandBuild extends Command
         }
 
         return 0;
+    }
+
+    /**
+     * @return string
+     */
+    private function getRootPath(): string
+    {
+        /** @var string $origRootPath */
+        $origRootPath = $this->input->getOption('root');
+
+        /** @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal */
+        $realRootPath = realpath($origRootPath);
+
+        // Validate root path
+        if (!$realRootPath || !is_dir($realRootPath)) {
+            throw new Exception("Root path is not directory or not found: {$origRootPath}");
+        }
+
+        return $realRootPath;
+    }
+
+    /**
+     * @return JSON[]
+     */
+    private function getJsonData(): array
+    {
+        $realRootPath = $this->getRootPath();
+
+        // Validate "composer.json" path and file
+        $composerJsonPath = "{$realRootPath}/composer.json";
+        if (!file_exists($composerJsonPath)) {
+            throw new Exception("The file \"{$composerJsonPath}\" not found");
+        }
+
+        $composerJson = json($composerJsonPath);
+        if (count($composerJson) <= 1) {
+            throw new Exception("The file \"{$composerJsonPath}\" is empty");
+        }
+
+        if ($this->output->isDebug()) {
+            $this->output->writeln("Composer JSON file found: <info>{$composerJsonPath}</info>");
+        }
+
+
+        // Validate "composer.lock" path and file
+        $composerLockPath = "{$realRootPath}/composer.lock";
+        if (!file_exists($composerLockPath)) {
+            throw new Exception("The file \"{$composerLockPath}\" not found");
+        }
+
+        $composerLock = json($composerLockPath);
+        if (count($composerLock) <= 1) {
+            throw new Exception("The file \"{$composerLockPath}\" is empty");
+        }
+
+        if ($this->output->isDebug()) {
+            $this->output->writeln("Composer JSON file found: <info>{$composerLockPath}</info>");
+        }
+
+
+        return [$composerJson, $composerLock];
+    }
+
+    /**
+     * @param JSON $composerJson
+     * @return string|null
+     */
+    private function findVendorDir(JSON $composerJson): ?string
+    {
+        $realRootPath = $this->getRootPath();
+
+        $vendorDir = $composerJson->find('config.vendor-dir') ?? 'vendor';
+
+        $realVendorDir = realpath("{$realRootPath}/{$vendorDir}");
+        if ($realVendorDir && is_dir($realVendorDir)) {
+            return $realVendorDir;
+        }
+
+        return null;
     }
 }
