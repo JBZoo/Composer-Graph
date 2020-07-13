@@ -61,6 +61,13 @@ prepare-one-example:
         -vvv
 	@php `pwd`/composer-graph                                     \
         --root="$(TEST_PATH)"                                     \
+        --output="$(PATH_BUILD)/$(OUTPUT)-suggests-versions.html" \
+        --show-link-versions                                      \
+        --show-package-versions                                   \
+        --show-suggests                                           \
+        -vvv
+	@php `pwd`/composer-graph                                     \
+        --root="$(TEST_PATH)"                                     \
         --output="$(PATH_BUILD)/$(OUTPUT)-dev.html"               \
         --show-dev                                                \
         -vvv

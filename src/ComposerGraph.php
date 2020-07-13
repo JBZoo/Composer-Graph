@@ -243,7 +243,7 @@ class ComposerGraph
 
             $main = $this->collection->getMain();
             file_put_contents($htmlPath, $this->graphWrapper->renderHtml([
-                'version' => '8.5.2',
+                'version' => '8.6.0',
                 'title'   => $main->getName() . ' - Graph of Dependencies' . $titlePostfix,
             ]));
 
