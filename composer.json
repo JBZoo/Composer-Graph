@@ -14,15 +14,15 @@
 
     "require"           : {
         "php"               : ">=7.2",
-        "jbzoo/data"        : "4.0.x-dev",
-        "jbzoo/mermaid-php" : "2.0.x-dev",
-        "jbzoo/utils"       : "4.0.x-dev",
+        "jbzoo/data"        : "^4.0.0",
+        "jbzoo/mermaid-php" : "^2.0.0",
+        "jbzoo/utils"       : "^4.0.0",
 
         "symfony/console"   : "^4.4||^5.0"
     },
 
     "require-dev"       : {
-        "jbzoo/toolbox-dev" : "1.1.x-dev",
+        "jbzoo/toolbox-dev" : "^2.0.0",
         "symfony/process"   : "^4.4||^5.0"
     },
 
