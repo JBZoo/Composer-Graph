@@ -23,4 +23,6 @@ if ($autoload = realpath('./vendor/autoload.php')) {
     exit(1);
 }
 
+define('IS_PHPUNIT_TEST', true);
+
 Cli::exec('make clean-build', [], PROJECT_ROOT);

@@ -15,9 +15,13 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\ComposerGraph\CommandBuild;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Str;
 use JBZoo\Utils\Sys;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * Class AbstractGraphTest
@@ -66,15 +70,38 @@ abstract class AbstractGraphTest extends PHPUnit
     /**
      * @param array $params
      * @return string
+     * @throws \Exception
      */
     public function task(array $params = []): string
+    {
+        $application = new Application();
+        $application->add(new CommandBuild());
+        $application->setDefaultCommand('build');
+        $command = $application->find('build');
+
+        $buffer = new BufferedOutput();
+        $args = new StringInput(Cli::build('', $params));
+        $code = $command->run($args, $buffer);
+
+        if ($code > 0) {
+            throw new \RuntimeException($buffer->fetch());
+        }
+
+        return $buffer->fetch();
+    }
+
+    /**
+     * @param array $params
+     * @return string
+     */
+    public function taskReal(array $params = []): string
     {
         $rootDir = PROJECT_ROOT;
 
         return Cli::exec(
             implode(' ', [
                 Sys::getBinary(),
-                "{$rootDir}/tests/cli-wrapper.php",
+                "{$rootDir}/composer-graph.php",
             ]),
             $params,
             $rootDir,
