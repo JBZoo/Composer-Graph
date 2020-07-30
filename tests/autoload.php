@@ -25,4 +25,4 @@ if ($autoload = realpath('./vendor/autoload.php')) {
 
 define('IS_PHPUNIT_TEST', true);
 
-Cli::exec('make clean', [], PROJECT_ROOT);
+//Cli::exec('make clean', [], PROJECT_ROOT);
