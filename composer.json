@@ -13,16 +13,17 @@
     ],
 
     "require"           : {
-        "php"               : "^7.2",
-        "jbzoo/data"        : "^4.0.0",
-        "jbzoo/mermaid-php" : "^2.0.0",
-        "jbzoo/utils"       : "^4.0.0",
+        "php"               : ">=7.2",
+
+        "jbzoo/data"        : "^4.0.2",
+        "jbzoo/mermaid-php" : "^2.1.1",
+        "jbzoo/utils"       : "^4.2.1",
 
         "symfony/console"   : "^4.4||^5.0"
     },
 
     "require-dev"       : {
-        "jbzoo/toolbox-dev" : "^2.2.0",
+        "jbzoo/toolbox-dev" : "^2.4.0",
         "symfony/process"   : "^4.4||^5.0"
     },
 

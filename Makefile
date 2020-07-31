@@ -31,7 +31,7 @@ test-all: ##@Project Run all project tests at once
 
 
 prepare-examples:
-	@make prepare-one-example OUTPUT="jbzoo" TEST_PATH="`pwd`/tests/fixtures/testJBZooToolbox"
+	@make prepare-one-example OUTPUT="tp" TEST_PATH="`pwd`/tests/fixtures/testJBZooToolbox"
 	@make prepare-one-example OUTPUT="self"  TEST_PATH="`pwd`"
 
 
