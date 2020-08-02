@@ -26,8 +26,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use function JBZoo\Data\json;
 
 /**
- * Class Build
- * @package JBZoo\ComposerGraph\Commands
+ * Class CommandBuild
+ * @package JBZoo\ComposerGraph
  */
 class CommandBuild extends Command
 {

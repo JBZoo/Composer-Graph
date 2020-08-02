@@ -16,8 +16,7 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class Composer-GraphCodestyleTest
- *
+ * Class ComposerGraphCodestyleTest
  * @package JBZoo\PHPUnit
  */
 class ComposerGraphCodestyleTest extends AbstractCodestyleTest

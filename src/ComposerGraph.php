@@ -25,8 +25,7 @@ use function JBZoo\Utils\bool;
 
 /**
  * Class ComposerGraph
- * @package JBZoo\ComposerGraph\Graphs
- *
+ * @package JBZoo\ComposerGraph
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class ComposerGraph

@@ -16,8 +16,7 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class Composer-GraphCopyrightTest
- *
+ * Class ComposerGraphCopyrightTest
  * @package JBZoo\PHPUnit
  */
 class ComposerGraphCopyrightTest extends AbstractCopyrightTest
