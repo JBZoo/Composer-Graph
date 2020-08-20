@@ -8,7 +8,7 @@
 
 ```sh
 composer require        jbzoo/composer-graph # For a specific project
-composer require global jbzoo/composer-graph # As global tool
+composer global require jbzoo/composer-graph # As global tool
 ```
 
 
