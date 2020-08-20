@@ -241,6 +241,10 @@ class ComposerGraph
             }
 
             $main = $this->collection->getMain();
+            $htmlDir = dirname($htmlPath);
+            if (!is_dir($htmlDir)) {
+                mkdir($htmlDir, 0755, true);
+            }
             file_put_contents($htmlPath, $this->graphWrapper->renderHtml([
                 'version' => '8.6.0',
                 'title'   => $main->getName() . ' - Graph of Dependencies' . $titlePostfix,
