@@ -16,6 +16,5 @@
 build
 vendor
 phpunit.xml
-/composer.lock
 *.cache
 tests/fixtures/lib-*

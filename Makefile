@@ -11,6 +11,7 @@
 # @link       https://github.com/JBZoo/Composer-Graph
 #
 
+.PHONY: build
 
 ifneq (, $(wildcard ./vendor/jbzoo/codestyle/src/init.Makefile))
     include ./vendor/jbzoo/codestyle/src/init.Makefile
