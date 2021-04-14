@@ -1,20 +1,24 @@
 # JBZoo / Composer-Graph
 
-[![Build Status](https://travis-ci.org/JBZoo/Composer-Graph.svg)](https://travis-ci.org/JBZoo/Composer-Graph)    [![Coverage Status](https://coveralls.io/repos/JBZoo/Composer-Graph/badge.svg)](https://coveralls.io/github/JBZoo/Composer-Graph)    [![Psalm Coverage](https://shepherd.dev/github/JBZoo/Composer-Graph/coverage.svg)](https://shepherd.dev/github/JBZoo/Composer-Graph)    
+[![Build Status](https://travis-ci.org/JBZoo/Composer-Graph.svg)](https://travis-ci.org/JBZoo/Composer-Graph)    [![Coverage Status](https://coveralls.io/repos/JBZoo/Composer-Graph/badge.svg)](https://coveralls.io/github/JBZoo/Composer-Graph)    [![Psalm Coverage](https://shepherd.dev/github/JBZoo/Composer-Graph/coverage.svg)](https://shepherd.dev/github/JBZoo/Composer-Graph)    [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jbzoo/composer-graph/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jbzoo/composer-graph/?branch=master)    [![CodeFactor](https://www.codefactor.io/repository/github/jbzoo/composer-graph/badge)](https://www.codefactor.io/repository/github/jbzoo/composer-graph/issues)    
 [![Stable Version](https://poser.pugx.org/jbzoo/composer-graph/version)](https://packagist.org/packages/jbzoo/composer-graph)    [![Latest Unstable Version](https://poser.pugx.org/jbzoo/composer-graph/v/unstable)](https://packagist.org/packages/jbzoo/composer-graph)    [![Dependents](https://poser.pugx.org/jbzoo/composer-graph/dependents)](https://packagist.org/packages/jbzoo/composer-graph/dependents?order_by=downloads)    [![GitHub Issues](https://img.shields.io/github/issues/jbzoo/composer-graph)](https://github.com/JBZoo/Composer-Graph/issues)    [![Total Downloads](https://poser.pugx.org/jbzoo/composer-graph/downloads)](https://packagist.org/packages/jbzoo/composer-graph/stats)    [![GitHub License](https://img.shields.io/github/license/jbzoo/composer-graph)](https://github.com/JBZoo/Composer-Graph/blob/master/LICENSE)
 
 
 ## Installation
 
-```sh
+```shell
 composer require        jbzoo/composer-graph # For a specific project
 composer global require jbzoo/composer-graph # As global tool
+
+# OR use phar file.
+# Replace <VERSION> to the latest version. See releases page or badge above
+wget https://github.com/JBZoo/Composer-Graph/releases/download/<VERSION>/composer-graph.phar
 ```
 
 
 ## Usage
 
-```
+```shell
 $ php ./vendor/bin/composer-graph --help
 
 Usage:
@@ -49,7 +53,7 @@ All examples are screenshots based on the package [JBZoo/Toolbox](https://github
 
 
 ### Default output (no args) - minimal view
-```sh
+```shell
 php ./vendor/bin/composer-graph
 ```
 
@@ -58,7 +62,7 @@ php ./vendor/bin/composer-graph
 
 
 ### Default output with PHP extensions (modules)
-```sh
+```shell
 php ./vendor/bin/composer-graph  --show-ext
 ```
 
@@ -67,7 +71,7 @@ php ./vendor/bin/composer-graph  --show-ext
 
 
 ### Default output with versions of packages and relations
-```sh
+```shell
 php ./vendor/bin/composer-graph  --show-link-versions  --show-lib-versions
 ```
 
@@ -76,7 +80,7 @@ php ./vendor/bin/composer-graph  --show-link-versions  --show-lib-versions
 
 
 ### Show suggested packages which are not installed
-```sh
+```shell
 php ./vendor/bin/composer-graph  --show-suggests
 ```
 
@@ -85,7 +89,7 @@ php ./vendor/bin/composer-graph  --show-suggests
 
 
 ### Show dev dependencies
-```sh
+```shell
 php ./vendor/bin/composer-graph  --show-dev
 ```
 
@@ -96,7 +100,7 @@ php ./vendor/bin/composer-graph  --show-dev
 
 All options are enabled but `--show-php` (too many packages).
  
-```sh
+```shell
 php ./vendor/bin/composer-graph            \
                  --show-ext                \
                  --show-dev                \
@@ -111,7 +115,7 @@ php ./vendor/bin/composer-graph            \
 
 
 ## Unit tests and check code style
-```sh
+```shell
 make update
 make test-all
 ```

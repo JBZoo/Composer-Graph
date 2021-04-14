@@ -37,7 +37,7 @@ class GraphBuildTest extends AbstractGraphTest
         $result = $this->taskReal(['--help' => null]);
         $readme = file_get_contents(PROJECT_ROOT . '/README.md');
 
-        isContain("```\n$ php ./vendor/bin/composer-graph --help\n\n{$result}\n```", $readme);
+        isContain("```shell\n$ php ./vendor/bin/composer-graph --help\n\n{$result}\n```", $readme);
     }
 
     public function testEmpty()
