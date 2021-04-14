@@ -18,7 +18,7 @@ wget https://github.com/JBZoo/Composer-Graph/releases/download/<VERSION>/compose
 
 ## Usage
 
-```shell
+```
 $ php ./vendor/bin/composer-graph --help
 
 Usage:
