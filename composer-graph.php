@@ -33,7 +33,7 @@ foreach ($vendorPaths as $file) {
 
 require JBZOO_COMPOSER_GRAPH;
 
-$application = new Application();
+$application = new Application('JBZoo/Composer-Graph', '@git-version@');
 $application->add(new CommandBuild());
 $application->setDefaultCommand('build');
 $application->run();

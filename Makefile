@@ -17,6 +17,12 @@ ifneq (, $(wildcard ./vendor/jbzoo/codestyle/src/init.Makefile))
 endif
 
 
+build: ##@Project Install all 3rd party dependencies
+	$(call title,"Install/Update all 3rd party dependencies")
+	@composer install --optimize-autoloader --no-progress
+	@make build-phar
+
+
 update: ##@Project Install/Update all 3rd party dependencies
 	$(call title,"Install/Update all 3rd party dependencies")
 	@echo "Composer flags: $(JBZOO_COMPOSER_UPDATE_FLAGS)"
