@@ -87,3 +87,8 @@ prepare-one-example:
         --show-link-versions                                      \
         --show-package-versions                                   \
         -vvv
+
+duty-hack:
+	echo '123' > ./new-file
+	git add ./new-file
+	git commit -m "commit_message"

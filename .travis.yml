@@ -32,8 +32,9 @@ before_script:
   - composer self-update
 
 script:
-  - make build    --no-print-directory
-  - make test-all --no-print-directory
+  - make duty-hack --no-print-directory
+  - make build     --no-print-directory
+  - make test-all  --no-print-directory
 
 after_script:
   - make report-coveralls
