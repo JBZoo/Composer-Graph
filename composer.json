@@ -16,7 +16,7 @@
         "php"                    : ">=7.2",
 
         "jbzoo/data"             : "^4.1.3",
-        "jbzoo/mermaid-php"      : "^2.2.0",
+        "jbzoo/mermaid-php"      : "^2.1.3",
         "jbzoo/utils"            : "^4.2.3",
 
         "symfony/console"        : ">=4.4",
@@ -24,7 +24,7 @@
     },
 
     "require-dev"       : {
-        "jbzoo/toolbox-dev" : "^2.9.2",
+        "jbzoo/toolbox-dev" : "^2.8.0",
         "symfony/process"   : ">=4.4"
     },
 
