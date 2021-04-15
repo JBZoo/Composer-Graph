@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee77503ca728aaadf972376715f2d63f",
+    "content-hash": "59d679f7eb7cca3cc3e415d5129eca80",
     "packages": [
         {
             "name": "jbzoo/data",
@@ -6437,7 +6437,7 @@
     "stability-flags": {
         "roave/security-advisories": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.2"
