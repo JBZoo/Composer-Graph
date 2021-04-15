@@ -13,6 +13,8 @@
  * @link       https://github.com/JBZoo/Composer-Graph
  */
 
+declare(strict_types=1);
+
 namespace JBZoo\PHPUnit;
 
 /**
@@ -25,4 +27,6 @@ class ComposerGraphCopyrightTest extends AbstractCopyrightTest
      * @var string
      */
     protected $packageName = 'Composer-Graph';
+
+    protected $isPhpStrictType = true;
 }

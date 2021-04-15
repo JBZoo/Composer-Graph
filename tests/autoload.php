@@ -13,6 +13,8 @@
  * @link       https://github.com/JBZoo/Composer-Graph
  */
 
+declare(strict_types=1);
+
 // main autoload
 use JBZoo\Utils\Cli;
 
