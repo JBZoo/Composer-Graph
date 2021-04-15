@@ -91,4 +91,4 @@ prepare-one-example:
 duty-hack:
 	echo '123' > ./new-file
 	git add ./new-file
-	git commit -m "commit_message"
+	git commit -m "tmp message"
