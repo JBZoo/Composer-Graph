@@ -33,7 +33,7 @@ before_script:
 
 script:
   - make duty-hack --no-print-directory
-  - make build     --no-print-directory
+  - make update    --no-print-directory
   - make test-all  --no-print-directory
 
 after_script:
