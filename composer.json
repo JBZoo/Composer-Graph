@@ -1,10 +1,10 @@
 {
-    "name"              : "jbzoo/composer-graph",
-    "type"              : "library",
-    "description"       : "Render composer.json dependencies ad graph",
-    "license"           : "MIT",
+    "name"         : "jbzoo/composer-graph",
+    "type"         : "library",
+    "description"  : "Render composer.json dependencies ad graph",
+    "license"      : "MIT",
 
-    "authors"           : [
+    "authors"      : [
         {
             "name"  : "Denis Smetannikov",
             "email" : "admin@jbzoo.com",
@@ -12,7 +12,7 @@
         }
     ],
 
-    "require"           : {
+    "require"      : {
         "php"                    : ">=7.2",
 
         "jbzoo/data"             : "^4.1.3",
@@ -23,30 +23,29 @@
         "symfony/polyfill-php80" : "^1.22.1"
     },
 
-    "require-dev"       : {
-        "jbzoo/toolbox-dev" : "^2.8.0",
-        "symfony/process"   : ">=4.4"
+    "require-dev"  : {
+        "jbzoo/toolbox-dev"         : "^2.10.0",
+        "symfony/process"           : ">=4.4",
+        "roave/security-advisories" : "dev-master"
     },
 
-    "autoload"          : {
+    "autoload"     : {
         "psr-4" : {
             "JBZoo\\ComposerGraph\\" : "src"
         }
     },
 
-    "autoload-dev"      : {
+    "autoload-dev" : {
         "classmap" : ["tests"]
     },
 
-    "minimum-stability" : "dev",
-    "prefer-stable"     : true,
-    "bin"               : ["composer-graph"],
+    "bin"          : ["composer-graph"],
 
-    "config"            : {
+    "config"       : {
         "optimize-autoloader" : true
     },
 
-    "extra"             : {
+    "extra"        : {
         "branch-alias" : {
             "dev-master" : "1.x-dev"
         }

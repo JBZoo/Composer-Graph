@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08be82df10130593c5a8166560eaebda",
+    "content-hash": "ee77503ca728aaadf972376715f2d63f",
     "packages": [
         {
             "name": "jbzoo/data",
@@ -1668,16 +1668,16 @@
         },
         {
             "name": "jbzoo/codestyle",
-            "version": "2.9.4",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JBZoo/Codestyle.git",
-                "reference": "c41a7541a6e0881475edf1084f636abc6e0dc80d"
+                "reference": "fdf154a66085047b74722c4d0c1a57357f2b55f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Codestyle/zipball/c41a7541a6e0881475edf1084f636abc6e0dc80d",
-                "reference": "c41a7541a6e0881475edf1084f636abc6e0dc80d",
+                "url": "https://api.github.com/repos/JBZoo/Codestyle/zipball/fdf154a66085047b74722c4d0c1a57357f2b55f1",
+                "reference": "fdf154a66085047b74722c4d0c1a57357f2b55f1",
                 "shasum": ""
             },
             "require": {
@@ -1691,7 +1691,6 @@
                 "phpstan/phpstan-strict-rules": ">=0.12.9",
                 "povils/phpmnd": ">=2.4.0",
                 "psalm/phar": ">=4.7.0",
-                "roave/security-advisories": "dev-master",
                 "squizlabs/php_codesniffer": ">=3.6.0",
                 "symfony/console": ">=4.4.16",
                 "symfony/yaml": ">=4.4.16"
@@ -1699,7 +1698,7 @@
             "require-dev": {
                 "jbzoo/composer-diff": "^1.1.2",
                 "jbzoo/composer-graph": "^1.0.4",
-                "jbzoo/phpunit": "^4.6.0",
+                "jbzoo/phpunit": "^4.6.2",
                 "jbzoo/toolbox-ci": "^1.3.5",
                 "jbzoo/utils": "^4.2.3",
                 "phpbench/phpbench": "^0.17.1"
@@ -1737,9 +1736,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JBZoo/Codestyle/issues",
-                "source": "https://github.com/JBZoo/Codestyle/tree/2.9.4"
+                "source": "https://github.com/JBZoo/Codestyle/tree/2.10.0"
             },
-            "time": "2021-04-14T14:02:23+00:00"
+            "time": "2021-04-15T19:26:13+00:00"
         },
         {
             "name": "jbzoo/composer-diff",
@@ -2024,21 +2023,21 @@
         },
         {
             "name": "jbzoo/toolbox-dev",
-            "version": "2.9.2",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JBZoo/Toolbox-Dev.git",
-                "reference": "eced3a28f20c1a3d3d0db6e16f50870918c6ced0"
+                "reference": "a44c02232a8fca92e93cbed31c551087667a5a20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Toolbox-Dev/zipball/eced3a28f20c1a3d3d0db6e16f50870918c6ced0",
-                "reference": "eced3a28f20c1a3d3d0db6e16f50870918c6ced0",
+                "url": "https://api.github.com/repos/JBZoo/Toolbox-Dev/zipball/a44c02232a8fca92e93cbed31c551087667a5a20",
+                "reference": "a44c02232a8fca92e93cbed31c551087667a5a20",
                 "shasum": ""
             },
             "require": {
                 "fakerphp/faker": "^1.14.1",
-                "jbzoo/codestyle": "^2.9.4",
+                "jbzoo/codestyle": "^2.10.0",
                 "jbzoo/composer-diff": "^1.1.2",
                 "jbzoo/composer-graph": "^1.1.1",
                 "jbzoo/jbdump": "^1.5.6",
@@ -2047,7 +2046,6 @@
                 "php": ">=7.2",
                 "php-coveralls/php-coveralls": "^2.4.3",
                 "phpbench/phpbench": "^0.17.1",
-                "roave/security-advisories": "dev-master",
                 "symfony/var-dumper": "^4.4|^5.2.5"
             },
             "type": "library",
@@ -2078,9 +2076,9 @@
             "description": "Developer toolbox only for JBZoo libs on github+travis",
             "support": {
                 "issues": "https://github.com/JBZoo/Toolbox-Dev/issues",
-                "source": "https://github.com/JBZoo/Toolbox-Dev/tree/2.9.2"
+                "source": "https://github.com/JBZoo/Toolbox-Dev/tree/2.10.0"
             },
-            "time": "2021-04-15T12:20:24+00:00"
+            "time": "2021-04-15T20:04:56+00:00"
         },
         {
             "name": "lstrojny/functional-php",
@@ -6435,9 +6433,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": [],
-    "prefer-stable": true,
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "roave/security-advisories": 20
+    },
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.2"
