@@ -42,7 +42,10 @@
     "bin"           : ["composer-graph"],
 
     "config"        : {
-        "optimize-autoloader" : true
+        "optimize-autoloader" : true,
+        "platform"            : {
+            "php" : "7.2.15"
+        }
     },
 
     "prefer-stable" : true,
