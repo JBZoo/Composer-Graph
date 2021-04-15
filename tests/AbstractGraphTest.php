@@ -13,6 +13,8 @@
  * @link       https://github.com/JBZoo/Composer-Graph
  */
 
+declare(strict_types=1);
+
 namespace JBZoo\PHPUnit;
 
 use JBZoo\ComposerGraph\CommandBuild;
@@ -59,10 +61,10 @@ abstract class AbstractGraphTest extends PHPUnit
 
         $result = trim($this->task(array_merge($params, ['format' => 'mermaid'])));
 
-        $lines = explode("\n", $result);
-        foreach ($lines as $line) {
-            //Cli::out("'{$line}',");
-        }
+        //$lines = explode("\n", $result);
+        //foreach ($lines as $line) {
+        //    Cli::out("'{$line}',");
+        //}
 
         return $result;
     }
@@ -105,7 +107,7 @@ abstract class AbstractGraphTest extends PHPUnit
             ]),
             $params,
             $rootDir,
-            0
+            false
         );
     }
 }

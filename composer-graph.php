@@ -13,6 +13,8 @@
  * @link       https://github.com/JBZoo/Composer-Graph
  */
 
+declare(strict_types=1);
+
 use JBZoo\ComposerGraph\CommandBuild;
 use Symfony\Component\Console\Application;
 

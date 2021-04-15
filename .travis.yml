@@ -28,11 +28,6 @@ jobs:
     - php: 8.0
     - php: nightly
 
-env:
-  matrix:
-    - JBZOO_COMPOSER_UPDATE_FLAGS="--prefer-lowest --prefer-stable"
-    - JBZOO_COMPOSER_UPDATE_FLAGS=""
-
 before_script:
   - composer self-update
 

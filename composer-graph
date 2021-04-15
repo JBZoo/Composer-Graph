@@ -14,4 +14,6 @@
  * @link       https://github.com/JBZoo/Composer-Graph
  */
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/composer-graph.php';
