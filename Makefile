@@ -20,7 +20,7 @@ endif
 
 build: ##@Project Install all 3rd party dependencies
 	$(call title,"Install/Update all 3rd party dependencies")
-	@composer install --optimize-autoloader --no-progress
+	@composer install --optimize-autoloader --no-progress --prefer-source
 	@make build-phar
 
 
@@ -87,8 +87,3 @@ prepare-one-example:
         --show-link-versions                                      \
         --show-package-versions                                   \
         -vvv
-
-duty-hack:
-	echo '123' > ./new-file
-	git add ./new-file
-	git commit -m "tmp message"
