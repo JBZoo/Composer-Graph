@@ -32,7 +32,7 @@ before_script:
   - composer self-update
 
 script:
-  - make build     --no-print-directory
+  - make update    --no-print-directory
   - make test-all  --no-print-directory
 
 after_script:
