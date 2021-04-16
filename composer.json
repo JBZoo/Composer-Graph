@@ -29,6 +29,10 @@
         "roave/security-advisories" : "dev-master"
     },
 
+    "replace"           : {
+        "jbzoo/composer-graph" : "self.version"
+    },
+
     "autoload"          : {
         "psr-4" : {
             "JBZoo\\ComposerGraph\\" : "src"
