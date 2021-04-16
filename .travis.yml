@@ -45,5 +45,7 @@ deploy:
   file: "./build/composer-graph.phar"
   on:
     tags: true
+    branch: master
+    php: 7.2
   overwrite: true
   skip_cleanup: true
