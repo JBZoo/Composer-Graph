@@ -47,5 +47,4 @@ deploy:
     tags: true
     branch: master
     php: 7.2
-  overwrite: true
   skip_cleanup: true
