@@ -45,7 +45,7 @@
 
     "bin"               : ["composer-graph"],
 
-    "minimum-stability" : "dev",
+    "minimum-stability" : "stable",
     "prefer-stable"     : true,
     "config"            : {
         "optimize-autoloader" : true
