@@ -18,4 +18,3 @@ vendor
 phpunit.xml
 *.cache
 tests/fixtures/lib-*
-composer.lock
