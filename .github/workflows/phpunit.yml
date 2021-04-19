@@ -30,7 +30,7 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.2, 7.3, 7.4, 8.0]
+        php: [7.2, 7.3, 7.4]
 
     name: PHP ${{ matrix.php }}
 
@@ -46,7 +46,10 @@ jobs:
           tools: composer:v2
 
       - name: Build project
-        run: make build
+        run: make build --no-print-directory
 
       - name: Execute Unit Tests
-        run: make test-all
+        run: make test --no-print-directory
+
+      - name: Check Codestyle
+        run: make codestyle --no-print-directory
