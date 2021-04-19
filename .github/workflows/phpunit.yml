@@ -1,3 +1,16 @@
+#
+# JBZoo Toolbox - Composer-Graph
+#
+# This file is part of the JBZoo Toolbox project.
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+# @package    Composer-Graph
+# @license    MIT
+# @copyright  Copyright (C) JBZoo.com, All rights reserved.
+# @link       https://github.com/JBZoo/Composer-Graph
+#
+
 name: Unit Tests
 
 on:
@@ -17,17 +30,9 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.2, 7.3, 7.4]
-        dependency-version: [prefer-lowest, prefer-stable]
-        exclude:
-          - dependency-version: prefer-lowest
-            php: 7.2
-          - dependency-version: prefer-lowest
-            php: 7.3
-          - dependency-version: prefer-lowest
-            php: 7.4
+        php: [7.2, 7.3, 7.4, 8.0]
 
-    name: P${{ matrix.php }} - ${{ matrix.dependency-version }}
+    name: PHP ${{ matrix.php }}
 
     steps:
       - name: Checkout code
@@ -40,16 +45,8 @@ jobs:
           coverage: none
           tools: composer:v2
 
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.dependency-version }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php }}-${{ matrix.dependency-version }}
-      - name: Install dependencies
-        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress
+      - name: Build project
+        run: make build
 
       - name: Execute Unit Tests
-        run: vendor/bin/phpunit
+        run: make test-all

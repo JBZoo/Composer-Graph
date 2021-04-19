@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "715a418326acdf8275f4702b734d9696",
+    "content-hash": "e7445d1b9d2a6dfa0aa5dade9e0b1513",
     "packages": [
         {
             "name": "jbzoo/data",
@@ -743,21 +743,20 @@
         },
         {
             "name": "beberlei/assert",
-            "version": "v3.3.0",
+            "version": "v3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/assert.git",
-                "reference": "5367e3895976b49704ae671f75bc5f0ba1b986ab"
+                "reference": "5e721d7e937ca3ba2cdec1e1adf195f9e5188372"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/5367e3895976b49704ae671f75bc5f0ba1b986ab",
-                "reference": "5367e3895976b49704ae671f75bc5f0ba1b986ab",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/5e721d7e937ca3ba2cdec1e1adf195f9e5188372",
+                "reference": "5e721d7e937ca3ba2cdec1e1adf195f9e5188372",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
-                "ext-intl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-simplexml": "*",
@@ -768,6 +767,9 @@
                 "phpstan/phpstan": "*",
                 "phpunit/phpunit": ">=6.0.0",
                 "yoast/phpunit-polyfills": "^0.1.0"
+            },
+            "suggest": {
+                "ext-intl": "Needed to allow Assertion::count(), Assertion::isCountable(), Assertion::minCount(), and Assertion::maxCount() to operate on ResourceBundles"
             },
             "type": "library",
             "autoload": {
@@ -802,9 +804,9 @@
             ],
             "support": {
                 "issues": "https://github.com/beberlei/assert/issues",
-                "source": "https://github.com/beberlei/assert/tree/v3.3.0"
+                "source": "https://github.com/beberlei/assert/tree/v3.3.1"
             },
-            "time": "2020-11-13T20:02:54+00:00"
+            "time": "2021-04-18T20:11:03+00:00"
         },
         {
             "name": "codedungeon/php-cli-colors",
@@ -909,87 +911,6 @@
                 "source": "https://github.com/mikeerickson/phpunit-pretty-result-printer/tree/0.30.1"
             },
             "time": "2020-12-24T20:19:03+00:00"
-        },
-        {
-            "name": "composer/semver",
-            "version": "3.2.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/semver.git",
-                "reference": "a02fdf930a3c1c3ed3a49b5f63859c0c20e10464"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/a02fdf930a3c1c3ed3a49b5f63859c0c20e10464",
-                "reference": "a02fdf930a3c1c3ed3a49b5f63859c0c20e10464",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3.2 || ^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^0.12.54",
-                "symfony/phpunit-bridge": "^4.2 || ^5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Semver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nils Adermann",
-                    "email": "naderman@naderman.de",
-                    "homepage": "http://www.naderman.de"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
-                },
-                {
-                    "name": "Rob Bast",
-                    "email": "rob.bast@gmail.com",
-                    "homepage": "http://robbast.nl"
-                }
-            ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
-            "keywords": [
-                "semantic",
-                "semver",
-                "validation",
-                "versioning"
-            ],
-            "support": {
-                "irc": "irc://irc.freenode.org/composer",
-                "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.2.4"
-            },
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/composer",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2020-11-13T08:59:24+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -1209,71 +1130,6 @@
                 }
             ],
             "time": "2020-05-25T17:44:05+00:00"
-        },
-        {
-            "name": "fakerphp/faker",
-            "version": "v1.14.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "ed22aee8d17c7b396f74a58b1e7fefa4f90d5ef1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/ed22aee8d17c7b396f74a58b1e7fefa4f90d5ef1",
-                "reference": "ed22aee8d17c7b396f74a58b1e7fefa4f90d5ef1",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0",
-                "psr/container": "^1.0",
-                "symfony/deprecation-contracts": "^2.2"
-            },
-            "conflict": {
-                "fzaninotto/faker": "*"
-            },
-            "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4.1",
-                "ext-intl": "*",
-                "symfony/phpunit-bridge": "^4.4 || ^5.2"
-            },
-            "suggest": {
-                "ext-curl": "Required by Faker\\Provider\\Image to download images.",
-                "ext-dom": "Required by Faker\\Provider\\HtmlLorem for generating random HTML.",
-                "ext-iconv": "Required by Faker\\Provider\\ru_RU\\Text::realText() for generating real Russian text.",
-                "ext-mbstring": "Required for multibyte Unicode string functionality."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "v1.15-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Faker\\": "src/Faker/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "François Zaninotto"
-                }
-            ],
-            "description": "Faker is a PHP library that generates fake data for you.",
-            "keywords": [
-                "data",
-                "faker",
-                "fixtures"
-            ],
-            "support": {
-                "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v.1.14.1"
-            },
-            "time": "2021-03-30T06:27:33+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1741,150 +1597,6 @@
             "time": "2021-04-15T19:26:13+00:00"
         },
         {
-            "name": "jbzoo/composer-diff",
-            "version": "1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JBZoo/Composer-Diff.git",
-                "reference": "0ab8abcb10a4953d977f84614e6c1dc1317a7f6a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Composer-Diff/zipball/0ab8abcb10a4953d977f84614e6c1dc1317a7f6a",
-                "reference": "0ab8abcb10a4953d977f84614e6c1dc1317a7f6a",
-                "shasum": ""
-            },
-            "require": {
-                "composer/semver": ">=1.0",
-                "ext-filter": "*",
-                "ext-json": "*",
-                "jbzoo/data": "^4.1.2",
-                "jbzoo/utils": "^4.2.3",
-                "php": ">=7.2",
-                "symfony/console": "^4.4||^5.0",
-                "symfony/process": "^4.4||^5.0"
-            },
-            "require-dev": {
-                "jbzoo/toolbox-dev": "^2.6.1"
-            },
-            "bin": [
-                "composer-diff"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "JBZoo\\ComposerDiff\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Denis Smetannikov",
-                    "email": "admin@jbzoo.com",
-                    "role": "lead"
-                },
-                {
-                    "name": "David Jonas",
-                    "homepage": "https://github.com/davidrjonas",
-                    "role": "Original Idea"
-                }
-            ],
-            "description": "See what has changed after a composer update.",
-            "keywords": [
-                "composer",
-                "composer.json",
-                "composer.lock",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/JBZoo/Composer-Diff/issues",
-                "source": "https://github.com/JBZoo/Composer-Diff/tree/1.1.2"
-            },
-            "time": "2021-01-15T14:35:48+00:00"
-        },
-        {
-            "name": "jbzoo/jbdump",
-            "version": "1.5.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JBZoo/JBDump.git",
-                "reference": "044e1f9f648d2467d9161732f1195a44d452ca50"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/JBDump/zipball/044e1f9f648d2467d9161732f1195a44d452ca50",
-                "reference": "044e1f9f648d2467d9161732f1195a44d452ca50",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.10"
-            },
-            "replace": {
-                "smetdenis/jbdump": "*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "autoload.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "SmetDenis",
-                    "email": "admin@jbzoo.com"
-                },
-                {
-                    "name": "Kaloyan K. Tsvetkov",
-                    "email": "kaloyan@kaloyan.info"
-                },
-                {
-                    "name": "Jeremy Dorn",
-                    "email": "jeremy@jeremydorn.com"
-                },
-                {
-                    "name": "Florin Patan",
-                    "email": "florinpatan@gmail.com"
-                }
-            ],
-            "description": "Script for debug and dump PHP variables and other stuff. This tool is a nice replacement for print_r() and var_dump() functions.",
-            "keywords": [
-                "debug",
-                "debugging",
-                "dump",
-                "dumper",
-                "jbdump",
-                "krumo",
-                "php",
-                "pretty",
-                "print",
-                "print_r",
-                "var_dump",
-                "vars"
-            ],
-            "support": {
-                "issues": "https://github.com/JBZoo/JBDump/issues",
-                "source": "https://github.com/JBZoo/JBDump/tree/1.5.6"
-            },
-            "time": "2021-03-31T09:21:47+00:00"
-        },
-        {
             "name": "jbzoo/phpunit",
             "version": "4.6.2",
             "source": {
@@ -2020,65 +1732,6 @@
                 "source": "https://github.com/JBZoo/Toolbox-CI/tree/1.3.5"
             },
             "time": "2021-01-15T14:15:21+00:00"
-        },
-        {
-            "name": "jbzoo/toolbox-dev",
-            "version": "2.10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JBZoo/Toolbox-Dev.git",
-                "reference": "a44c02232a8fca92e93cbed31c551087667a5a20"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Toolbox-Dev/zipball/a44c02232a8fca92e93cbed31c551087667a5a20",
-                "reference": "a44c02232a8fca92e93cbed31c551087667a5a20",
-                "shasum": ""
-            },
-            "require": {
-                "fakerphp/faker": "^1.14.1",
-                "jbzoo/codestyle": "^2.10.0",
-                "jbzoo/composer-diff": "^1.1.2",
-                "jbzoo/composer-graph": "^1.1.1",
-                "jbzoo/jbdump": "^1.5.6",
-                "jbzoo/phpunit": "^4.6.2",
-                "jbzoo/toolbox-ci": "^1.3.5",
-                "php": ">=7.2",
-                "php-coveralls/php-coveralls": "^2.4.3",
-                "phpbench/phpbench": "^0.17.1",
-                "symfony/var-dumper": "^4.4|^5.2.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "JBZoo\\ToolboxDev\\": "src"
-                },
-                "files": [
-                    "src/var-dumper.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Denis Smetannikov",
-                    "email": "admin@jbzoo.com",
-                    "role": "lead"
-                }
-            ],
-            "description": "Developer toolbox only for JBZoo libs on github+travis",
-            "support": {
-                "issues": "https://github.com/JBZoo/Toolbox-Dev/issues",
-                "source": "https://github.com/JBZoo/Toolbox-Dev/tree/2.10.0"
-            },
-            "time": "2021-04-15T20:04:56+00:00"
         },
         {
             "name": "lstrojny/functional-php",
