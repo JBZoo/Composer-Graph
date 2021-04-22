@@ -11,8 +11,7 @@ composer require        jbzoo/composer-graph # For a specific project
 composer global require jbzoo/composer-graph # As global tool
 
 # OR use phar file.
-# Replace <VERSION> to the latest version. See releases page or badge above
-wget https://github.com/JBZoo/Composer-Graph/releases/download/<VERSION>/composer-graph.phar
+wget https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
 ```
 
 
