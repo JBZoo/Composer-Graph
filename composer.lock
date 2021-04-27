@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49f8c8ad1d0fbba8d421cceaa0147bde",
+    "content-hash": "fd3eec3587bb58443fe0b053fd1bee09",
     "packages": [
         {
             "name": "jbzoo/data",
@@ -5772,9 +5772,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.2"
