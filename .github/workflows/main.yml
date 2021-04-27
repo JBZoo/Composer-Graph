@@ -57,7 +57,7 @@ jobs:
 
       - name: Build the Project
         continue-on-error: ${{ matrix.experimental }}
-        run: make update --no-print-directory
+        run: make build --no-print-directory
 
       - name: 🧪 PHPUnit Tests
         continue-on-error: ${{ matrix.experimental }}

@@ -15,16 +15,16 @@
     "require"           : {
         "php"                    : ">=7.2",
 
-        "jbzoo/data"             : "^4.1.3",
+        "jbzoo/data"             : "^4.2.1",
         "jbzoo/mermaid-php"      : "^2.2.0",
-        "jbzoo/utils"            : "^4.2.3",
+        "jbzoo/utils"            : "^4.4.0",
 
         "symfony/console"        : ">=4.4",
         "symfony/polyfill-php80" : "^1.22.1"
     },
 
     "require-dev"       : {
-        "jbzoo/toolbox-dev" : "^2.9.2",
+        "jbzoo/toolbox-dev" : "^2.12.0",
         "symfony/process"   : ">=4.4"
     },
 
