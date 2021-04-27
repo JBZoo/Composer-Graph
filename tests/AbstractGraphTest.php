@@ -59,14 +59,7 @@ abstract class AbstractGraphTest extends PHPUnit
         $cliOutput = $this->task(array_merge($params, ['format' => 'html']));
         isFile($output, "HTML file not found. Output: {$cliOutput}");
 
-        $result = trim($this->task(array_merge($params, ['format' => 'mermaid'])));
-
-        //$lines = explode("\n", $result);
-        //foreach ($lines as $line) {
-        //    Cli::out("'{$line}',");
-        //}
-
-        return $result;
+        return trim($this->task(array_merge($params, ['format' => 'mermaid'])));
     }
 
     /**
@@ -76,6 +69,8 @@ abstract class AbstractGraphTest extends PHPUnit
      */
     public function task(array $params = []): string
     {
+        $params['--no-ansi'] = null;
+
         $application = new Application();
         $application->add(new CommandBuild());
         $application->setDefaultCommand('build');
@@ -99,6 +94,7 @@ abstract class AbstractGraphTest extends PHPUnit
     public function taskReal(array $params = []): string
     {
         $rootDir = PROJECT_ROOT;
+        $params['--no-ansi'] = null;
 
         return Cli::exec(
             implode(' ', [
