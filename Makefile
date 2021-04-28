@@ -34,11 +34,10 @@ update: ##@Project Install/Update all 3rd party dependencies
 test-all: ##@Project Run all project tests at once
 	@make test
 	@make codestyle
-	@composer install --working-dir="`pwd`/tests/fixtures/testJBZooToolbox" --no-dev
-	@make prepare-examples
 
 
 prepare-examples:
+	@composer install --working-dir="`pwd`/tests/fixtures/testJBZooToolbox" --no-dev
 	@make prepare-one-example OUTPUT="tp" TEST_PATH="`pwd`/tests/fixtures/testJBZooToolbox"
 	@make prepare-one-example OUTPUT="self"  TEST_PATH="`pwd`"
 
