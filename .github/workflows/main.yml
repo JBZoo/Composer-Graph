@@ -29,7 +29,7 @@ env:
 
 jobs:
   phpunit-update:
-    name: PHPUnit
+    name: PHPUnit (update)
     runs-on: ubuntu-latest
     env:
       JBZOO_COMPOSER_UPDATE_FLAGS: ${{ matrix.composer_flags }}
@@ -51,7 +51,7 @@ jobs:
           tools: composer
 
       - name: Build the Project
-        run: make update --no-print-directory
+        run: make update build-phar --no-print-directory
 
       - name: 🧪 PHPUnit Tests
         run: make test --no-print-directory
@@ -64,7 +64,7 @@ jobs:
 
 
   phpunit-build:
-    name: PHPUnit
+    name: PHPUnit (build)
     runs-on: ubuntu-latest
     strategy:
       matrix:
