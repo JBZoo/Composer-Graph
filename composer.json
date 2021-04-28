@@ -1,7 +1,7 @@
 {
     "name"         : "jbzoo/composer-graph",
     "type"         : "library",
-    "description"  : "Render composer.json dependencies ad graph",
+    "description"  : "Render composer.json + composer.lock dependencies graph",
     "license"      : "MIT",
     "keywords"     : [
         "composer", "diagram", "jbzoo", "dependencies", "composer-dependency", "composer-packages", "mermaidjs",
@@ -19,15 +19,15 @@
     "require"      : {
         "php"               : ">=7.2",
 
-        "jbzoo/data"        : "^4.2.1",
-        "jbzoo/mermaid-php" : "^2.2.0",
-        "jbzoo/utils"       : "^4.4.0",
+        "jbzoo/data"        : "^4.3.0",
+        "jbzoo/mermaid-php" : "^2.3.0",
+        "jbzoo/utils"       : "^4.5.0",
 
         "symfony/console"   : "^4.4|^5.0"
     },
 
     "require-dev"  : {
-        "jbzoo/toolbox-dev" : "^2.12.0",
+        "jbzoo/toolbox-dev" : "^2.13.1",
         "symfony/process"   : "^4.4|^5.0"
     },
 
