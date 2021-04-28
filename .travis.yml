@@ -15,20 +15,20 @@ language: php
 os: linux
 dist: xenial
 
+git:
+  depth: false
+
 php:
   - 7.2
   - 7.3
   - 7.4
   - 8.0
 
-git:
-  depth: false
-
 before_script:
   - composer self-update
 
 script:
-  - make build    --no-print-directory
+  - make update   --no-print-directory
   - make test-all --no-print-directory
 
 after_script:
