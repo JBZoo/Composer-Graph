@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cb362e5eb533eb4cbea9c3a5d2476ff",
+    "content-hash": "f74aa71d95a68cd542a5763ead13071d",
     "packages": [
         {
             "name": "jbzoo/data",
@@ -133,16 +133,16 @@
         },
         {
             "name": "jbzoo/utils",
-            "version": "4.5.0",
+            "version": "4.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JBZoo/Utils.git",
-                "reference": "54f06ce6480b1d982382596a7df9186b21e85ca5"
+                "reference": "aaa4f301d9eeb8f2fb621288ca7d58da9241f85c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Utils/zipball/54f06ce6480b1d982382596a7df9186b21e85ca5",
-                "reference": "54f06ce6480b1d982382596a7df9186b21e85ca5",
+                "url": "https://api.github.com/repos/JBZoo/Utils/zipball/aaa4f301d9eeb8f2fb621288ca7d58da9241f85c",
+                "reference": "aaa4f301d9eeb8f2fb621288ca7d58da9241f85c",
                 "shasum": ""
             },
             "require": {
@@ -225,9 +225,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JBZoo/Utils/issues",
-                "source": "https://github.com/JBZoo/Utils/tree/4.5.0"
+                "source": "https://github.com/JBZoo/Utils/tree/4.5.1"
             },
-            "time": "2021-04-28T12:44:25+00:00"
+            "time": "2021-04-28T18:37:39+00:00"
         },
         {
             "name": "psr/container",
@@ -1674,35 +1674,30 @@
         },
         {
             "name": "jbzoo/composer-diff",
-            "version": "1.4.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JBZoo/Composer-Diff.git",
-                "reference": "a05c0535841e147da67d16f7637befc823620af7"
+                "reference": "b8e024d5531af3caf8b82d83acd07186cfcb17f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Composer-Diff/zipball/a05c0535841e147da67d16f7637befc823620af7",
-                "reference": "a05c0535841e147da67d16f7637befc823620af7",
+                "url": "https://api.github.com/repos/JBZoo/Composer-Diff/zipball/b8e024d5531af3caf8b82d83acd07186cfcb17f2",
+                "reference": "b8e024d5531af3caf8b82d83acd07186cfcb17f2",
                 "shasum": ""
             },
             "require": {
-                "composer/semver": ">=1.0",
+                "composer/semver": "^1.0|^2.0|^3.0",
                 "ext-filter": "*",
                 "ext-json": "*",
-                "jbzoo/data": "^4.2.0",
+                "jbzoo/data": "^4.3.0",
                 "php": ">=7.2",
-                "symfony/console": ">=4.4",
-                "symfony/process": ">=4.4"
+                "symfony/console": "^4.4|^5.0",
+                "symfony/process": "^4.4|^5.0"
             },
             "require-dev": {
-                "jbzoo/codestyle": "^2.10.0",
-                "jbzoo/phpunit": "^4.7.0",
-                "jbzoo/toolbox-ci": "^1.3.5",
-                "jbzoo/utils": "^4.3.0",
-                "php-coveralls/php-coveralls": "^2.4.3",
-                "roave/security-advisories": "dev-master",
-                "symfony/var-dumper": "^4.4|^5.2.5"
+                "jbzoo/toolbox-dev": "^2.13.1",
+                "roave/security-advisories": "dev-master"
             },
             "bin": [
                 "composer-diff"
@@ -1746,9 +1741,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JBZoo/Composer-Diff/issues",
-                "source": "https://github.com/JBZoo/Composer-Diff/tree/1.4.0"
+                "source": "https://github.com/JBZoo/Composer-Diff/tree/1.5.1"
             },
-            "time": "2021-04-21T11:39:02+00:00"
+            "time": "2021-04-28T19:32:29+00:00"
         },
         {
             "name": "jbzoo/jbdump",

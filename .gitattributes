@@ -11,6 +11,7 @@
 # @link       https://github.com/JBZoo/Composer-Graph
 #
 
+/.github             export-ignore
 /build               export-ignore
 /tests               export-ignore
 /resources           export-ignore
@@ -19,7 +20,10 @@
 /.gitignore          export-ignore
 /.phan.php           export-ignore
 /.travis.yml         export-ignore
+/box.json.dist       export-ignore
+/composer.lock       export-ignore
 /phpunit.xml.dist    export-ignore
+/Makefile            export-ignore
 
 * text eol=lf
 *.png binary
