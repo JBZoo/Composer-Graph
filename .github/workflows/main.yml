@@ -18,37 +18,32 @@ on:
     branches:
       - "*"
   push:
-    branches: [ master ]
+    branches:
+      - 'master'
   schedule:
-    - cron: '30 */8 * * *'
+    - cron: '15 */8 * * *'
 
 env:
   COLUMNS: 120
   TERM_PROGRAM: Hyper
 
 jobs:
-  phpunit:
-    name: PHPUnit
+  phpunit-update:
+    name: PHPUnit (update)
     runs-on: ubuntu-latest
     env:
       JBZOO_COMPOSER_UPDATE_FLAGS: ${{ matrix.composer_flags }}
     strategy:
       matrix:
-        php-version: [ 7.2, 7.3, 7.4 ]
-        experimental: [ false ]
+        php-version: [ 7.2, 7.3, 7.4, 8.0 ]
         composer_flags: [ "--prefer-lowest", "" ]
-        include:
-          - php-version: "8.0"
-            experimental: true
-          - php-version: "8.1"
-            experimental: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Setup PHP and composer
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
@@ -56,12 +51,48 @@ jobs:
           tools: composer
 
       - name: Build the Project
-        continue-on-error: ${{ matrix.experimental }}
+        run: make update --no-print-directory
+
+      - name: 🧪 PHPUnit Tests
+        run: make test --no-print-directory
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: PHPUnit (update) - ${{ matrix.php-version }} - ${{ matrix.coverage }} - ${{ matrix.build-way }}
+          path: build/
+
+
+  phpunit-build:
+    name: PHPUnit (build)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: [ 7.2, 7.3, 7.4 ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: xdebug
+          tools: composer
+
+      - name: Build the Project
         run: make build --no-print-directory
 
       - name: 🧪 PHPUnit Tests
-        continue-on-error: ${{ matrix.experimental }}
         run: make test --no-print-directory
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: PHPUnit (build) - ${{ matrix.php-version }} - ${{ matrix.coverage }} - ${{ matrix.build-way }}
+          path: build/
 
 
   linters:
@@ -69,29 +100,60 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: [ 7.2, 7.3, 7.4 ]
-        experimental: [ false ]
-        include:
-          - php-version: "8.0"
-            experimental: true
-          - php-version: "8.1"
-            experimental: true
+        php-version: [ 7.2, 7.3, 7.4, 8.0 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Setup PHP and composer
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
+          extensions: ast
           tools: composer
 
       - name: Build the Project
-        continue-on-error: ${{ matrix.experimental }}
         run: make update --no-print-directory
 
       - name: 👍 Code Quality
-        continue-on-error: ${{ matrix.experimental }}
         run: make codestyle --no-print-directory
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Linters - ${{ matrix.php-version }}
+          path: build/
+
+
+  report:
+    name: Reports
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: [ 7.2, 7.3, 7.4, 8.0 ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: xdebug
+          tools: composer
+
+      - name: Build the Project
+        run: make update --no-print-directory
+
+      - name: 📝 Build Reports
+        run: make report-all --no-print-directory
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Reports - ${{ matrix.php-version }}
+          path: build/
