@@ -138,7 +138,6 @@ class CommandBuild extends Command
         /** @var string $origRootPath */
         $origRootPath = $this->input->getOption('root');
 
-        /** @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal */
         $realRootPath = realpath($origRootPath);
 
         // Validate root path
