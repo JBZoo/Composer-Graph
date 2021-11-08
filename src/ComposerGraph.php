@@ -228,6 +228,7 @@ class ComposerGraph
 
             /**
              * @psalm-suppress InvalidArgument
+             * @phpstan-ignore-next-line
              */
             $headerKeys = array_reduce($headerKeys, function (array $acc, string $key): array {
                 if (bool($this->params->get($key))) {
