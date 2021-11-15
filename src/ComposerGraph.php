@@ -89,7 +89,7 @@ class ComposerGraph
     {
         $this->collection = $collection;
 
-        $this->params = data(array_merge([
+        $this->params = data(\array_merge([
             // view options
             'php'          => false,
             'ext'          => false,
@@ -121,7 +121,7 @@ class ComposerGraph
      */
     public function build(): string
     {
-        $isSafeMode = defined('IS_PHPUNIT_TEST') && !IS_PHPUNIT_TEST;
+        $isSafeMode = \defined('\IS_PHPUNIT_TEST') && !\IS_PHPUNIT_TEST;
         Node::safeMode($isSafeMode);
 
         $main = $this->collection->getMain();
@@ -137,7 +137,7 @@ class ComposerGraph
      */
     public function renderNodeTree(Package $source): bool
     {
-        if (in_array($source->getId(), $this->renderedNodes, true)) {
+        if (\in_array($source->getId(), $this->renderedNodes, true)) {
             return false;
         }
         $this->renderedNodes[] = $source->getId();
@@ -152,6 +152,7 @@ class ComposerGraph
         }
 
         foreach ($source->getRequired() as $target => $version) {
+            $target = (string)$target;
             $target = $this->collection->getByName($target);
             if (
                 (!$showExt && $target->isPhpExt()) ||
@@ -166,6 +167,7 @@ class ComposerGraph
 
         if ($showDev) {
             foreach ($source->getRequiredDev() as $target => $version) {
+                $target = (string)$target;
                 $target = $this->collection->getByName($target);
                 if (
                     (!$showExt && $target->isPhpExt()) ||
@@ -180,7 +182,7 @@ class ComposerGraph
         }
 
         if ($showSuggest) {
-            foreach (array_keys($source->getSuggested()) as $target) {
+            foreach (\array_keys($source->getSuggested()) as $target) {
                 $target = $this->collection->getByName((string)$target);
                 if (
                     (!$showExt && $target->isPhpExt()) ||
@@ -206,31 +208,31 @@ class ComposerGraph
      */
     protected function render(): string
     {
-        if (count($this->graphRequire->getNodes()) > 0) {
+        if (\count($this->graphRequire->getNodes()) > 0) {
             $this->graphWrapper->addSubGraph($this->graphRequire);
         }
 
-        if (count($this->graphDev->getNodes()) > 0) {
+        if (\count($this->graphDev->getNodes()) > 0) {
             $this->graphWrapper->addSubGraph($this->graphDev);
         }
 
-        if (count($this->graphPlatform->getNodes()) > 0) {
+        if (\count($this->graphPlatform->getNodes()) > 0) {
             $this->graphWrapper->addSubGraph($this->graphPlatform);
         }
 
-        $format = strtolower(trim($this->params->get('format')));
+        $format = \strtolower(\trim($this->params->get('format')));
         if (self::FORMAT_HTML === $format) {
             $htmlPath = (string)$this->params->get('output-path');
 
-            $headerKeys = array_filter(array_keys($this->params->getArrayCopy(), static function (string $key): bool {
-                return in_array($key, ['php', 'ext', 'dev', 'suggest', 'link-version', 'lib-version'], true);
+            $headerKeys = \array_filter(\array_keys($this->params->getArrayCopy(), static function (string $key): bool {
+                return \in_array($key, ['php', 'ext', 'dev', 'suggest', 'link-version', 'lib-version'], true);
             }));
 
             /**
              * @psalm-suppress InvalidArgument
              * @phpstan-ignore-next-line
              */
-            $headerKeys = array_reduce($headerKeys, function (array $acc, string $key): array {
+            $headerKeys = \array_reduce($headerKeys, function (array $acc, string $key): array {
                 if (bool($this->params->get($key))) {
                     $acc[] = $key;
                 }
@@ -238,17 +240,17 @@ class ComposerGraph
             }, []);
 
             $titlePostfix = '';
-            if (count($headerKeys)) {
-                $flags = implode(' / ', $headerKeys);
+            if (\count($headerKeys)) {
+                $flags = \implode(' / ', $headerKeys);
                 $titlePostfix = "\n<br><small><small>Flags: {$flags}</small></small>";
             }
 
             $main = $this->collection->getMain();
-            $htmlDir = dirname($htmlPath);
-            if (!is_dir($htmlDir)) {
-                mkdir($htmlDir, 0755, true);
+            $htmlDir = \dirname($htmlPath);
+            if (!\is_dir($htmlDir)) {
+                \mkdir($htmlDir, 0755, true);
             }
-            file_put_contents($htmlPath, $this->graphWrapper->renderHtml([
+            \file_put_contents($htmlPath, $this->graphWrapper->renderHtml([
                 'version' => '8.6.0',
                 'title'   => $main->getName() . ' - Graph of Dependencies' . $titlePostfix,
             ]));
@@ -309,7 +311,7 @@ class ComposerGraph
 
         $pattern = "{$sourceName}=={$targetName}";
 
-        if (!array_key_exists($pattern, $this->createdLinks)) {
+        if (!\array_key_exists($pattern, $this->createdLinks)) {
             $sourceNode = $this->createNode($source);
             $targetNode = $this->createNode($target);
             $isSuggested = 'suggest' === $version;

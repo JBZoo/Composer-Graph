@@ -35,18 +35,18 @@ class Helper
     public static function getGitVersion(): ?string
     {
         try {
-            if ($tag = trim(Cli::exec('git describe --abbrev=0 --tags'))) {
+            if ($tag = \trim(Cli::exec('git describe --abbrev=0 --tags'))) {
                 return $tag;
             }
         } catch (\Exception $exception) {
             try {
-                if ($branch = trim(Cli::exec('git rev-parse --abbrev-ref HEAD'))) {
+                if ($branch = \trim(Cli::exec('git rev-parse --abbrev-ref HEAD'))) {
                     return "dev-{$branch}";
                 }
             } catch (\Exception $exception) {
                 try {
-                    if ($commit = trim(Cli::exec('git rev-parse HEAD'))) {
-                        return substr($commit, 0, self::HASH_LENGTH);
+                    if ($commit = \trim(Cli::exec('git rev-parse HEAD'))) {
+                        return \substr($commit, 0, self::HASH_LENGTH);
                     }
                 } catch (\Exception $exception) {
                     return null;

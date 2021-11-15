@@ -68,10 +68,10 @@ class Collection
      */
     public function buildCollection(): void
     {
-        $istTest = defined('IS_PHPUNIT_TEST') && IS_PHPUNIT_TEST;
+        $istTest = \defined('\IS_PHPUNIT_TEST') && \IS_PHPUNIT_TEST;
 
         $this->add('php', [
-            'version' => $istTest ? null : PHP_VERSION,
+            'version' => $istTest ? null : \PHP_VERSION,
             'tags'    => [Package::PHP, Package::HAS_META]
         ]);
 
@@ -83,17 +83,17 @@ class Collection
             'tags'        => [Package::MAIN, Package::HAS_META]
         ]);
 
-        $mainRequire = array_keys((array)$this->composerFile->get('require'));
+        $mainRequire = \array_keys((array)$this->composerFile->get('require'));
         foreach ($mainRequire as $package) {
             $this->add((string)$package, ['tags' => [Package::DIRECT]]);
         }
 
-        $mainRequireDev = array_keys((array)$this->composerFile->get('require-dev'));
+        $mainRequireDev = \array_keys((array)$this->composerFile->get('require-dev'));
         foreach ($mainRequireDev as $packageDev) {
             $this->add((string)$packageDev, ['tags' => [Package::DIRECT]]);
         }
 
-        $mainSuggest = array_keys((array)$this->composerFile->get('suggest'));
+        $mainSuggest = \array_keys((array)$this->composerFile->get('suggest'));
         foreach ($mainSuggest as $suggest) {
             $this->add((string)$suggest, ['tags' => [Package::DIRECT, Package::SUGGEST]]);
         }
@@ -121,11 +121,11 @@ class Collection
                     'tags'    => [$scopeType, Package::HAS_META]
                 ]);
 
-                foreach (array_keys($require) as $innerRequired) {
+                foreach (\array_keys($require) as $innerRequired) {
                     $this->add((string)$innerRequired, ['tags' => [$scopeType]]);
                 }
 
-                foreach (array_keys($suggest) as $innerSuggested) {
+                foreach (\array_keys($suggest) as $innerSuggested) {
                     $this->add((string)$innerSuggested, ['tags' => [$scopeType, Package::SUGGEST]]);
                 }
             }
@@ -178,7 +178,7 @@ class Collection
     public function getByName(string $packageName): Package
     {
         $packageAlias = Package::alias($packageName);
-        if (array_key_exists($packageAlias, $this->collection)) {
+        if (\array_key_exists($packageAlias, $this->collection)) {
             return $this->collection[$packageAlias];
         }
 

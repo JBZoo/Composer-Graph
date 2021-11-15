@@ -53,8 +53,8 @@ class CommandBuild extends Command
         $required = InputOption::VALUE_REQUIRED;
         $none = InputOption::VALUE_NONE;
 
-        if (!defined('IS_PHPUNIT_TEST')) {
-            define('IS_PHPUNIT_TEST', false);
+        if (!\defined('\IS_PHPUNIT_TEST')) {
+            \define('\IS_PHPUNIT_TEST', false);
         }
 
         $this
@@ -62,11 +62,11 @@ class CommandBuild extends Command
             ->addOption('root', 'r', $required, 'The path has to contain ' .
                 '"composer.json" and "composer.lock" files', './')
             ->addOption('output', 'o', $required, 'Path to html output.', './build/composer-graph.html')
-            ->addOption('format', 'f', $required, 'Output format. Available options: <info>' . implode(',', [
+            ->addOption('format', 'f', $required, 'Output format. Available options: <info>' . \implode(',', [
                     ComposerGraph::FORMAT_HTML,
                     ComposerGraph::FORMAT_MERMAID,
                 ]) . '</info>', ComposerGraph::FORMAT_HTML)
-            ->addOption('direction', 'D', $required, 'Direction of graph. Available options: <info>' . implode(',', [
+            ->addOption('direction', 'D', $required, 'Direction of graph. Available options: <info>' . \implode(',', [
                     Graph::LEFT_RIGHT,
                     Graph::TOP_BOTTOM,
                     Graph::BOTTOM_TOP,
@@ -87,7 +87,7 @@ class CommandBuild extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $startTimer = microtime(true);
+        $startTimer = \microtime(true);
 
         $this->input = $input;
         $this->output = $output;
@@ -120,7 +120,7 @@ class CommandBuild extends Command
             $output->writeln($result);
         }
 
-        $totalTime = number_format(microtime(true) - $startTimer, 2);
+        $totalTime = \number_format(\microtime(true) - $startTimer, 2);
         $maxMemory = Sys::getMemory();
 
         if ($output->isDebug()) {
@@ -138,10 +138,10 @@ class CommandBuild extends Command
         /** @var string $origRootPath */
         $origRootPath = $this->input->getOption('root');
 
-        $realRootPath = realpath($origRootPath);
+        $realRootPath = \realpath($origRootPath);
 
         // Validate root path
-        if (!$realRootPath || !is_dir($realRootPath)) {
+        if (!$realRootPath || !\is_dir($realRootPath)) {
             throw new Exception("Root path is not directory or not found: {$origRootPath}");
         }
 
@@ -157,12 +157,12 @@ class CommandBuild extends Command
 
         // Validate "composer.json" path and file
         $composerJsonPath = "{$realRootPath}/composer.json";
-        if (!file_exists($composerJsonPath)) {
+        if (!\file_exists($composerJsonPath)) {
             throw new Exception("The file \"{$composerJsonPath}\" not found");
         }
 
         $composerJson = json($composerJsonPath);
-        if (count($composerJson) <= 1) {
+        if (\count($composerJson) <= 1) {
             throw new Exception("The file \"{$composerJsonPath}\" is empty");
         }
 
@@ -173,12 +173,12 @@ class CommandBuild extends Command
 
         // Validate "composer.lock" path and file
         $composerLockPath = "{$realRootPath}/composer.lock";
-        if (!file_exists($composerLockPath)) {
+        if (!\file_exists($composerLockPath)) {
             throw new Exception("The file \"{$composerLockPath}\" not found");
         }
 
         $composerLock = json($composerLockPath);
-        if (count($composerLock) <= 1) {
+        if (\count($composerLock) <= 1) {
             throw new Exception("The file \"{$composerLockPath}\" is empty");
         }
 
@@ -200,8 +200,8 @@ class CommandBuild extends Command
 
         $vendorDir = $composerJson->find('config.vendor-dir') ?? 'vendor';
 
-        $realVendorDir = realpath("{$realRootPath}/{$vendorDir}");
-        if ($realVendorDir && is_dir($realVendorDir)) {
+        $realVendorDir = \realpath("{$realRootPath}/{$vendorDir}");
+        if ($realVendorDir && \is_dir($realVendorDir)) {
             return $realVendorDir;
         }
 

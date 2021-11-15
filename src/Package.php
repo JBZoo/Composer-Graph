@@ -70,23 +70,23 @@ class Package
      */
     public function __construct(string $name, ?string $vendorDir = null)
     {
-        $this->name = strtolower($name);
+        $this->name = \strtolower($name);
 
         if (
-            strpos($this->name, '/') === false &&
+            \strpos($this->name, '/') === false &&
             (
-                preg_match("#^ext-[a-z0-9]*#", $this->name) ||
-                preg_match("#^lib-[a-z0-9]*#", $this->name)
+                \preg_match("#^ext-[a-z0-9]*#", $this->name) ||
+                \preg_match("#^lib-[a-z0-9]*#", $this->name)
             )
         ) {
             $this->addTags([self::EXT, self::HAS_META]);
 
-            if (extension_loaded($this->name) || extension_loaded(str_replace(['ext-', 'lib-'], '', $this->name))) {
+            if (\extension_loaded($this->name) || \extension_loaded(\str_replace(['ext-', 'lib-'], '', $this->name))) {
                 $this->addTags([self::INSTALLED]);
             }
         }
 
-        if ($vendorDir && (is_dir("{$vendorDir}/{$this->name}") || is_dir("{$vendorDir}/{$name}"))) {
+        if ($vendorDir && (\is_dir("{$vendorDir}/{$this->name}") || \is_dir("{$vendorDir}/{$name}"))) {
             $this->addTags([self::INSTALLED]);
         }
     }
@@ -95,10 +95,10 @@ class Package
      * @param string $version
      * @return $this
      */
-    public function setVersion(string $version)
+    public function setVersion(string $version): Package
     {
         if ($version) {
-            $this->version = strtolower($version);
+            $this->version = \strtolower($version);
         }
 
         return $this;
@@ -108,9 +108,9 @@ class Package
      * @param array $required
      * @return $this
      */
-    public function addRequire(array $required)
+    public function addRequire(array $required): Package
     {
-        $this->required = array_merge($this->required, $required);
+        $this->required = \array_merge($this->required, $required);
         return $this;
     }
 
@@ -118,9 +118,9 @@ class Package
      * @param array $requiredDev
      * @return $this
      */
-    public function addRequireDev(array $requiredDev)
+    public function addRequireDev(array $requiredDev): Package
     {
-        $this->requiredDev = array_merge($this->requiredDev, $requiredDev);
+        $this->requiredDev = \array_merge($this->requiredDev, $requiredDev);
         return $this;
     }
 
@@ -128,9 +128,9 @@ class Package
      * @param array $suggest
      * @return $this
      */
-    public function addSuggest(array $suggest)
+    public function addSuggest(array $suggest): Package
     {
-        $this->suggests = array_merge($this->suggests, $suggest);
+        $this->suggests = \array_merge($this->suggests, $suggest);
         return $this;
     }
 
@@ -138,9 +138,9 @@ class Package
      * @param array $tags
      * @return $this
      */
-    public function addTags(array $tags)
+    public function addTags(array $tags): Package
     {
-        $this->tags = array_unique(array_merge($this->tags, $tags));
+        $this->tags = \array_unique(\array_merge($this->tags, $tags));
         return $this;
     }
 
@@ -150,7 +150,7 @@ class Package
      */
     public function isTag(string $tag): bool
     {
-        return in_array($tag, $this->tags, true);
+        return \in_array($tag, $this->tags, true);
     }
 
     /**
@@ -207,7 +207,7 @@ class Package
      */
     public function getName(bool $addVersion = true): string
     {
-        $name = strtolower(trim($this->name));
+        $name = \strtolower(\trim($this->name));
 
         if ($name === 'php') {
             $name = 'PHP';
@@ -265,7 +265,7 @@ class Package
      */
     public static function alias(string $string): string
     {
-        $string = strip_tags($string);
-        return str_replace(['/', '-', 'graph', '(', ')', ' ', '*'], ['__', '_', 'g_raph', '', '', '', ''], $string);
+        $string = \strip_tags($string);
+        return \str_replace(['/', '-', 'graph', '(', ')', ' ', '*'], ['__', '_', 'g_raph', '', '', '', ''], $string);
     }
 }
