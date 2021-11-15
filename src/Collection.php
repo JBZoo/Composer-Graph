@@ -68,6 +68,7 @@ class Collection
      */
     public function buildCollection(): void
     {
+        // @phpstan-ignore-next-line
         $istTest = \defined('\IS_PHPUNIT_TEST') && \IS_PHPUNIT_TEST;
 
         $this->add('php', [

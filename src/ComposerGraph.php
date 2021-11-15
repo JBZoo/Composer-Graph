@@ -121,6 +121,7 @@ class ComposerGraph
      */
     public function build(): string
     {
+        // @phpstan-ignore-next-line
         $isSafeMode = \defined('\IS_PHPUNIT_TEST') && !\IS_PHPUNIT_TEST;
         Node::safeMode($isSafeMode);
 
