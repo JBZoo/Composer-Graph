@@ -23,5 +23,4 @@ namespace JBZoo\ComposerGraph;
  */
 class Exception extends \RuntimeException
 {
-
 }
