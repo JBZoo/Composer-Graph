@@ -32,7 +32,7 @@ class GraphBuildTest extends AbstractGraphTest
 {
     public function testHelpInReadme()
     {
-        if (!Sys::isPHP('7.2')) {
+        if (version_compare(PHP_VERSION, '7.3') < 0) {
             skip('Old help text is different for different libs/php versions');
         }
 
