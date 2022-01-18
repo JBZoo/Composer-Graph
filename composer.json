@@ -23,12 +23,12 @@
         "jbzoo/mermaid-php" : "^2.3.0",
         "jbzoo/utils"       : "^4.5.1",
 
-        "symfony/console"   : "^4.4|^5.0"
+        "symfony/console"   : ">=4.4"
     },
 
     "require-dev"  : {
         "jbzoo/toolbox-dev" : "^3.1.0",
-        "symfony/process"   : "^4.4|^5.0"
+        "symfony/process"   : ">=4.4"
     },
 
     "autoload"     : {
@@ -44,7 +44,10 @@
     "bin"          : ["composer-graph"],
 
     "config"       : {
-        "optimize-autoloader" : true
+        "optimize-autoloader" : true,
+        "allow-plugins"       : {
+            "composer/package-versions-deprecated" : true
+        }
     },
 
     "extra"        : {

@@ -19,7 +19,8 @@ namespace JBZoo\PHPUnit;
 
 use JBZoo\ComposerGraph\Collection;
 use JBZoo\ComposerGraph\ComposerGraph;
-use JBZoo\Utils\Sys;
+
+use JBZoo\Utils\Env;
 
 use function JBZoo\Data\json;
 
@@ -32,7 +33,7 @@ class GraphBuildTest extends AbstractGraphTest
 {
     public function testHelpInReadme()
     {
-        if (!Sys::isPHP('7.2')) {
+        if (Env::isExists('GITHUB_ACTIONS')) {
             skip('Old help text is different for different libs/php versions');
         }
 
