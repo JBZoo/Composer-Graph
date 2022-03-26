@@ -18,9 +18,11 @@ ifneq (, $(wildcard ./vendor/jbzoo/codestyle/src/init.Makefile))
 endif
 
 
+BOX_PHAR = https://github.com/box-project/box/releases/download/3.10.0/box.phar
+
 build: ##@Project Install all 3rd party dependencies
 	$(call title,"Install/Update all 3rd party dependencies")
-	@composer install --optimize-autoloader --no-progress
+	@rm -f `pwd`/vendor/bin/box.phar
 	@make build-phar
 
 
