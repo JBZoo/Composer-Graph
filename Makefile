@@ -20,6 +20,7 @@ endif
 
 build: ##@Project Install all 3rd party dependencies
 	$(call title,"Install/Update all 3rd party dependencies")
+	@composer install --optimize-autoloader --no-progress
 	@make build-phar
 
 
