@@ -2380,16 +2380,16 @@
         },
         {
             "name": "hassankhan/config",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hassankhan/config.git",
-                "reference": "a3f02c5158d0a772d242ffd377657793c08cc0c6"
+                "reference": "82421bb17d21cb0c10b98b89ea54aa4027adfc3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hassankhan/config/zipball/a3f02c5158d0a772d242ffd377657793c08cc0c6",
-                "reference": "a3f02c5158d0a772d242ffd377657793c08cc0c6",
+                "url": "https://api.github.com/repos/hassankhan/config/zipball/82421bb17d21cb0c10b98b89ea54aa4027adfc3f",
+                "reference": "82421bb17d21cb0c10b98b89ea54aa4027adfc3f",
                 "shasum": ""
             },
             "require": {
@@ -2437,9 +2437,9 @@
             ],
             "support": {
                 "issues": "https://github.com/hassankhan/config/issues",
-                "source": "https://github.com/hassankhan/config/tree/3.0.0"
+                "source": "https://github.com/hassankhan/config/tree/3.0.1"
             },
-            "time": "2021-12-30T16:38:05+00:00"
+            "time": "2022-03-26T19:37:50+00:00"
         },
         {
             "name": "jbzoo/ci-report-converter",
@@ -2531,16 +2531,16 @@
         },
         {
             "name": "jbzoo/codestyle",
-            "version": "3.3.1",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JBZoo/Codestyle.git",
-                "reference": "c3b3dac40287d5af38247c8e980efa9fdeca930c"
+                "reference": "cb6b2c7eb3e4e0d110edba28ac8d5ed5fbedcfd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Codestyle/zipball/c3b3dac40287d5af38247c8e980efa9fdeca930c",
-                "reference": "c3b3dac40287d5af38247c8e980efa9fdeca930c",
+                "url": "https://api.github.com/repos/JBZoo/Codestyle/zipball/cb6b2c7eb3e4e0d110edba28ac8d5ed5fbedcfd3",
+                "reference": "cb6b2c7eb3e4e0d110edba28ac8d5ed5fbedcfd3",
                 "shasum": ""
             },
             "require": {
@@ -2598,9 +2598,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JBZoo/Codestyle/issues",
-                "source": "https://github.com/JBZoo/Codestyle/tree/3.3.1"
+                "source": "https://github.com/JBZoo/Codestyle/tree/3.3.2"
             },
-            "time": "2022-01-18T14:33:16+00:00"
+            "time": "2022-03-26T19:42:41+00:00"
         },
         {
             "name": "jbzoo/composer-diff",
