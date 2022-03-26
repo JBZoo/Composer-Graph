@@ -28,40 +28,40 @@ env:
   TERM_PROGRAM: Hyper
 
 jobs:
-  phpunit-update:
-    name: PHPUnit (update)
-    runs-on: ubuntu-latest
-    env:
-      JBZOO_COMPOSER_UPDATE_FLAGS: ${{ matrix.composer_flags }}
-    strategy:
-      matrix:
-        php-version: [ 7.2, 7.3, 7.4, 8.0 ]
-        composer_flags: [ "--prefer-lowest", "" ]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          coverage: xdebug
-          tools: composer
-
-      - name: Build the Project
-        run: make update --no-print-directory
-
-      - name: 🧪 PHPUnit Tests
-        run: make test --no-print-directory
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        continue-on-error: true
-        with:
-          name: PHPUnit (update) - ${{ matrix.php-version }} - ${{ matrix.coverage }} - ${{ matrix.build-way }}
-          path: build/
+#  phpunit-update:
+#    name: PHPUnit (update)
+#    runs-on: ubuntu-latest
+#    env:
+#      JBZOO_COMPOSER_UPDATE_FLAGS: ${{ matrix.composer_flags }}
+#    strategy:
+#      matrix:
+#        php-version: [ 7.2, 7.3, 7.4, 8.0 ]
+#        composer_flags: [ "--prefer-lowest", "" ]
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Setup PHP
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: ${{ matrix.php-version }}
+#          coverage: xdebug
+#          tools: composer
+#
+#      - name: Build the Project
+#        run: make update --no-print-directory
+#
+#      - name: 🧪 PHPUnit Tests
+#        run: make test --no-print-directory
+#
+#      - name: Upload Artifacts
+#        uses: actions/upload-artifact@v2
+#        continue-on-error: true
+#        with:
+#          name: PHPUnit (update) - ${{ matrix.php-version }} - ${{ matrix.coverage }} - ${{ matrix.build-way }}
+#          path: build/
 
 
   phpunit-build:
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: [ 7.2, 7.3, 7.4 ]
+        php-version: [ 7.2, 7.3, 7.4, 8.0 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
