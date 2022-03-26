@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cc2340b26677a0fd0676d870a6b661a",
+    "content-hash": "9cda2fd8ae01e33e3da012304e96b71d",
     "packages": [
         {
             "name": "jbzoo/data",
@@ -2531,16 +2531,16 @@
         },
         {
             "name": "jbzoo/codestyle",
-            "version": "3.3.3",
+            "version": "3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JBZoo/Codestyle.git",
-                "reference": "05dd8936ce0f42ac6c470dba8dd38e094809418c"
+                "reference": "cc98f42a088e5a5ff52ba7ed7691f67db7c1c496"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Codestyle/zipball/05dd8936ce0f42ac6c470dba8dd38e094809418c",
-                "reference": "05dd8936ce0f42ac6c470dba8dd38e094809418c",
+                "url": "https://api.github.com/repos/JBZoo/Codestyle/zipball/cc98f42a088e5a5ff52ba7ed7691f67db7c1c496",
+                "reference": "cc98f42a088e5a5ff52ba7ed7691f67db7c1c496",
                 "shasum": ""
             },
             "require": {
@@ -2598,9 +2598,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JBZoo/Codestyle/issues",
-                "source": "https://github.com/JBZoo/Codestyle/tree/3.3.3"
+                "source": "https://github.com/JBZoo/Codestyle/tree/3.3.4"
             },
-            "time": "2022-03-26T19:57:01+00:00"
+            "time": "2022-03-26T20:25:53+00:00"
         },
         {
             "name": "jbzoo/composer-diff",
@@ -6588,7 +6588,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2|^8.0"
+        "php": ">=7.2"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"
