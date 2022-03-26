@@ -35,7 +35,7 @@ jobs:
       JBZOO_COMPOSER_UPDATE_FLAGS: ${{ matrix.composer_flags }}
     strategy:
       matrix:
-        php-version: [ 7.4, 8.0 ]
+        php-version: [ 7.4, 8.0, 8.1 ]
         composer_flags: [ "--prefer-lowest", "" ]
     steps:
       - name: Checkout code
@@ -64,42 +64,42 @@ jobs:
           path: build/
 
 
-  phpunit-build:
-    name: PHPUnit (build)
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php-version: [ 7.2, 7.3, 7.4, 8.0 ]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          coverage: xdebug
-          tools: composer
-
-      - name: Build the Project
-        run: make build --no-print-directory
-
-      - name: 🧪 PHPUnit Tests
-        run: make test --no-print-directory
-
-      - name: Uploading coverage to coveralls
-        env:
-            COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: make report-coveralls --no-print-directory
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        continue-on-error: true
-        with:
-          name: PHPUnit (build) - ${{ matrix.php-version }} - ${{ matrix.coverage }} - ${{ matrix.build-way }}
-          path: build/
+#  phpunit-build:
+#    name: PHPUnit (build)
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        php-version: [ 7.2, 7.3, 7.4, 8.0 ]
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Setup PHP
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: ${{ matrix.php-version }}
+#          coverage: xdebug
+#          tools: composer
+#
+#      - name: Build the Project
+#        run: make build --no-print-directory
+#
+#      - name: 🧪 PHPUnit Tests
+#        run: make test --no-print-directory
+#
+#      - name: Uploading coverage to coveralls
+#        env:
+#            COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: make report-coveralls --no-print-directory
+#
+#      - name: Upload Artifacts
+#        uses: actions/upload-artifact@v2
+#        continue-on-error: true
+#        with:
+#          name: PHPUnit (build) - ${{ matrix.php-version }} - ${{ matrix.coverage }} - ${{ matrix.build-way }}
+#          path: build/
 
 
   linters:
