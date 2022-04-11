@@ -49,35 +49,35 @@ prepare-one-example:
 	@php `pwd`/composer-graph                                     \
         --root="$(TEST_PATH)"                                     \
         --output="$(PATH_BUILD)/$(OUTPUT)-minimal.html"           \
-        -vvv
+        -vvv --profile
 	@php `pwd`/composer-graph                                     \
         --root="$(TEST_PATH)"                                     \
         --output="$(PATH_BUILD)/$(OUTPUT)-extensions.html"        \
         --show-ext                                                \
-        -vvv
+        -vvv --profile
 	@php `pwd`/composer-graph                                     \
         --root="$(TEST_PATH)"                                     \
         --output="$(PATH_BUILD)/$(OUTPUT)-versions.html"          \
         --show-link-versions                                      \
         --show-package-versions                                   \
-        -vvv
+        -vvv --profile
 	@php `pwd`/composer-graph                                     \
         --root="$(TEST_PATH)"                                     \
         --output="$(PATH_BUILD)/$(OUTPUT)-suggests.html"          \
         --show-suggests                                           \
-        -vvv
+        -vvv --profile
 	@php `pwd`/composer-graph                                     \
         --root="$(TEST_PATH)"                                     \
         --output="$(PATH_BUILD)/$(OUTPUT)-suggests-versions.html" \
         --show-link-versions                                      \
         --show-package-versions                                   \
         --show-suggests                                           \
-        -vvv
+        -vvv --profile
 	@php `pwd`/composer-graph                                     \
         --root="$(TEST_PATH)"                                     \
         --output="$(PATH_BUILD)/$(OUTPUT)-dev.html"               \
         --show-dev                                                \
-        -vvv
+        -vvv --profile
 	@php `pwd`/composer-graph                                     \
         --root="$(TEST_PATH)"                                     \
         --output="$(PATH_BUILD)/$(OUTPUT)-full-without-php.html"  \
@@ -86,4 +86,4 @@ prepare-one-example:
         --show-suggests                                           \
         --show-link-versions                                      \
         --show-package-versions                                   \
-        -vvv
+        -vvv --profile

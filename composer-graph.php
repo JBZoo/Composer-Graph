@@ -15,10 +15,11 @@
 
 declare(strict_types=1);
 
-use JBZoo\ComposerGraph\CommandBuild;
-use Symfony\Component\Console\Application;
+namespace JBZoo\ComposerGraph;
 
-define('PATH_ROOT', __DIR__);
+use JBZoo\Cli\CliApplication;
+
+const PATH_ROOT = __DIR__;
 
 $vendorPaths = [
     __DIR__ . '/../../autoload.php',
@@ -27,15 +28,15 @@ $vendorPaths = [
 ];
 
 foreach ($vendorPaths as $file) {
-    if (file_exists($file)) {
-        define('JBZOO_COMPOSER_GRAPH', $file);
+    if (\file_exists($file)) {
+        \define('JBZOO_AUTOLOAD_FILE', $file);
         break;
     }
 }
 
-require JBZOO_COMPOSER_GRAPH;
+require_once JBZOO_AUTOLOAD_FILE;
 
-$application = new Application('JBZoo/Composer-Graph', '@git-version@');
-$application->add(new CommandBuild());
+$application = new CliApplication('JBZoo/CI-Report-Converter', '@git-version@');
+$application->registerCommandsByPath(__DIR__ . '/src/Commands', __NAMESPACE__);
 $application->setDefaultCommand('build');
 $application->run();

@@ -15,36 +15,25 @@
 
 declare(strict_types=1);
 
-namespace JBZoo\ComposerGraph;
+namespace JBZoo\ComposerGraph\Commands;
 
+use JBZoo\Cli\CliCommand;
+use JBZoo\Cli\Codes;
+use JBZoo\Cli\Helper;
+use JBZoo\ComposerGraph\Collection;
+use JBZoo\ComposerGraph\ComposerGraph;
 use JBZoo\Data\JSON;
 use JBZoo\MermaidPHP\Graph;
-use JBZoo\Utils\Sys;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 
 use function JBZoo\Data\json;
 
 /**
- * Class CommandBuild
- * @package JBZoo\ComposerGraph
+ * Class Build
+ * @package JBZoo\ComposerGraph\Commands
  */
-class CommandBuild extends Command
+class Build extends CliCommand
 {
-    /**
-     * @var InputInterface
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
-    private $input;
-
-    /**
-     * @var OutputInterface
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
-    private $output;
-
     /**
      * @inheritDoc
      */
@@ -80,19 +69,16 @@ class CommandBuild extends Command
             ->addOption('show-package-versions', 'P', $none, 'Show version of packages')
             ->addOption('abc-order', 'O', $none, 'Strict ABC ordering nodes in graph. ' .
                 "It's fine tuning, sometimes it useful.");
+
+        parent::configure();
     }
 
     /**
      * @inheritDoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function executeAction(): int
     {
-        $startTimer = \microtime(true);
-
-        $this->input = $input;
-        $this->output = $output;
-
-        $format = $input->getOption('format');
+        $format = $this->getOptString('format');
 
         [$composerJson, $composerLock] = $this->getJsonData();
         $vendorDir = $this->findVendorDir($composerJson);
@@ -100,34 +86,27 @@ class CommandBuild extends Command
         $composerGraph = new ComposerGraph(
             new Collection($composerJson, $composerLock, $vendorDir),
             [
-                'direction'    => $input->getOption('direction') ?: Graph::LEFT_RIGHT,
-                'php'          => $input->getOption('show-php'),
-                'ext'          => $input->getOption('show-ext'),
-                'dev'          => $input->getOption('show-dev'),
-                'suggest'      => $input->getOption('show-suggests'),
-                'link-version' => $input->getOption('show-link-versions'),
-                'lib-version'  => $input->getOption('show-package-versions'),
+                'direction'    => $this->getOptString('direction') ?: Graph::LEFT_RIGHT,
+                'php'          => $this->getOptBool('show-php'),
+                'ext'          => $this->getOptBool('show-ext'),
+                'dev'          => $this->getOptBool('show-dev'),
+                'suggest'      => $this->getOptBool('show-suggests'),
+                'link-version' => $this->getOptBool('show-link-versions'),
+                'lib-version'  => $this->getOptBool('show-package-versions'),
                 'format'       => $format,
-                'output-path'  => $input->getOption('output'),
-                'abc-order'    => $input->getOption('abc-order'),
+                'output-path'  => $this->getOptString('output'),
+                'abc-order'    => $this->getOptBool('abc-order'),
             ]
         );
 
         $result = $composerGraph->build();
         if (ComposerGraph::FORMAT_HTML === $format) {
-            $output->writeln("Report is ready: <info>{$result}</info>");
+            $this->_("Report is ready: <info>{$result}</info>");
         } else {
-            $output->writeln($result);
+            $this->_($result);
         }
 
-        $totalTime = \number_format(\microtime(true) - $startTimer, 2);
-        $maxMemory = Sys::getMemory();
-
-        if ($output->isDebug()) {
-            $output->writeln("Time: <info>{$totalTime} sec</info>; Peak Memory: <info>{$maxMemory}</info>;\n");
-        }
-
-        return 0;
+        return Codes::OK;
     }
 
     /**
@@ -135,9 +114,7 @@ class CommandBuild extends Command
      */
     private function getRootPath(): string
     {
-        /** @var string $origRootPath */
-        $origRootPath = $this->input->getOption('root');
-
+        $origRootPath = $this->getOptString('root');
         $realRootPath = \realpath($origRootPath);
 
         // Validate root path
@@ -166,10 +143,7 @@ class CommandBuild extends Command
             throw new Exception("The file \"{$composerJsonPath}\" is empty");
         }
 
-        if ($this->output->isDebug()) {
-            $this->output->writeln("Composer JSON file found: <info>{$composerJsonPath}</info>");
-        }
-
+        $this->_("Composer JSON file found: <info>{$composerJsonPath}</info>", Helper::VERB_DEBUG);
 
         // Validate "composer.lock" path and file
         $composerLockPath = "{$realRootPath}/composer.lock";
@@ -182,10 +156,7 @@ class CommandBuild extends Command
             throw new Exception("The file \"{$composerLockPath}\" is empty");
         }
 
-        if ($this->output->isDebug()) {
-            $this->output->writeln("Composer JSON file found: <info>{$composerLockPath}</info>");
-        }
-
+        $this->_("Composer LOCK file found: <info>{$composerLockPath}</info>", Helper::VERB_DEBUG);
 
         return [$composerJson, $composerLock];
     }
