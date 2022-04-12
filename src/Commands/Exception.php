@@ -15,16 +15,12 @@
 
 declare(strict_types=1);
 
-$default = include __DIR__ . '/vendor/jbzoo/codestyle/src/phan/default.php';
+namespace JBZoo\ComposerGraph\Commands;
 
-return array_merge($default, [
-    'directory_list' => [
-        'src',
-
-        'vendor/jbzoo/cli/src',
-        'vendor/jbzoo/data/src',
-        'vendor/jbzoo/utils/src',
-        'vendor/jbzoo/mermaid-php/src',
-        'vendor/symfony/console',
-    ]
-]);
+/**
+ * Class Exception
+ * @package JBZoo\ComposerGraph\Commands
+ */
+class Exception extends \JBZoo\ComposerGraph\Exception
+{
+}

@@ -35,6 +35,13 @@ Options:
   -l, --show-link-versions     Show version requirements in links
   -P, --show-package-versions  Show version of packages
   -O, --abc-order              Strict ABC ordering nodes in graph. It's fine tuning, sometimes it useful.
+      --no-progress            Disable progress bar animation for logs
+      --mute-errors            Mute any sort of errors. So exit code will be always "0" (if it's possible).
+                               It has major priority then --non-zero-on-error. It's on your own risk!
+      --stdout-only            For any errors messages application will use StdOut instead of StdErr. It's on your own risk!
+      --non-zero-on-error      None-zero exit code on any StdErr message
+      --timestamp              Show timestamp at the beginning of each message
+      --profile                Display timing and memory usage information
   -h, --help                   Display help for the given command. When no command is given display help for the build command
   -q, --quiet                  Do not output any message
   -V, --version                Display this application version

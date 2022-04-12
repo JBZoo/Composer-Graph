@@ -17,7 +17,9 @@ declare(strict_types=1);
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\Cli\CliApplication;
 use JBZoo\ComposerGraph\CommandBuild;
+use JBZoo\ComposerGraph\Commands\Build;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Str;
 use JBZoo\Utils\Sys;
@@ -71,8 +73,8 @@ abstract class AbstractGraphTest extends PHPUnit
     {
         $params['--no-ansi'] = null;
 
-        $application = new Application();
-        $application->add(new CommandBuild());
+        $application = new CliApplication();
+        $application->add(new Build());
         $application->setDefaultCommand('build');
         $command = $application->find('build');
 
