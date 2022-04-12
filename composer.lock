@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "962313b12f8ff475839c1a40d2aff3e4",
+    "content-hash": "2f7d03fa32d2ca9b3694d29274c56a5d",
     "packages": [
         {
             "name": "bluepsyduck/symfony-process-manager",
@@ -65,16 +65,16 @@
         },
         {
             "name": "jbzoo/cli",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JBZoo/Cli.git",
-                "reference": "cdc37cf69e94fcbfb92267983810754e796b1e08"
+                "reference": "127e077f89e0a6bf165345a9b31adf28e7984aab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Cli/zipball/cdc37cf69e94fcbfb92267983810754e796b1e08",
-                "reference": "cdc37cf69e94fcbfb92267983810754e796b1e08",
+                "url": "https://api.github.com/repos/JBZoo/Cli/zipball/127e077f89e0a6bf165345a9b31adf28e7984aab",
+                "reference": "127e077f89e0a6bf165345a9b31adf28e7984aab",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,6 @@
             "require-dev": {
                 "jbzoo/toolbox-dev": "^3.3.1"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -130,9 +129,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JBZoo/Cli/issues",
-                "source": "https://github.com/JBZoo/Cli/tree/master"
+                "source": "https://github.com/JBZoo/Cli/tree/1.0.0"
             },
-            "time": "2022-04-12T17:06:15+00:00"
+            "time": "2022-04-12T18:00:08+00:00"
         },
         {
             "name": "jbzoo/data",
@@ -2990,22 +2989,23 @@
         },
         {
             "name": "jbzoo/composer-diff",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JBZoo/Composer-Diff.git",
-                "reference": "e7057b08720db5ca4005dca6c999161c5711f830"
+                "reference": "c3f51933f6671f6a3e7880f8a31cf8f54fd0e8a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Composer-Diff/zipball/e7057b08720db5ca4005dca6c999161c5711f830",
-                "reference": "e7057b08720db5ca4005dca6c999161c5711f830",
+                "url": "https://api.github.com/repos/JBZoo/Composer-Diff/zipball/c3f51933f6671f6a3e7880f8a31cf8f54fd0e8a9",
+                "reference": "c3f51933f6671f6a3e7880f8a31cf8f54fd0e8a9",
                 "shasum": ""
             },
             "require": {
                 "composer/semver": ">=1.0",
                 "ext-filter": "*",
                 "ext-json": "*",
+                "jbzoo/cli": "^1.0.0",
                 "jbzoo/data": "^4.3.0",
                 "jbzoo/markdown": "^1.1.0",
                 "php": ">=7.2",
@@ -3013,6 +3013,7 @@
                 "symfony/process": ">=4.4"
             },
             "require-dev": {
+                "composer/composer": "^1.1 || ^2.0",
                 "jbzoo/toolbox-dev": "^3.2.0",
                 "roave/security-advisories": "dev-master"
             },
@@ -3058,9 +3059,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JBZoo/Composer-Diff/issues",
-                "source": "https://github.com/JBZoo/Composer-Diff/tree/1.6.0"
+                "source": "https://github.com/JBZoo/Composer-Diff/tree/1.7.0"
             },
-            "time": "2022-01-18T13:21:58+00:00"
+            "time": "2022-04-12T18:16:41+00:00"
         },
         {
             "name": "jbzoo/jbdump",
@@ -6858,9 +6859,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "jbzoo/cli": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

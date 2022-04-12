@@ -17,9 +17,9 @@ declare(strict_types=1);
 
 namespace JBZoo\ComposerGraph\Commands;
 
-use JBZoo\Cli\Cli;
 use JBZoo\Cli\CliCommand;
 use JBZoo\Cli\Codes;
+use JBZoo\Cli\OutLvl;
 use JBZoo\ComposerGraph\Collection;
 use JBZoo\ComposerGraph\ComposerGraph;
 use JBZoo\Data\JSON;
@@ -143,7 +143,7 @@ class Build extends CliCommand
             throw new Exception("The file \"{$composerJsonPath}\" is empty");
         }
 
-        $this->_("Composer JSON file found: <info>{$composerJsonPath}</info>", Cli::DEBUG);
+        $this->_("Composer JSON file found: <info>{$composerJsonPath}</info>", OutLvl::DEBUG);
 
         // Validate "composer.lock" path and file
         $composerLockPath = "{$realRootPath}/composer.lock";
@@ -156,7 +156,7 @@ class Build extends CliCommand
             throw new Exception("The file \"{$composerLockPath}\" is empty");
         }
 
-        $this->_("Composer LOCK file found: <info>{$composerLockPath}</info>", Cli::DEBUG);
+        $this->_("Composer LOCK file found: <info>{$composerLockPath}</info>", OutLvl::DEBUG);
 
         return [$composerJson, $composerLock];
     }
