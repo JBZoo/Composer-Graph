@@ -69,12 +69,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JBZoo/Cli.git",
-                "reference": "ae82049d30e6fa2019344b71055b18b49365b39f"
+                "reference": "cdc37cf69e94fcbfb92267983810754e796b1e08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Cli/zipball/ae82049d30e6fa2019344b71055b18b49365b39f",
-                "reference": "ae82049d30e6fa2019344b71055b18b49365b39f",
+                "url": "https://api.github.com/repos/JBZoo/Cli/zipball/cdc37cf69e94fcbfb92267983810754e796b1e08",
+                "reference": "cdc37cf69e94fcbfb92267983810754e796b1e08",
                 "shasum": ""
             },
             "require": {
@@ -97,6 +97,9 @@
                 }
             },
             "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
                 "psr-4": {
                     "JBZoo\\Cli\\": "src"
                 }
@@ -129,7 +132,7 @@
                 "issues": "https://github.com/JBZoo/Cli/issues",
                 "source": "https://github.com/JBZoo/Cli/tree/master"
             },
-            "time": "2022-04-11T21:48:32+00:00"
+            "time": "2022-04-12T17:06:15+00:00"
         },
         {
             "name": "jbzoo/data",
