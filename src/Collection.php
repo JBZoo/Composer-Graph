@@ -30,22 +30,22 @@ class Collection
     /**
      * @var JSON
      */
-    private $composerFile;
+    private JSON $composerFile;
 
     /**
      * @var JSON
      */
-    private $lockFile;
+    private JSON $lockFile;
 
     /**
      * @var Package[]
      */
-    private $collection = [];
+    private array $collection = [];
 
     /**
      * @var string|null
      */
-    private $vendorDir;
+    private ?string $vendorDir;
 
     /**
      * Collection constructor.

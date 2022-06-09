@@ -36,32 +36,32 @@ class Package
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      */
-    private $version = '*';
+    private string $version = '*';
 
     /**
      * @var array
      */
-    private $required = [];
+    private array $required = [];
 
     /**
      * @var array
      */
-    private $requiredDev = [];
+    private array $requiredDev = [];
 
     /**
      * @var array
      */
-    private $suggests = [];
+    private array $suggests = [];
 
     /**
      * @var array
      */
-    private $tags = [];
+    private array $tags = [];
 
     /**
      * Package constructor.
@@ -75,8 +75,8 @@ class Package
         if (
             \strpos($this->name, '/') === false &&
             (
-                \preg_match("#^ext-[a-z0-9]*#", $this->name) ||
-                \preg_match("#^lib-[a-z0-9]*#", $this->name)
+                \preg_match("#^ext-[a-z\d]*#", $this->name) ||
+                \preg_match("#^lib-[a-z\d]*#", $this->name)
             )
         ) {
             $this->addTags([self::EXT, self::HAS_META]);
