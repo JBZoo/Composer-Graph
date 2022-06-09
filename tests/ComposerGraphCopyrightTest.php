@@ -26,7 +26,6 @@ class ComposerGraphCopyrightTest extends AbstractCopyrightTest
     /**
      * @var string
      */
-    protected $packageName = 'Composer-Graph';
-
+    protected $packageName     = 'Composer-Graph';
     protected $isPhpStrictType = true;
 }

@@ -23,7 +23,6 @@ use JBZoo\ComposerGraph\Commands\Build;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Str;
 use JBZoo\Utils\Sys;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 

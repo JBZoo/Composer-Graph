@@ -107,7 +107,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: [ 7.2, 7.3, 7.4, 8.0 ]
+        php-version: [ 7.4, 8.0, 8.1 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -118,8 +118,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: ast
           tools: composer
+          extensions: ast
 
       - name: Build the Project
         run: make update --no-print-directory
@@ -140,7 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: [ 7.2, 7.3, 7.4, 8.0 ]
+        php-version: [ 7.4, 8.0, 8.1 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

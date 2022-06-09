@@ -24,18 +24,5 @@ namespace JBZoo\PHPUnit;
  */
 class ComposerGraphReadmeTest extends AbstractReadmeTest
 {
-    protected $packageName = 'Composer-Graph';
-
-    /**
-     * @inheritDoc
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->params['scrutinizer'] = true;
-        $this->params['codefactor'] = true;
-        $this->params['strict_types'] = true;
-        $this->params['travis'] = false;
-    }
+    protected string $packageName = 'Composer-Graph';
 }

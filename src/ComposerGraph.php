@@ -38,47 +38,47 @@ class ComposerGraph
     /**
      * @var Graph
      */
-    private $graphWrapper;
+    private Graph $graphWrapper;
 
     /**
      * @var Graph
      */
-    private $graphMain;
+    private Graph $graphMain;
 
     /**
      * @var Graph
      */
-    private $graphRequire;
+    private Graph $graphRequire;
 
     /**
      * @var Graph
      */
-    private $graphDev;
+    private Graph $graphDev;
 
     /**
      * @var Graph
      */
-    private $graphPlatform;
+    private Graph $graphPlatform;
 
     /**
      * @var Collection
      */
-    private $collection;
+    private Collection $collection;
 
     /**
      * @var string[]
      */
-    private $createdLinks = [];
+    private array $createdLinks = [];
 
     /**
      * @var array
      */
-    private $renderedNodes = [];
+    private array $renderedNodes = [];
 
     /**
      * @var Data
      */
-    protected $params;
+    protected Data $params;
 
     /**
      * ComposerGraph constructor.
@@ -248,9 +248,10 @@ class ComposerGraph
 
             $main = $this->collection->getMain();
             $htmlDir = \dirname($htmlPath);
-            if (!\is_dir($htmlDir)) {
-                \mkdir($htmlDir, 0755, true);
+            if (!\is_dir($htmlDir) && !\mkdir($htmlDir, 0755, true) && !\is_dir($htmlDir)) {
+                throw new \RuntimeException("Directory \"{$htmlDir}\" was not created");
             }
+
             \file_put_contents($htmlPath, $this->graphWrapper->renderHtml([
                 'version' => '8.6.0',
                 'title'   => $main->getName() . ' - Graph of Dependencies' . $titlePostfix,
