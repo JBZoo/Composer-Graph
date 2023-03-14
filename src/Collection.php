@@ -93,8 +93,8 @@ class Collection
                 $require = (array)$package->get('require');
                 $suggest = (array)$package->get('suggest');
 
-                $version = $package->get('version');
-                $version = $package->find("extra.branch-alias.{$version}") ?: $version;
+                $version = $package->getString('version');
+                $version = $package->findString("extra.branch-alias.{$version}", $version);
 
                 $this->add((string)$package->get('name'), [
                     'version' => $version,

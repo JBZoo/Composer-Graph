@@ -81,7 +81,7 @@ class Build extends CliCommand
         $composerGraph = new ComposerGraph(
             new Collection($composerJson, $composerLock, $vendorDir),
             [
-                'direction'    => $this->getOptString('direction') ?: Graph::LEFT_RIGHT,
+                'direction'    => $this->getOptString('direction'),
                 'php'          => $this->getOptBool('show-php'),
                 'ext'          => $this->getOptBool('show-ext'),
                 'dev'          => $this->getOptBool('show-dev'),

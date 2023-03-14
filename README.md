@@ -42,6 +42,7 @@ Options:
       --non-zero-on-error      None-zero exit code on any StdErr message
       --timestamp              Show timestamp at the beginning of each message
       --profile                Display timing and memory usage information
+      --cron                   Shortcut for crontab. It's basically focused on logs output. It's combination of --timestamp --profile --stdout-only --no-progress -vv
   -h, --help                   Display help for the given command. When no command is given display help for the build command
   -q, --quiet                  Do not output any message
   -V, --version                Display this application version
