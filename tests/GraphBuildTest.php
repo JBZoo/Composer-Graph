@@ -18,19 +18,13 @@ namespace JBZoo\PHPUnit;
 
 use JBZoo\ComposerGraph\Collection;
 use JBZoo\ComposerGraph\ComposerGraph;
-
 use JBZoo\Utils\Env;
 
 use function JBZoo\Data\json;
 
-/**
- * Class GraphBuildTest
- *
- * @package JBZoo\PHPUnit
- */
 class GraphBuildTest extends AbstractGraphTest
 {
-    public function testHelpInReadme()
+    public function testHelpInReadme(): void
     {
         if (Env::isExists('GITHUB_ACTIONS')) {
             skip('Old help text is different for different libs/php versions');
@@ -41,9 +35,9 @@ class GraphBuildTest extends AbstractGraphTest
         isFileContains("```\n$ php ./vendor/bin/composer-graph --help\n\n{$result}\n```", PROJECT_ROOT . '/README.md');
     }
 
-    public function testEmpty()
+    public function testEmpty(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    subgraph "Your Package"',
             '    end',
@@ -57,9 +51,9 @@ class GraphBuildTest extends AbstractGraphTest
         ], __FUNCTION__));
     }
 
-    public function testSimpleDeps()
+    public function testSimpleDeps(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    test__main == "4.0.x-dev" ==> jbzoo__assets;',
             '',
@@ -79,9 +73,9 @@ class GraphBuildTest extends AbstractGraphTest
         ], __FUNCTION__));
     }
 
-    public function testNestedReq()
+    public function testNestedReq(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__assets-->|"4.0.x-dev"|jbzoo__data;',
             '    jbzoo__assets-->|">=7.2"|PHP;',
@@ -110,9 +104,9 @@ class GraphBuildTest extends AbstractGraphTest
         ], __FUNCTION__));
     }
 
-    public function testJBZooToolbox()
+    public function testJBZooToolbox(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    2bj__phanybar-->|">=5.3.0"|PHP;',
             '    amphp__amp-->|">=7"|PHP;',
@@ -628,8 +622,8 @@ class GraphBuildTest extends AbstractGraphTest
             '        PHP("PHP");',
             '    end',
         ]), $this->buildGraph([
-            'show-php'              => null,
-            //'show-ext'           => null,
+            'show-php' => null,
+            // 'show-ext'           => null,
             'show-dev'              => null,
             'show-suggests'         => null,
             'show-package-versions' => null,
@@ -637,9 +631,9 @@ class GraphBuildTest extends AbstractGraphTest
         ], __FUNCTION__));
     }
 
-    public function testJBZooToolboxNoDev()
+    public function testJBZooToolboxNoDev(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    guzzlehttp__guzzle-->ext_json;',
             '    guzzlehttp__guzzle-->|"^1.0"|guzzlehttp__promises;',
@@ -750,9 +744,9 @@ class GraphBuildTest extends AbstractGraphTest
         ], 'testJBZooToolbox'));
     }
 
-    public function testRealProject()
+    public function testRealProject(): void
     {
-        $excepted = implode("\n", [
+        $excepted = \implode("\n", [
             'graph LR;',
             '    amphp__byte_stream-->amphp__amp;',
             '    codedungeon__phpunit_result_printer-->2bj__phanybar;',
@@ -1171,9 +1165,9 @@ class GraphBuildTest extends AbstractGraphTest
         isSame($excepted, $result);
     }
 
-    public function testRealProjectMinimal()
+    public function testRealProjectMinimal(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__assets-->jbzoo__data;',
             '    jbzoo__assets-->jbzoo__less;',
@@ -1215,9 +1209,9 @@ class GraphBuildTest extends AbstractGraphTest
         ]), $this->buildGraph([], 'testRealProject'));
     }
 
-    public function testRealProjectMinimalWithSuggestions()
+    public function testRealProjectMinimalWithSuggestions(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    guzzlehttp__guzzle-->guzzlehttp__promises;',
             '    guzzlehttp__guzzle-->guzzlehttp__psr7;',
@@ -1300,9 +1294,9 @@ class GraphBuildTest extends AbstractGraphTest
         ], 'testJBZooToolbox'));
     }
 
-    public function testJBZooToolboxMinimal()
+    public function testJBZooToolboxMinimal(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    guzzlehttp__guzzle-->guzzlehttp__promises;',
             '    guzzlehttp__guzzle-->guzzlehttp__psr7;',

@@ -27,19 +27,15 @@ use Symfony\Component\Console\Input\InputOption;
 
 use function JBZoo\Data\json;
 
-/**
- * Class Build
- * @package JBZoo\ComposerGraph\Commands
- */
 class Build extends CliCommand
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function configure(): void
     {
         $required = InputOption::VALUE_REQUIRED;
-        $none = InputOption::VALUE_NONE;
+        $none     = InputOption::VALUE_NONE;
 
         if (!\defined('\IS_PHPUNIT_TEST')) {
             \define('\IS_PHPUNIT_TEST', false);
@@ -51,15 +47,15 @@ class Build extends CliCommand
                 '"composer.json" and "composer.lock" files', './')
             ->addOption('output', 'o', $required, 'Path to html output.', './build/composer-graph.html')
             ->addOption('format', 'f', $required, 'Output format. Available options: <info>' . \implode(',', [
-                    ComposerGraph::FORMAT_HTML,
-                    ComposerGraph::FORMAT_MERMAID,
-                ]) . '</info>', ComposerGraph::FORMAT_HTML)
+                ComposerGraph::FORMAT_HTML,
+                ComposerGraph::FORMAT_MERMAID,
+            ]) . '</info>', ComposerGraph::FORMAT_HTML)
             ->addOption('direction', 'D', $required, 'Direction of graph. Available options: <info>' . \implode(',', [
-                    Graph::LEFT_RIGHT,
-                    Graph::TOP_BOTTOM,
-                    Graph::BOTTOM_TOP,
-                    Graph::RIGHT_LEFT,
-                ]) . '</info>', Graph::LEFT_RIGHT)
+                Graph::LEFT_RIGHT,
+                Graph::TOP_BOTTOM,
+                Graph::BOTTOM_TOP,
+                Graph::RIGHT_LEFT,
+            ]) . '</info>', Graph::LEFT_RIGHT)
             ->addOption('show-php', 'p', $none, 'Show PHP-node')
             ->addOption('show-ext', 'e', $none, 'Show all ext-* nodes (PHP modules)')
             ->addOption('show-dev', 'd', $none, 'Show all dev dependencies')
@@ -73,14 +69,14 @@ class Build extends CliCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function executeAction(): int
     {
         $format = $this->getOptString('format');
 
         [$composerJson, $composerLock] = $this->getJsonData();
-        $vendorDir = $this->findVendorDir($composerJson);
+        $vendorDir                     = $this->findVendorDir($composerJson);
 
         $composerGraph = new ComposerGraph(
             new Collection($composerJson, $composerLock, $vendorDir),
@@ -95,11 +91,11 @@ class Build extends CliCommand
                 'format'       => $format,
                 'output-path'  => $this->getOptString('output'),
                 'abc-order'    => $this->getOptBool('abc-order'),
-            ]
+            ],
         );
 
         $result = $composerGraph->build();
-        if (ComposerGraph::FORMAT_HTML === $format) {
+        if ($format === ComposerGraph::FORMAT_HTML) {
             $this->_("Report is ready: <info>{$result}</info>");
         } else {
             $this->_($result);
@@ -108,9 +104,6 @@ class Build extends CliCommand
         return Codes::OK;
     }
 
-    /**
-     * @return string
-     */
     private function getRootPath(): string
     {
         $origRootPath = $this->getOptString('root');
@@ -160,10 +153,6 @@ class Build extends CliCommand
         return [$composerJson, $composerLock];
     }
 
-    /**
-     * @param JSON $composerJson
-     * @return string|null
-     */
     private function findVendorDir(JSON $composerJson): ?string
     {
         $realRootPath = $this->getRootPath();

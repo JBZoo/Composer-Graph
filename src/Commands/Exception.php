@@ -16,10 +16,6 @@ declare(strict_types=1);
 
 namespace JBZoo\ComposerGraph\Commands;
 
-/**
- * Class Exception
- * @package JBZoo\ComposerGraph\Commands
- */
 class Exception extends \JBZoo\ComposerGraph\Exception
 {
 }

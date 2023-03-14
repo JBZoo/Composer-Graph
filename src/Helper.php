@@ -18,16 +18,11 @@ namespace JBZoo\ComposerGraph;
 
 use JBZoo\Utils\Cli;
 
-/**
- * Class Helper
- * @package JBZoo\ComposerGraph
- */
 class Helper
 {
     public const HASH_LENGTH = 7;
 
     /**
-     * @return string|null
      * @codeCoverageIgnore
      * @phan-suppress PhanUnusedVariableCaughtException
      */

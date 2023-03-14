@@ -18,12 +18,12 @@ namespace JBZoo\ComposerGraph;
 
 use JBZoo\Cli\CliApplication;
 
-define('PATH_ROOT', __DIR__);
+\define('PATH_ROOT', __DIR__);
 
 $vendorPaths = [
     __DIR__ . '/../../autoload.php',
     __DIR__ . '/../vendor/autoload.php',
-    __DIR__ . '/vendor/autoload.php'
+    __DIR__ . '/vendor/autoload.php',
 ];
 
 foreach ($vendorPaths as $file) {

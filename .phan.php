@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 $default = include __DIR__ . '/vendor/jbzoo/codestyle/src/phan/default.php';
 
-return array_merge($default, [
+return \array_merge($default, [
     'directory_list' => [
         'src',
 
@@ -25,5 +25,5 @@ return array_merge($default, [
         'vendor/jbzoo/utils/src',
         'vendor/jbzoo/mermaid-php/src',
         'vendor/symfony/console',
-    ]
+    ],
 ]);

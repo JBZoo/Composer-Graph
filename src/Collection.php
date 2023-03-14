@@ -20,43 +20,22 @@ use JBZoo\Data\JSON;
 
 use function JBZoo\Data\json;
 
-/**
- * Class Collection
- * @package JBZoo\ComposerGraph
- */
 class Collection
 {
-    /**
-     * @var JSON
-     */
     private JSON $composerFile;
 
-    /**
-     * @var JSON
-     */
     private JSON $lockFile;
 
-    /**
-     * @var Package[]
-     */
+    /** @var Package[] */
     private array $collection = [];
 
-    /**
-     * @var string|null
-     */
     private ?string $vendorDir;
 
-    /**
-     * Collection constructor.
-     * @param JSON        $composerFile
-     * @param JSON        $lockFile
-     * @param string|null $vendorDir
-     */
     public function __construct(JSON $composerFile, JSON $lockFile, ?string $vendorDir = null)
     {
         $this->composerFile = $composerFile;
-        $this->lockFile = $lockFile;
-        $this->vendorDir = $vendorDir;
+        $this->lockFile     = $lockFile;
+        $this->vendorDir    = $vendorDir;
 
         $this->buildCollection();
     }
@@ -67,12 +46,12 @@ class Collection
      */
     public function buildCollection(): void
     {
-        // @phpstan-ignore-next-line
-        $istTest = \defined('\IS_PHPUNIT_TEST') && \IS_PHPUNIT_TEST;
+        /** @phpstan-ignore-next-line */
+        $istTest = \defined('\IS_PHPUNIT_TEST') && IS_PHPUNIT_TEST;
 
         $this->add('php', [
             'version' => $istTest ? null : \PHP_VERSION,
-            'tags'    => [Package::PHP, Package::HAS_META]
+            'tags'    => [Package::PHP, Package::HAS_META],
         ]);
 
         $this->add((string)$this->composerFile->get('name'), [
@@ -80,20 +59,23 @@ class Collection
             'require'     => $this->composerFile->get('require'),
             'require-dev' => $this->composerFile->get('require-dev'),
             'suggest'     => $this->composerFile->get('suggest'),
-            'tags'        => [Package::MAIN, Package::HAS_META]
+            'tags'        => [Package::MAIN, Package::HAS_META],
         ]);
 
         $mainRequire = \array_keys((array)$this->composerFile->get('require'));
+
         foreach ($mainRequire as $package) {
             $this->add((string)$package, ['tags' => [Package::DIRECT]]);
         }
 
         $mainRequireDev = \array_keys((array)$this->composerFile->get('require-dev'));
+
         foreach ($mainRequireDev as $packageDev) {
             $this->add((string)$packageDev, ['tags' => [Package::DIRECT]]);
         }
 
         $mainSuggest = \array_keys((array)$this->composerFile->get('suggest'));
+
         foreach ($mainSuggest as $suggest) {
             $this->add((string)$suggest, ['tags' => [Package::DIRECT, Package::SUGGEST]]);
         }
@@ -118,7 +100,7 @@ class Collection
                     'version' => $version,
                     'require' => $require,
                     'suggest' => $suggest,
-                    'tags'    => [$scopeType, Package::HAS_META]
+                    'tags'    => [$scopeType, Package::HAS_META],
                 ]);
 
                 foreach (\array_keys($require) as $innerRequired) {
@@ -132,14 +114,30 @@ class Collection
         }
     }
 
-    /**
-     * @param string $packageName
-     * @param array  $packageMeta
-     * @return Package
-     */
+    public function getMain(): Package
+    {
+        foreach ($this->collection as $package) {
+            if ($package->isMain()) {
+                return $package;
+            }
+        }
+
+        throw new Exception('Main package not found');
+    }
+
+    public function getByName(string $packageName): Package
+    {
+        $packageAlias = Package::alias($packageName);
+        if (\array_key_exists($packageAlias, $this->collection)) {
+            return $this->collection[$packageAlias];
+        }
+
+        throw new Exception("Package \"{$packageName} ({$packageAlias})\" not found in collection");
+    }
+
     private function add(string $packageName, array $packageMeta): Package
     {
-        $current = json($packageMeta);
+        $current      = json($packageMeta);
         $packageAlias = Package::alias($packageName);
 
         /** @var Package $package */
@@ -155,33 +153,5 @@ class Collection
         $this->collection[$packageAlias] = $package;
 
         return $package;
-    }
-
-    /**
-     * @return Package
-     */
-    public function getMain(): Package
-    {
-        foreach ($this->collection as $package) {
-            if ($package->isMain()) {
-                return $package;
-            }
-        }
-
-        throw new Exception('Main package not found');
-    }
-
-    /**
-     * @param string $packageName
-     * @return Package
-     */
-    public function getByName(string $packageName): Package
-    {
-        $packageAlias = Package::alias($packageName);
-        if (\array_key_exists($packageAlias, $this->collection)) {
-            return $this->collection[$packageAlias];
-        }
-
-        throw new Exception("Package \"{$packageName} ({$packageAlias})\" not found in collection");
     }
 }

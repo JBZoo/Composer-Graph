@@ -16,16 +16,11 @@ declare(strict_types=1);
 
 namespace JBZoo\PHPUnit;
 
-/**
- * Class ComplexTest
- *
- * @package JBZoo\PHPUnit
- */
 class ComplexTest extends AbstractGraphTest
 {
-    public function testMinimal()
+    public function testMinimal(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    test__main ==> jbzoo__data;',
             '',
@@ -38,9 +33,9 @@ class ComplexTest extends AbstractGraphTest
         ]), $this->buildGraph());
     }
 
-    public function testShowLinkVersions()
+    public function testShowLinkVersions(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    test__main == "4.0.x-dev" ==> jbzoo__data;',
             '',
@@ -55,9 +50,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowPackageVersions()
+    public function testShowPackageVersions(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    test__main ==> jbzoo__data;',
             '',
@@ -72,9 +67,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowAllVersion()
+    public function testShowAllVersion(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    test__main == "4.0.x-dev" ==> jbzoo__data;',
             '',
@@ -90,9 +85,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowSuggests()
+    public function testShowSuggests(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__data-.->symfony__yaml;',
             '    test__main ==> jbzoo__data;',
@@ -111,9 +106,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowExt()
+    public function testShowExt(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__data-->ext_json;',
             '    test__main ==> jbzoo__data;',
@@ -134,9 +129,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowDev()
+    public function testShowDev(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    test__main ==> jbzoo__data;',
             '    test__main ==> jbzoo__utils;',
@@ -155,9 +150,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowDevAndVersions()
+    public function testShowDevAndVersions(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    test__main == "3.0.x-dev" ==> jbzoo__utils;',
             '    test__main == "4.0.x-dev" ==> jbzoo__data;',
@@ -178,9 +173,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowDevAndExt()
+    public function testShowDevAndExt(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__data-->ext_json;',
             '    jbzoo__utils-->ext_filter;',
@@ -218,9 +213,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowDevAndSuggests()
+    public function testShowDevAndSuggests(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__data-.->symfony__yaml;',
             '    jbzoo__utils-.->jbzoo__data;',
@@ -249,9 +244,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testFull()
+    public function testFull(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__data-->ext_json;',
             '    jbzoo__data-->|"^7.2"|PHP;',
@@ -308,9 +303,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowPhp()
+    public function testShowPhp(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__data-->PHP;',
             '    test__main ==> jbzoo__data;',
@@ -329,9 +324,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowPhpAndDev()
+    public function testShowPhpAndDev(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__data-->PHP;',
             '    jbzoo__utils-->PHP;',
@@ -356,9 +351,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowPhpAndDevAndSuggests()
+    public function testShowPhpAndDevAndSuggests(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__data-->PHP;',
             '    jbzoo__data-.->symfony__yaml;',
@@ -393,9 +388,9 @@ class ComplexTest extends AbstractGraphTest
         ]));
     }
 
-    public function testShowSuggestsAndExt()
+    public function testShowSuggestsAndExt(): void
     {
-        isSame(implode("\n", [
+        isSame(\implode("\n", [
             'graph LR;',
             '    jbzoo__data-->ext_json;',
             '    jbzoo__data-.->ext_filter;',

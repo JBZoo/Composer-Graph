@@ -16,10 +16,6 @@ declare(strict_types=1);
 
 namespace JBZoo\ComposerGraph;
 
-/**
- * Class Package
- * @package JBZoo\ComposerGraph
- */
 class Package
 {
     public const MAIN         = 'main';
@@ -32,50 +28,27 @@ class Package
     public const HAS_META     = 'has-meta';
     public const INSTALLED    = 'installed';
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $version = '*';
 
-    /**
-     * @var array
-     */
     private array $required = [];
 
-    /**
-     * @var array
-     */
     private array $requiredDev = [];
 
-    /**
-     * @var array
-     */
     private array $suggests = [];
 
-    /**
-     * @var array
-     */
     private array $tags = [];
 
-    /**
-     * Package constructor.
-     * @param string      $name
-     * @param string|null $vendorDir
-     */
     public function __construct(string $name, ?string $vendorDir = null)
     {
         $this->name = \strtolower($name);
 
         if (
-            \strpos($this->name, '/') === false &&
-            (
-                \preg_match("#^ext-[a-z\d]*#", $this->name) ||
-                \preg_match("#^lib-[a-z\d]*#", $this->name)
+            !\str_contains($this->name, '/')
+            && (
+                \preg_match('#^ext-[a-z\\d]*#', $this->name)
+                || \preg_match('#^lib-[a-z\\d]*#', $this->name)
             )
         ) {
             $this->addTags([self::EXT, self::HAS_META]);
@@ -91,10 +64,9 @@ class Package
     }
 
     /**
-     * @param string $version
      * @return $this
      */
-    public function setVersion(string $version): Package
+    public function setVersion(string $version): self
     {
         if ($version) {
             $this->version = \strtolower($version);
@@ -104,106 +76,80 @@ class Package
     }
 
     /**
-     * @param array $required
      * @return $this
      */
-    public function addRequire(array $required): Package
+    public function addRequire(array $required): self
     {
         $this->required = \array_merge($this->required, $required);
+
         return $this;
     }
 
     /**
-     * @param array $requiredDev
      * @return $this
      */
-    public function addRequireDev(array $requiredDev): Package
+    public function addRequireDev(array $requiredDev): self
     {
         $this->requiredDev = \array_merge($this->requiredDev, $requiredDev);
+
         return $this;
     }
 
     /**
-     * @param array $suggest
      * @return $this
      */
-    public function addSuggest(array $suggest): Package
+    public function addSuggest(array $suggest): self
     {
         $this->suggests = \array_merge($this->suggests, $suggest);
+
         return $this;
     }
 
     /**
-     * @param array $tags
      * @return $this
      */
-    public function addTags(array $tags): Package
+    public function addTags(array $tags): self
     {
         $this->tags = \array_unique(\array_merge($this->tags, $tags));
+
         return $this;
     }
 
-    /**
-     * @param string $tag
-     * @return bool
-     */
     public function isTag(string $tag): bool
     {
         return \in_array($tag, $this->tags, true);
     }
 
-    /**
-     * @return bool
-     */
     public function isDirectPackage(): bool
     {
         return $this->isTag(self::DIRECT) && $this->isTag(self::REQUIRED);
     }
 
-    /**
-     * @return bool
-     */
     public function isDirectPackageDev(): bool
     {
         return $this->isTag(self::DIRECT) && $this->isTag(self::REQUIRED_DEV);
     }
 
-    /**
-     * @return bool
-     */
     public function isPlatform(): bool
     {
         return !$this->isMain() && ($this->isTag(self::PHP) || $this->isTag(self::EXT));
     }
 
-    /**
-     * @return bool
-     */
     public function isPhp(): bool
     {
         return $this->isTag(self::PHP);
     }
 
-    /**
-     * @return bool
-     */
     public function isPhpExt(): bool
     {
         return $this->isTag(self::EXT);
     }
 
-    /**
-     * @return bool
-     */
     public function isMain(): bool
     {
         return $this->isTag(self::MAIN);
     }
 
-    /**
-     * @param bool $addVersion
-     * @return string
-     */
     public function getName(bool $addVersion = true): string
     {
         $name = \strtolower(\trim($this->name));
@@ -226,45 +172,30 @@ class Package
         return $prefixNoMeta . $result;
     }
 
-    /**
-     * @return array
-     */
     public function getRequired(): array
     {
         return $this->required;
     }
 
-    /**
-     * @return array
-     */
     public function getRequiredDev(): array
     {
         return $this->requiredDev;
     }
 
-    /**
-     * @return array
-     */
     public function getSuggested(): array
     {
         return $this->suggests;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return self::alias($this->getName(false));
     }
 
-    /**
-     * @param string $string
-     * @return string
-     */
     public static function alias(string $string): string
     {
         $string = \strip_tags($string);
+
         return \str_replace(['/', '-', 'graph', '(', ')', ' ', '*'], ['__', '_', 'g_raph', '', '', '', ''], $string);
     }
 }

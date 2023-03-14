@@ -16,10 +16,6 @@ declare(strict_types=1);
 
 namespace JBZoo\ComposerGraph;
 
-/**
- * Class Exception
- * @package JBZoo\ComposerGraph
- */
 class Exception extends \RuntimeException
 {
 }
