@@ -1,14 +1,14 @@
 {
-    "name"         : "jbzoo/composer-graph",
-    "type"         : "library",
-    "description"  : "Render composer.json + composer.lock dependencies graph",
-    "license"      : "MIT",
-    "keywords"     : [
+    "name"              : "jbzoo/composer-graph",
+    "type"              : "library",
+    "description"       : "Render composer.json + composer.lock dependencies graph",
+    "license"           : "MIT",
+    "keywords"          : [
         "composer", "diagram", "jbzoo", "dependencies", "composer-dependency", "composer-packages", "mermaidjs",
         "composer-graph", "graph"
     ],
 
-    "authors"      : [
+    "authors"           : [
         {
             "name"  : "Denis Smetannikov",
             "email" : "admin@jbzoo.com",
@@ -16,42 +16,41 @@
         }
     ],
 
-    "require"      : {
-        "php"               : ">=7.4",
+    "minimum-stability" : "dev",
+    "prefer-stable"     : true,
 
-        "jbzoo/data"        : "^4.3|^5.0|dev-master|7.x-dev",
-        "jbzoo/mermaid-php" : "^2.3|^3.0|dev-master|7.x-dev",
-        "jbzoo/utils"       : "^4.5|^5.0|dev-master|7.x-dev",
-        "jbzoo/cli"         : "^1.0|^2.0|dev-master|7.x-dev",
+    "require"           : {
+        "php"               : "^8.1",
+
+        "jbzoo/data"        : "7.x-dev",
+        "jbzoo/mermaid-php" : "7.x-dev",
+        "jbzoo/utils"       : "7.x-dev",
+        "jbzoo/cli"         : "7.x-dev",
 
         "symfony/console"   : ">=4.4"
     },
 
-    "require-dev"  : {
-        "jbzoo/toolbox-dev" : "^4.1.1",
+    "require-dev"       : {
+        "jbzoo/toolbox-dev" : "7.x-dev",
         "symfony/process"   : ">=4.4"
     },
 
-    "autoload"     : {
-        "psr-4" : {
-            "JBZoo\\ComposerGraph\\" : "src"
-        }
+    "autoload"          : {
+        "psr-4" : {"JBZoo\\ComposerGraph\\" : "src"}
     },
 
-    "autoload-dev" : {
-        "classmap" : ["tests"]
+    "autoload-dev"      : {
+        "psr-4" : {"JBZoo\\PHPUnit\\" : "tests"}
     },
 
-    "bin"          : ["composer-graph"],
+    "bin"               : ["composer-graph"],
 
-    "config"       : {
+    "config"            : {
         "optimize-autoloader" : true,
-        "allow-plugins"       : {
-            "composer/package-versions-deprecated" : true
-        }
+        "allow-plugins"       : {"composer/package-versions-deprecated" : true}
     },
 
-    "extra"        : {
+    "extra"             : {
         "branch-alias" : {
             "dev-master" : "7.x-dev"
         }
