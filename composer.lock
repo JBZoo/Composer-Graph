@@ -2218,16 +2218,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.15.0",
+            "version": "v3.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "7306744c63e9cc1337894252b4eec4920c38b053"
+                "reference": "d48755372a113bddb99f749e34805d83f3acfe04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/7306744c63e9cc1337894252b4eec4920c38b053",
-                "reference": "7306744c63e9cc1337894252b4eec4920c38b053",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/d48755372a113bddb99f749e34805d83f3acfe04",
+                "reference": "d48755372a113bddb99f749e34805d83f3acfe04",
                 "shasum": ""
             },
             "require": {
@@ -2302,7 +2302,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.15.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.15.1"
             },
             "funding": [
                 {
@@ -2310,7 +2310,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-03-12T22:44:55+00:00"
+            "time": "2023-03-13T23:26:30+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2649,16 +2649,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JBZoo/Codestyle.git",
-                "reference": "a204f481e02f3d18d9b0c2b85ad03e8ddb5958e4"
+                "reference": "79b35934091776d6877ec200d42d8485e48f6203"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JBZoo/Codestyle/zipball/a204f481e02f3d18d9b0c2b85ad03e8ddb5958e4",
-                "reference": "a204f481e02f3d18d9b0c2b85ad03e8ddb5958e4",
+                "url": "https://api.github.com/repos/JBZoo/Codestyle/zipball/79b35934091776d6877ec200d42d8485e48f6203",
+                "reference": "79b35934091776d6877ec200d42d8485e48f6203",
                 "shasum": ""
             },
             "require": {
-                "friendsofphp/php-cs-fixer": ">=3.15.0",
+                "friendsofphp/php-cs-fixer": ">=3.15.1",
                 "jbzoo/data": "7.x-dev",
                 "kubawerlos/php-cs-fixer-custom-fixers": ">=3.13.0",
                 "nikic/php-parser": ">=4.15.3",
@@ -2729,7 +2729,7 @@
                 "issues": "https://github.com/JBZoo/Codestyle/issues",
                 "source": "https://github.com/JBZoo/Codestyle/tree/master"
             },
-            "time": "2023-03-13T09:19:32+00:00"
+            "time": "2023-03-15T22:29:49+00:00"
         },
         {
             "name": "jbzoo/jbdump",
