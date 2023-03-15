@@ -265,7 +265,7 @@ class ComposerGraph
         return $node;
     }
 
-    private function addLink(Package $source, Package $target, string $version): bool
+    private function addLink(Package $source, Package $target, string $version): void
     {
         $sourceName = $source->getId();
         $targetName = $target->getId();
@@ -293,11 +293,7 @@ class ComposerGraph
             }
 
             $this->createdLinks[$pattern] = $version;
-
-            return true;
         }
-
-        return false;
     }
 
     private function getGraph(Package $package): Graph

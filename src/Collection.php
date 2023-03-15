@@ -135,7 +135,7 @@ class Collection
         throw new Exception("Package \"{$packageName} ({$packageAlias})\" not found in collection");
     }
 
-    private function add(string $packageName, array $packageMeta): Package
+    private function add(string $packageName, array $packageMeta): void
     {
         $current      = json($packageMeta);
         $packageAlias = Package::alias($packageName);
@@ -151,7 +151,5 @@ class Collection
             ->addTags((array)$current->get('tags'));
 
         $this->collection[$packageAlias] = $package;
-
-        return $package;
     }
 }
