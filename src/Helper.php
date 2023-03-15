@@ -22,27 +22,26 @@ class Helper
 {
     public const HASH_LENGTH = 7;
 
-    /**
-     * @codeCoverageIgnore
-     * @phan-suppress PhanUnusedVariableCaughtException
-     */
     public static function getGitVersion(): ?string
     {
         try {
-            if ($tag = \trim(Cli::exec('git describe --abbrev=0 --tags'))) {
+            $tag = \trim(Cli::exec('git describe --abbrev=0 --tags'));
+            if ($tag !== '') {
                 return $tag;
             }
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             try {
-                if ($branch = \trim(Cli::exec('git rev-parse --abbrev-ref HEAD'))) {
+                $branch = \trim(Cli::exec('git rev-parse --abbrev-ref HEAD'));
+                if ($branch !== '') {
                     return "dev-{$branch}";
                 }
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 try {
-                    if ($commit = \trim(Cli::exec('git rev-parse HEAD'))) {
+                    $commit = \trim(Cli::exec('git rev-parse HEAD'));
+                    if ($commit !== '') {
                         return \substr($commit, 0, self::HASH_LENGTH);
                     }
-                } catch (\Exception $exception) {
+                } catch (\Exception) {
                     return null;
                 }
             }

@@ -71,8 +71,8 @@ class ComposerGraph
             'abc-order'   => false,
         ], $params));
 
-        $direction = $this->params->get('direction');
-        $order     = $this->params->get('abc-order');
+        $direction = $this->params->getString('direction');
+        $order     = $this->params->getBool('abc-order');
 
         $this->graphWrapper = new Graph(['direction' => $direction, 'abc_order' => $order]);
         $this->graphWrapper->addSubGraph($this->graphMain = new Graph(['title' => 'Your Package']));
@@ -105,10 +105,10 @@ class ComposerGraph
         }
         $this->renderedNodes[] = $source->getId();
 
-        $showPhp     = $this->params->get('php');
-        $showExt     = $this->params->get('ext');
-        $showDev     = $this->params->get('dev');
-        $showSuggest = $this->params->get('suggest');
+        $showPhp     = $this->params->getBool('php');
+        $showExt     = $this->params->getBool('ext');
+        $showDev     = $this->params->getBool('dev');
+        $showSuggest = $this->params->getBool('suggest');
 
         if (!$showSuggest && !$source->isTag(Package::HAS_META)) {
             return false;
@@ -180,7 +180,7 @@ class ComposerGraph
             $this->graphWrapper->addSubGraph($this->graphPlatform);
         }
 
-        $format = \strtolower(\trim($this->params->get('format')));
+        $format = \strtolower(\trim($this->params->getString('format')));
         if ($format === self::FORMAT_HTML) {
             $htmlPath = (string)$this->params->get('output-path');
 
@@ -209,7 +209,7 @@ class ComposerGraph
             }, []);
 
             $titlePostfix = '';
-            if (\count($headerKeys)) {
+            if (\count($headerKeys) > 0) {
                 $flags        = \implode(' / ', $headerKeys);
                 $titlePostfix = "\n<br><small><small>Flags: {$flags}</small></small>";
             }
@@ -240,13 +240,15 @@ class ComposerGraph
         $graph = $this->getGraph($package);
 
         $nodeId      = $package->getId();
-        $showVersion = (bool)$this->params->get('lib-version');
+        $showVersion = (bool)$this->params->getString('lib-version');
 
-        if ($currentNode = $graph->getNode($nodeId)) {
+        $currentNode = $graph->getNode($nodeId);
+        if ($currentNode !== null) {
             return $currentNode;
         }
 
-        if ($this->params->get('vendor-dir')) {
+        $vendorDir = $this->params->getString('vendor-dir');
+        if ($vendorDir !== '') {
             $isInstalled = $package->isTag(Package::INSTALLED);
         } else {
             $isInstalled = $package->isTag(Package::HAS_META);
@@ -276,7 +278,7 @@ class ComposerGraph
             $targetNode  = $this->createNode($target);
             $isSuggested = $version === 'suggest';
 
-            if (!$this->params->get('link-version')) {
+            if (!$this->params->getBool('link-version')) {
                 $version = '';
             }
 

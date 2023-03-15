@@ -47,37 +47,38 @@ class Package
         if (
             !\str_contains($this->name, '/')
             && (
-                \preg_match('#^ext-[a-z\\d]*#', $this->name)
-                || \preg_match('#^lib-[a-z\\d]*#', $this->name)
+                \preg_match('#^ext-[a-z\\d]*#', $this->name) > 0
+                || \preg_match('#^lib-[a-z\\d]*#', $this->name) > 0
             )
         ) {
             $this->addTags([self::EXT, self::HAS_META]);
 
-            if (\extension_loaded($this->name) || \extension_loaded(\str_replace(['ext-', 'lib-'], '', $this->name))) {
+            if (
+                \extension_loaded($this->name)
+                || \extension_loaded(\str_replace(['ext-', 'lib-'], '', $this->name))
+            ) {
                 $this->addTags([self::INSTALLED]);
             }
         }
 
-        if ($vendorDir && (\is_dir("{$vendorDir}/{$this->name}") || \is_dir("{$vendorDir}/{$name}"))) {
+        if (
+            $vendorDir !== null
+            && $vendorDir !== ''
+            && (\is_dir("{$vendorDir}/{$this->name}") || \is_dir("{$vendorDir}/{$name}"))
+        ) {
             $this->addTags([self::INSTALLED]);
         }
     }
 
-    /**
-     * @return $this
-     */
     public function setVersion(string $version): self
     {
-        if ($version) {
+        if ($version !== '') {
             $this->version = \strtolower($version);
         }
 
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function addRequire(array $required): self
     {
         $this->required = \array_merge($this->required, $required);
@@ -85,9 +86,6 @@ class Package
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function addRequireDev(array $requiredDev): self
     {
         $this->requiredDev = \array_merge($this->requiredDev, $requiredDev);
@@ -95,9 +93,6 @@ class Package
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function addSuggest(array $suggest): self
     {
         $this->suggests = \array_merge($this->suggests, $suggest);
@@ -105,9 +100,6 @@ class Package
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function addTags(array $tags): self
     {
         $this->tags = \array_unique(\array_merge($this->tags, $tags));
@@ -166,7 +158,9 @@ class Package
         if (!$addVersion) {
             $result = $name;
         } else {
-            $result = $this->version && $this->version !== '*' ? "{$name}@{$this->version}" : $name;
+            $result = $this->version !== '' && $this->version !== '*'
+                ? "{$name}@{$this->version}"
+                : $name;
         }
 
         return $prefixNoMeta . $result;
