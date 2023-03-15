@@ -52,7 +52,7 @@ jobs:
           extensions: ast
 
       - name: Test
-        run: type -a composer
+        run: composer --version
 
       - name: Build the Project
         run: make update --no-print-directory
