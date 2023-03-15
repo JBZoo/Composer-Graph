@@ -51,11 +51,11 @@ jobs:
           tools: composer
           extensions: ast
 
-      - name: Build the Project
-        run: make update --no-print-directory
-
       - name: Test
         run: type -a composer
+
+      - name: Build the Project
+        run: make update --no-print-directory
 
       - name: 🧪 PHPUnit Tests
         run: make test --no-print-directory
