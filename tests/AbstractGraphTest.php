@@ -26,9 +26,6 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 abstract class AbstractGraphTest extends PHPUnit
 {
-    /**
-     * @throws \Exception
-     */
     public function task(array $params = []): string
     {
         $params['--no-ansi'] = null;
