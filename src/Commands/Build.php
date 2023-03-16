@@ -1,16 +1,15 @@
 <?php
 
 /**
- * JBZoo Toolbox - Composer-Graph
+ * JBZoo Toolbox - Composer-Graph.
  *
  * This file is part of the JBZoo Toolbox project.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package    Composer-Graph
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
- * @link       https://github.com/JBZoo/Composer-Graph
+ * @see        https://github.com/JBZoo/Composer-Graph
  */
 
 declare(strict_types=1);
@@ -28,19 +27,15 @@ use Symfony\Component\Console\Input\InputOption;
 
 use function JBZoo\Data\json;
 
-/**
- * Class Build
- * @package JBZoo\ComposerGraph\Commands
- */
 class Build extends CliCommand
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function configure(): void
     {
         $required = InputOption::VALUE_REQUIRED;
-        $none = InputOption::VALUE_NONE;
+        $none     = InputOption::VALUE_NONE;
 
         if (!\defined('\IS_PHPUNIT_TEST')) {
             \define('\IS_PHPUNIT_TEST', false);
@@ -48,45 +43,68 @@ class Build extends CliCommand
 
         $this
             ->setName('build')
-            ->addOption('root', 'r', $required, 'The path has to contain ' .
-                '"composer.json" and "composer.lock" files', './')
+            ->addOption(
+                'root',
+                'r',
+                $required,
+                'The path has to contain ' .
+                '"composer.json" and "composer.lock" files',
+                './',
+            )
             ->addOption('output', 'o', $required, 'Path to html output.', './build/composer-graph.html')
-            ->addOption('format', 'f', $required, 'Output format. Available options: <info>' . \implode(',', [
+            ->addOption(
+                'format',
+                'f',
+                $required,
+                'Output format. Available options: <info>' . \implode(',', [
                     ComposerGraph::FORMAT_HTML,
                     ComposerGraph::FORMAT_MERMAID,
-                ]) . '</info>', ComposerGraph::FORMAT_HTML)
-            ->addOption('direction', 'D', $required, 'Direction of graph. Available options: <info>' . \implode(',', [
+                ]) . '</info>',
+                ComposerGraph::FORMAT_HTML,
+            )
+            ->addOption(
+                'direction',
+                'D',
+                $required,
+                'Direction of graph. Available options: <info>' . \implode(',', [
                     Graph::LEFT_RIGHT,
                     Graph::TOP_BOTTOM,
                     Graph::BOTTOM_TOP,
                     Graph::RIGHT_LEFT,
-                ]) . '</info>', Graph::LEFT_RIGHT)
+                ]) . '</info>',
+                Graph::LEFT_RIGHT,
+            )
             ->addOption('show-php', 'p', $none, 'Show PHP-node')
             ->addOption('show-ext', 'e', $none, 'Show all ext-* nodes (PHP modules)')
             ->addOption('show-dev', 'd', $none, 'Show all dev dependencies')
             ->addOption('show-suggests', 's', $none, 'Show not installed suggests packages')
             ->addOption('show-link-versions', 'l', $none, 'Show version requirements in links')
             ->addOption('show-package-versions', 'P', $none, 'Show version of packages')
-            ->addOption('abc-order', 'O', $none, 'Strict ABC ordering nodes in graph. ' .
-                "It's fine tuning, sometimes it useful.");
+            ->addOption(
+                'abc-order',
+                'O',
+                $none,
+                'Strict ABC ordering nodes in graph. ' .
+                "It's fine tuning, sometimes it useful.",
+            );
 
         parent::configure();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function executeAction(): int
     {
         $format = $this->getOptString('format');
 
         [$composerJson, $composerLock] = $this->getJsonData();
-        $vendorDir = $this->findVendorDir($composerJson);
+        $vendorDir                     = $this->findVendorDir($composerJson);
 
         $composerGraph = new ComposerGraph(
             new Collection($composerJson, $composerLock, $vendorDir),
             [
-                'direction'    => $this->getOptString('direction') ?: Graph::LEFT_RIGHT,
+                'direction'    => $this->getOptString('direction'),
                 'php'          => $this->getOptBool('show-php'),
                 'ext'          => $this->getOptBool('show-ext'),
                 'dev'          => $this->getOptBool('show-dev'),
@@ -96,11 +114,11 @@ class Build extends CliCommand
                 'format'       => $format,
                 'output-path'  => $this->getOptString('output'),
                 'abc-order'    => $this->getOptBool('abc-order'),
-            ]
+            ],
         );
 
         $result = $composerGraph->build();
-        if (ComposerGraph::FORMAT_HTML === $format) {
+        if ($format === ComposerGraph::FORMAT_HTML) {
             $this->_("Report is ready: <info>{$result}</info>");
         } else {
             $this->_($result);
@@ -109,16 +127,13 @@ class Build extends CliCommand
         return Codes::OK;
     }
 
-    /**
-     * @return string
-     */
     private function getRootPath(): string
     {
         $origRootPath = $this->getOptString('root');
         $realRootPath = \realpath($origRootPath);
 
         // Validate root path
-        if (!$realRootPath || !\is_dir($realRootPath)) {
+        if ($realRootPath === false || !\is_dir($realRootPath)) {
             throw new Exception("Root path is not directory or not found: {$origRootPath}");
         }
 
@@ -161,10 +176,6 @@ class Build extends CliCommand
         return [$composerJson, $composerLock];
     }
 
-    /**
-     * @param JSON $composerJson
-     * @return string|null
-     */
     private function findVendorDir(JSON $composerJson): ?string
     {
         $realRootPath = $this->getRootPath();
@@ -172,7 +183,10 @@ class Build extends CliCommand
         $vendorDir = $composerJson->find('config.vendor-dir') ?? 'vendor';
 
         $realVendorDir = \realpath("{$realRootPath}/{$vendorDir}");
-        if ($realVendorDir && \is_dir($realVendorDir)) {
+        if (
+            $realVendorDir !== false
+            && \is_dir($realVendorDir)
+        ) {
             return $realVendorDir;
         }
 

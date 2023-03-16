@@ -1,16 +1,15 @@
 <?php
 
 /**
- * JBZoo Toolbox - Composer-Graph
+ * JBZoo Toolbox - Composer-Graph.
  *
  * This file is part of the JBZoo Toolbox project.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package    Composer-Graph
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
- * @link       https://github.com/JBZoo/Composer-Graph
+ * @see        https://github.com/JBZoo/Composer-Graph
  */
 
 declare(strict_types=1);
@@ -19,36 +18,30 @@ namespace JBZoo\ComposerGraph;
 
 use JBZoo\Utils\Cli;
 
-/**
- * Class Helper
- * @package JBZoo\ComposerGraph
- */
 class Helper
 {
     public const HASH_LENGTH = 7;
 
-    /**
-     * @return string|null
-     * @codeCoverageIgnore
-     * @phan-suppress PhanUnusedVariableCaughtException
-     */
     public static function getGitVersion(): ?string
     {
         try {
-            if ($tag = \trim(Cli::exec('git describe --abbrev=0 --tags'))) {
+            $tag = \trim(Cli::exec('git describe --abbrev=0 --tags'));
+            if ($tag !== '') {
                 return $tag;
             }
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             try {
-                if ($branch = \trim(Cli::exec('git rev-parse --abbrev-ref HEAD'))) {
+                $branch = \trim(Cli::exec('git rev-parse --abbrev-ref HEAD'));
+                if ($branch !== '') {
                     return "dev-{$branch}";
                 }
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 try {
-                    if ($commit = \trim(Cli::exec('git rev-parse HEAD'))) {
+                    $commit = \trim(Cli::exec('git rev-parse HEAD'));
+                    if ($commit !== '') {
                         return \substr($commit, 0, self::HASH_LENGTH);
                     }
-                } catch (\Exception $exception) {
+                } catch (\Exception) {
                     return null;
                 }
             }

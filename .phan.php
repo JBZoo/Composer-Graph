@@ -1,23 +1,22 @@
 <?php
 
 /**
- * JBZoo Toolbox - Composer-Graph
+ * JBZoo Toolbox - Composer-Graph.
  *
  * This file is part of the JBZoo Toolbox project.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package    Composer-Graph
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
- * @link       https://github.com/JBZoo/Composer-Graph
+ * @see        https://github.com/JBZoo/Composer-Graph
  */
 
 declare(strict_types=1);
 
-$default = include __DIR__ . '/vendor/jbzoo/codestyle/src/phan/default.php';
+$default = include __DIR__ . '/vendor/jbzoo/codestyle/src/phan.php';
 
-return array_merge($default, [
+return \array_merge($default, [
     'directory_list' => [
         'src',
 
@@ -26,5 +25,5 @@ return array_merge($default, [
         'vendor/jbzoo/utils/src',
         'vendor/jbzoo/mermaid-php/src',
         'vendor/symfony/console',
-    ]
+    ],
 ]);

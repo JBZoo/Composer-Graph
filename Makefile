@@ -1,14 +1,13 @@
 #
-# JBZoo Toolbox - Composer-Graph
+# JBZoo Toolbox - Composer-Graph.
 #
 # This file is part of the JBZoo Toolbox project.
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-# @package    Composer-Graph
 # @license    MIT
 # @copyright  Copyright (C) JBZoo.com, All rights reserved.
-# @link       https://github.com/JBZoo/Composer-Graph
+# @see        https://github.com/JBZoo/Composer-Graph
 #
 
 .PHONY: build
@@ -28,7 +27,6 @@ update: ##@Project Install/Update all 3rd party dependencies
 	$(call title,"Install/Update all 3rd party dependencies")
 	@echo "Composer flags: $(JBZOO_COMPOSER_UPDATE_FLAGS)"
 	@composer update $(JBZOO_COMPOSER_UPDATE_FLAGS)
-	@make build-phar
 
 
 test-all: ##@Project Run all project tests at once

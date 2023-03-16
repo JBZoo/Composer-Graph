@@ -1,16 +1,15 @@
 <?php
 
 /**
- * JBZoo Toolbox - Composer-Graph
+ * JBZoo Toolbox - Composer-Graph.
  *
  * This file is part of the JBZoo Toolbox project.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package    Composer-Graph
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
- * @link       https://github.com/JBZoo/Composer-Graph
+ * @see        https://github.com/JBZoo/Composer-Graph
  */
 
 declare(strict_types=1);
@@ -19,12 +18,12 @@ namespace JBZoo\ComposerGraph;
 
 use JBZoo\Cli\CliApplication;
 
-const PATH_ROOT = __DIR__;
+\define('PATH_ROOT', __DIR__);
 
 $vendorPaths = [
     __DIR__ . '/../../autoload.php',
     __DIR__ . '/../vendor/autoload.php',
-    __DIR__ . '/vendor/autoload.php'
+    __DIR__ . '/vendor/autoload.php',
 ];
 
 foreach ($vendorPaths as $file) {

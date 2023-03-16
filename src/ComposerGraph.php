@@ -1,16 +1,15 @@
 <?php
 
 /**
- * JBZoo Toolbox - Composer-Graph
+ * JBZoo Toolbox - Composer-Graph.
  *
  * This file is part of the JBZoo Toolbox project.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package    Composer-Graph
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
- * @link       https://github.com/JBZoo/Composer-Graph
+ * @see        https://github.com/JBZoo/Composer-Graph
  */
 
 declare(strict_types=1);
@@ -26,8 +25,6 @@ use function JBZoo\Data\data;
 use function JBZoo\Utils\bool;
 
 /**
- * Class ComposerGraph
- * @package JBZoo\ComposerGraph
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class ComposerGraph
@@ -35,56 +32,25 @@ class ComposerGraph
     public const FORMAT_HTML    = 'html';
     public const FORMAT_MERMAID = 'mermaid';
 
-    /**
-     * @var Graph
-     */
-    private Graph $graphWrapper;
-
-    /**
-     * @var Graph
-     */
-    private Graph $graphMain;
-
-    /**
-     * @var Graph
-     */
-    private Graph $graphRequire;
-
-    /**
-     * @var Graph
-     */
-    private Graph $graphDev;
-
-    /**
-     * @var Graph
-     */
-    private Graph $graphPlatform;
-
-    /**
-     * @var Collection
-     */
-    private Collection $collection;
-
-    /**
-     * @var string[]
-     */
-    private array $createdLinks = [];
-
-    /**
-     * @var array
-     */
-    private array $renderedNodes = [];
-
-    /**
-     * @var Data
-     */
     protected Data $params;
 
-    /**
-     * ComposerGraph constructor.
-     * @param Collection $collection
-     * @param array      $params
-     */
+    private Graph $graphWrapper;
+
+    private Graph $graphMain;
+
+    private Graph $graphRequire;
+
+    private Graph $graphDev;
+
+    private Graph $graphPlatform;
+
+    private Collection $collection;
+
+    /** @var string[] */
+    private array $createdLinks = [];
+
+    private array $renderedNodes = [];
+
     public function __construct(Collection $collection, array $params = [])
     {
         $this->collection = $collection;
@@ -98,41 +64,37 @@ class ComposerGraph
             'link-version' => false,
             'lib-version'  => false,
             // output options
-            'output-path'  => null,
-            'direction'    => Graph::LEFT_RIGHT,
-            'format'       => self::FORMAT_HTML,
-            'vendor-dir'   => null,
-            'abc-order'    => false,
+            'output-path' => null,
+            'direction'   => Graph::LEFT_RIGHT,
+            'format'      => self::FORMAT_HTML,
+            'vendor-dir'  => null,
+            'abc-order'   => false,
         ], $params));
 
-        $direction = $this->params->get('direction');
-        $order = $this->params->get('abc-order');
+        $direction = $this->params->getString('direction');
+        $order     = $this->params->getBool('abc-order');
 
         $this->graphWrapper = new Graph(['direction' => $direction, 'abc_order' => $order]);
         $this->graphWrapper->addSubGraph($this->graphMain = new Graph(['title' => 'Your Package']));
 
-        $this->graphRequire = new Graph(['direction' => $direction, 'title' => 'Required', 'abc_order' => $order]);
-        $this->graphDev = new Graph(['direction' => $direction, 'title' => 'Required Dev', 'abc_order' => $order]);
+        $this->graphRequire  = new Graph(['direction' => $direction, 'title' => 'Required', 'abc_order' => $order]);
+        $this->graphDev      = new Graph(['direction' => $direction, 'title' => 'Required Dev', 'abc_order' => $order]);
         $this->graphPlatform = new Graph(['direction' => $direction, 'title' => 'PHP Platform', 'abc_order' => $order]);
     }
 
-    /**
-     * @return string
-     */
     public function build(): string
     {
-        // @phpstan-ignore-next-line
-        $isSafeMode = \defined('\IS_PHPUNIT_TEST') && !\IS_PHPUNIT_TEST;
+        /** @phpstan-ignore-next-line */
+        $isSafeMode = \defined('\IS_PHPUNIT_TEST') && !IS_PHPUNIT_TEST;
         Node::safeMode($isSafeMode);
 
         $main = $this->collection->getMain();
         $this->renderNodeTree($main);
+
         return $this->render();
     }
 
     /**
-     * @param Package $source
-     * @return bool
      * @SuppressWarnings(PHPMD.NPathComplexity)
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
@@ -143,10 +105,10 @@ class ComposerGraph
         }
         $this->renderedNodes[] = $source->getId();
 
-        $showPhp = $this->params->get('php');
-        $showExt = $this->params->get('ext');
-        $showDev = $this->params->get('dev');
-        $showSuggest = $this->params->get('suggest');
+        $showPhp     = $this->params->getBool('php');
+        $showExt     = $this->params->getBool('ext');
+        $showDev     = $this->params->getBool('dev');
+        $showSuggest = $this->params->getBool('suggest');
 
         if (!$showSuggest && !$source->isTag(Package::HAS_META)) {
             return false;
@@ -156,8 +118,8 @@ class ComposerGraph
             $target = (string)$target;
             $target = $this->collection->getByName($target);
             if (
-                (!$showExt && $target->isPhpExt()) ||
-                (!$showPhp && $target->isPhp())
+                (!$showExt && $target->isPhpExt())
+                || (!$showPhp && $target->isPhp())
             ) {
                 continue;
             }
@@ -171,8 +133,8 @@ class ComposerGraph
                 $target = (string)$target;
                 $target = $this->collection->getByName($target);
                 if (
-                    (!$showExt && $target->isPhpExt()) ||
-                    (!$showPhp && $target->isPhp())
+                    (!$showExt && $target->isPhpExt())
+                    || (!$showPhp && $target->isPhp())
                 ) {
                     continue;
                 }
@@ -186,11 +148,11 @@ class ComposerGraph
             foreach (\array_keys($source->getSuggested()) as $target) {
                 $target = $this->collection->getByName((string)$target);
                 if (
-                    (!$showExt && $target->isPhpExt()) ||
-                    (
-                        !$showDev &&
-                        !$target->isTag(Package::REQUIRED) &&
-                        $target->isTag(Package::REQUIRED_DEV)
+                    (!$showExt && $target->isPhpExt())
+                    || (
+                        !$showDev
+                        && !$target->isTag(Package::REQUIRED)
+                        && $target->isTag(Package::REQUIRED_DEV)
                     )
                 ) {
                     continue;
@@ -204,9 +166,6 @@ class ComposerGraph
         return true;
     }
 
-    /**
-     * @return string
-     */
     protected function render(): string
     {
         if (\count($this->graphRequire->getNodes()) > 0) {
@@ -221,13 +180,21 @@ class ComposerGraph
             $this->graphWrapper->addSubGraph($this->graphPlatform);
         }
 
-        $format = \strtolower(\trim($this->params->get('format')));
-        if (self::FORMAT_HTML === $format) {
+        $format = \strtolower(\trim($this->params->getString('format')));
+        if ($format === self::FORMAT_HTML) {
             $htmlPath = (string)$this->params->get('output-path');
 
-            $headerKeys = \array_filter(\array_keys($this->params->getArrayCopy(), static function (string $key): bool {
-                return \in_array($key, ['php', 'ext', 'dev', 'suggest', 'link-version', 'lib-version'], true);
-            }));
+            $headerKeys = \array_filter(
+                \array_keys(
+                    $this->params->getArrayCopy(),
+                    static fn (string $key): bool => \in_array(
+                        $key,
+                        ['php', 'ext', 'dev', 'suggest', 'link-version', 'lib-version'],
+                        true,
+                    ),
+                    true,
+                ),
+            );
 
             /**
              * @psalm-suppress InvalidArgument
@@ -237,16 +204,17 @@ class ComposerGraph
                 if (bool($this->params->get($key))) {
                     $acc[] = $key;
                 }
+
                 return $acc;
             }, []);
 
             $titlePostfix = '';
-            if (\count($headerKeys)) {
-                $flags = \implode(' / ', $headerKeys);
+            if (\count($headerKeys) > 0) {
+                $flags        = \implode(' / ', $headerKeys);
                 $titlePostfix = "\n<br><small><small>Flags: {$flags}</small></small>";
             }
 
-            $main = $this->collection->getMain();
+            $main    = $this->collection->getMain();
             $htmlDir = \dirname($htmlPath);
             if (!\is_dir($htmlDir) && !\mkdir($htmlDir, 0755, true) && !\is_dir($htmlDir)) {
                 throw new \RuntimeException("Directory \"{$htmlDir}\" was not created");
@@ -260,29 +228,27 @@ class ComposerGraph
             return $htmlPath;
         }
 
-        if (self::FORMAT_MERMAID === $format) {
+        if ($format === self::FORMAT_MERMAID) {
             return $this->graphWrapper->render();
         }
 
         throw new Exception("Invalid format: \"{$format}\"");
     }
 
-    /**
-     * @param Package $package
-     * @return Node
-     */
     protected function createNode(Package $package): Node
     {
         $graph = $this->getGraph($package);
 
-        $nodeId = $package->getId();
-        $showVersion = (bool)$this->params->get('lib-version');
+        $nodeId      = $package->getId();
+        $showVersion = (bool)$this->params->getString('lib-version');
 
-        if ($currentNode = $graph->getNode($nodeId)) {
+        $currentNode = $graph->getNode($nodeId);
+        if ($currentNode !== null) {
             return $currentNode;
         }
 
-        if ($this->params->get('vendor-dir')) {
+        $vendorDir = $this->params->getString('vendor-dir');
+        if ($vendorDir !== '') {
             $isInstalled = $package->isTag(Package::INSTALLED);
         } else {
             $isInstalled = $package->isTag(Package::HAS_META);
@@ -299,26 +265,20 @@ class ComposerGraph
         return $node;
     }
 
-    /**
-     * @param Package $source
-     * @param Package $target
-     * @param string  $version
-     * @return bool
-     */
-    private function addLink(Package $source, Package $target, string $version): bool
+    private function addLink(Package $source, Package $target, string $version): void
     {
         $sourceName = $source->getId();
         $targetName = $target->getId();
-        $version = $version === '*' ? '' : $version;
+        $version    = $version === '*' ? '' : $version;
 
         $pattern = "{$sourceName}=={$targetName}";
 
         if (!\array_key_exists($pattern, $this->createdLinks)) {
-            $sourceNode = $this->createNode($source);
-            $targetNode = $this->createNode($target);
-            $isSuggested = 'suggest' === $version;
+            $sourceNode  = $this->createNode($source);
+            $targetNode  = $this->createNode($target);
+            $isSuggested = $version === 'suggest';
 
-            if (!$this->params->get('link-version')) {
+            if (!$this->params->getBool('link-version')) {
                 $version = '';
             }
 
@@ -333,16 +293,9 @@ class ComposerGraph
             }
 
             $this->createdLinks[$pattern] = $version;
-            return true;
         }
-
-        return false;
     }
 
-    /**
-     * @param Package $package
-     * @return Graph
-     */
     private function getGraph(Package $package): Graph
     {
         if ($package->isMain()) {
