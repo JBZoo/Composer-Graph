@@ -51,9 +51,6 @@ jobs:
           tools: composer
           extensions: ast
 
-      - name: Test
-        run: composer --version
-
       - name: Build the Project
         run: make update --no-print-directory
 
