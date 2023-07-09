@@ -19,10 +19,6 @@
     "git-version" : "git-version",
 
     "finder"      : [
-        {
-            "in"      : "vendor",
-            "name"    : "*.php",
-            "exclude" : ["Tests", "tests", "test"]
-        }
+        {"in" : "vendor"}
     ]
 }
