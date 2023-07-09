@@ -29,6 +29,11 @@ update: ##@Project Install/Update all 3rd party dependencies
 	@composer update $(JBZOO_COMPOSER_UPDATE_FLAGS)
 
 
+build-docker: ##@Project Building Docker Image
+	$(call title,"Building Docker Image")
+	@docker build -t jbzoo-composer-graph .
+
+
 test-all: ##@Project Run all project tests at once
 	@make test
 	@make codestyle
