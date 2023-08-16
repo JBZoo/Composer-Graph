@@ -4,6 +4,21 @@
 [![Stable Version](https://poser.pugx.org/jbzoo/composer-graph/version)](https://packagist.org/packages/jbzoo/composer-graph/)    [![Total Downloads](https://poser.pugx.org/jbzoo/composer-graph/downloads)](https://packagist.org/packages/jbzoo/composer-graph/stats)    [![Dependents](https://poser.pugx.org/jbzoo/composer-graph/dependents)](https://packagist.org/packages/jbzoo/composer-graph/dependents?order_by=downloads)    [![GitHub License](https://img.shields.io/github/license/jbzoo/composer-graph)](https://github.com/JBZoo/Composer-Graph/blob/master/LICENSE)
 
 
+<!--ts-->
+   * [Installation](#installation)
+   * [Usage](#usage)
+   * [Examples](#examples)
+      * [Default output (no args) - minimal view](#default-output-no-args---minimal-view)
+      * [Default output with PHP extensions (modules)](#default-output-with-php-extensions-modules)
+      * [Default output with versions of packages and relations](#default-output-with-versions-of-packages-and-relations)
+      * [Show suggested packages which are not installed](#show-suggested-packages-which-are-not-installed)
+      * [Show dev dependencies](#show-dev-dependencies)
+      * [Full Report](#full-report)
+   * [Unit tests and check code style](#unit-tests-and-check-code-style)
+   * [License](#license)
+   * [See Also](#see-also)
+<!--te-->
+
 ## Installation
 
 ```shell
@@ -24,31 +39,37 @@ Usage:
   build [options]
 
 Options:
-  -r, --root=ROOT              The path has to contain "composer.json" and "composer.lock" files [default: "./"]
-  -o, --output=OUTPUT          Path to html output. [default: "./build/composer-graph.html"]
-  -f, --format=FORMAT          Output format. Available options: html,mermaid [default: "html"]
-  -D, --direction=DIRECTION    Direction of graph. Available options: LR,TB,BT,RL [default: "LR"]
-  -p, --show-php               Show PHP-node
-  -e, --show-ext               Show all ext-* nodes (PHP modules)
-  -d, --show-dev               Show all dev dependencies
-  -s, --show-suggests          Show not installed suggests packages
-  -l, --show-link-versions     Show version requirements in links
-  -P, --show-package-versions  Show version of packages
-  -O, --abc-order              Strict ABC ordering nodes in graph. It's fine tuning, sometimes it useful.
-      --no-progress            Disable progress bar animation for logs
-      --mute-errors            Mute any sort of errors. So exit code will be always "0" (if it's possible).
-                               It has major priority then --non-zero-on-error. It's on your own risk!
-      --stdout-only            For any errors messages application will use StdOut instead of StdErr. It's on your own risk!
-      --non-zero-on-error      None-zero exit code on any StdErr message
-      --timestamp              Show timestamp at the beginning of each message
-      --profile                Display timing and memory usage information
-      --cron                   Shortcut for crontab. It's basically focused on logs output. It's combination of --timestamp --profile --stdout-only --no-progress -vv
-  -h, --help                   Display help for the given command. When no command is given display help for the build command
-  -q, --quiet                  Do not output any message
-  -V, --version                Display this application version
-      --ansi|--no-ansi         Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction         Do not ask any interactive question
-  -v|vv|vvv, --verbose         Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+  -r, --root=ROOT                The path has to contain "composer.json" and "composer.lock" files [default: "./"]
+  -o, --output=OUTPUT            Path to html output. [default: "./build/composer-graph.html"]
+  -f, --format=FORMAT            Output format. Available options: html,mermaid [default: "html"]
+  -D, --direction=DIRECTION      Direction of graph. Available options: LR,TB,BT,RL [default: "LR"]
+  -p, --show-php                 Show PHP-node
+  -e, --show-ext                 Show all ext-* nodes (PHP modules)
+  -d, --show-dev                 Show all dev dependencies
+  -s, --show-suggests            Show not installed suggests packages
+  -l, --show-link-versions       Show version requirements in links
+  -P, --show-package-versions    Show version of packages
+  -O, --abc-order                Strict ABC ordering nodes in graph. It's fine tuning, sometimes it useful.
+      --no-progress              Disable progress bar animation for logs. It will be used only for text output format.
+      --mute-errors              Mute any sort of errors. So exit code will be always "0" (if it's possible).
+                                 It has major priority then --non-zero-on-error. It's on your own risk!
+      --stdout-only              For any errors messages application will use StdOut instead of StdErr. It's on your own risk!
+      --non-zero-on-error        None-zero exit code on any StdErr message.
+      --timestamp                Show timestamp at the beginning of each message.It will be used only for text output format.
+      --profile                  Display timing and memory usage information.
+      --output-mode=OUTPUT-MODE  Output format. Available options:
+                                 text - Default text output format, userfriendly and easy to read.
+                                 cron - Shortcut for crontab. It's basically focused on human-readable logs output.
+                                 It's combination of --timestamp --profile --stdout-only --no-progress -vv.
+                                 logstash - Logstash output format, for integration with ELK stack.
+                                  [default: "text"]
+      --cron                     Alias for --output-mode=cron. Deprecated!
+  -h, --help                     Display help for the given command. When no command is given display help for the build command
+  -q, --quiet                    Do not output any message
+  -V, --version                  Display this application version
+      --ansi|--no-ansi           Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction           Do not ask any interactive question
+  -v|vv|vvv, --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 ```
 
@@ -127,7 +148,7 @@ make test-all
 ```
 
 
-### License
+## License
 MIT
 
 
