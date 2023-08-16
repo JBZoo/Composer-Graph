@@ -27,6 +27,9 @@ use Symfony\Component\Console\Input\InputOption;
 
 use function JBZoo\Data\json;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class Build extends CliCommand
 {
     /**
