@@ -99,7 +99,7 @@ php ./vendor/bin/composer-graph  --show-ext
 
 ### Default output with versions of packages and relations
 ```shell
-php ./vendor/bin/composer-graph  --show-link-versions  --show-lib-versions
+php ./vendor/bin/composer-graph  --show-link-versions  --show-package-versions
 ```
 
 ![Example](https://raw.githubusercontent.com/JBZoo/Composer-Graph/master/resources/jbzoo-versions.png)
