@@ -47,8 +47,8 @@ class Package
         if (
             !\str_contains($this->name, '/')
             && (
-                \preg_match('#^ext-[a-z\\d]*#', $this->name) > 0
-                || \preg_match('#^lib-[a-z\\d]*#', $this->name) > 0
+                \preg_match('#^ext-[a-z\d]*#', $this->name) > 0
+                || \preg_match('#^lib-[a-z\d]*#', $this->name) > 0
             )
         ) {
             $this->addTags([self::EXT, self::HAS_META]);
