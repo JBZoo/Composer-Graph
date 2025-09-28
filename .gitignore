@@ -17,3 +17,4 @@ vendor
 phpunit.xml
 *.cache
 tests/fixtures/lib-*
+.claude
