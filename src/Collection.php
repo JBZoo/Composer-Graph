@@ -20,10 +20,9 @@ use JBZoo\Data\JSON;
 
 use function JBZoo\Data\json;
 
-class Collection
+final class Collection
 {
     private JSON $composerFile;
-
     private JSON $lockFile;
 
     /** @var Package[] */
@@ -140,7 +139,6 @@ class Collection
         $current      = json($packageMeta);
         $packageAlias = Package::alias($packageName);
 
-        /** @var Package $package */
         $package = $this->collection[$packageAlias] ?? new Package($packageName, $this->vendorDir);
 
         $package

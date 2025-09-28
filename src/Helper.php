@@ -18,7 +18,7 @@ namespace JBZoo\ComposerGraph;
 
 use JBZoo\Utils\Cli;
 
-class Helper
+final class Helper
 {
     public const HASH_LENGTH = 7;
 
