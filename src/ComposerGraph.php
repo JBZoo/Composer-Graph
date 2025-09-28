@@ -27,23 +27,17 @@ use function JBZoo\Utils\bool;
 /**
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
-class ComposerGraph
+final class ComposerGraph
 {
     public const FORMAT_HTML    = 'html';
     public const FORMAT_MERMAID = 'mermaid';
 
-    protected Data $params;
-
-    private Graph $graphWrapper;
-
-    private Graph $graphMain;
-
-    private Graph $graphRequire;
-
-    private Graph $graphDev;
-
-    private Graph $graphPlatform;
-
+    private Data       $params;
+    private Graph      $graphWrapper;
+    private Graph      $graphMain;
+    private Graph      $graphRequire;
+    private Graph      $graphDev;
+    private Graph      $graphPlatform;
     private Collection $collection;
 
     /** @var string[] */
@@ -166,7 +160,7 @@ class ComposerGraph
         return true;
     }
 
-    protected function render(): string
+    private function render(): string
     {
         if (\count($this->graphRequire->getNodes()) > 0) {
             $this->graphWrapper->addSubGraph($this->graphRequire);
@@ -235,7 +229,7 @@ class ComposerGraph
         throw new Exception("Invalid format: \"{$format}\"");
     }
 
-    protected function createNode(Package $package): Node
+    private function createNode(Package $package): Node
     {
         $graph = $this->getGraph($package);
 

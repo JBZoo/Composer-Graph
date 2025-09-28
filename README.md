@@ -1,7 +1,15 @@
 # JBZoo / Composer-Graph
 
-[![CI](https://github.com/JBZoo/Composer-Graph/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/JBZoo/Composer-Graph/actions/workflows/main.yml?query=branch%3Amaster)    [![Coverage Status](https://coveralls.io/repos/github/JBZoo/Composer-Graph/badge.svg?branch=master)](https://coveralls.io/github/JBZoo/Composer-Graph?branch=master)    [![Psalm Coverage](https://shepherd.dev/github/JBZoo/Composer-Graph/coverage.svg)](https://shepherd.dev/github/JBZoo/Composer-Graph)    [![Psalm Level](https://shepherd.dev/github/JBZoo/Composer-Graph/level.svg)](https://shepherd.dev/github/JBZoo/Composer-Graph)    [![CodeFactor](https://www.codefactor.io/repository/github/jbzoo/composer-graph/badge)](https://www.codefactor.io/repository/github/jbzoo/composer-graph/issues)    
-[![Stable Version](https://poser.pugx.org/jbzoo/composer-graph/version)](https://packagist.org/packages/jbzoo/composer-graph/)    [![Total Downloads](https://poser.pugx.org/jbzoo/composer-graph/downloads)](https://packagist.org/packages/jbzoo/composer-graph/stats)    [![Dependents](https://poser.pugx.org/jbzoo/composer-graph/dependents)](https://packagist.org/packages/jbzoo/composer-graph/dependents?order_by=downloads)    [![GitHub License](https://img.shields.io/github/license/jbzoo/composer-graph)](https://github.com/JBZoo/Composer-Graph/blob/master/LICENSE)
+[![CI](https://github.com/JBZoo/Composer-Graph/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/JBZoo/Composer-Graph/actions/workflows/main.yml?query=branch%3Amaster)
+[![Coverage Status](https://coveralls.io/repos/github/JBZoo/Composer-Graph/badge.svg?branch=master)](https://coveralls.io/github/JBZoo/Composer-Graph?branch=master)
+[![Psalm Coverage](https://shepherd.dev/github/JBZoo/Composer-Graph/coverage.svg)](https://shepherd.dev/github/JBZoo/Composer-Graph)
+[![Psalm Level](https://shepherd.dev/github/JBZoo/Composer-Graph/level.svg)](https://shepherd.dev/github/JBZoo/Composer-Graph)
+[![CodeFactor](https://www.codefactor.io/repository/github/jbzoo/composer-graph/badge)](https://www.codefactor.io/repository/github/jbzoo/composer-graph/issues)
+
+[![Stable Version](https://poser.pugx.org/jbzoo/composer-graph/version)](https://packagist.org/packages/jbzoo/composer-graph/)
+[![Total Downloads](https://poser.pugx.org/jbzoo/composer-graph/downloads)](https://packagist.org/packages/jbzoo/composer-graph/stats)
+[![Dependents](https://poser.pugx.org/jbzoo/composer-graph/dependents)](https://packagist.org/packages/jbzoo/composer-graph/dependents?order_by=downloads)
+[![GitHub License](https://img.shields.io/github/license/jbzoo/composer-graph)](https://github.com/JBZoo/Composer-Graph/blob/master/LICENSE)
 
 
 <!--ts-->
@@ -65,7 +73,8 @@ Options:
                                   [default: "text"]
       --cron                     Alias for --output-mode=cron. Deprecated!
   -h, --help                     Display help for the given command. When no command is given display help for the build command
-  -q, --quiet                    Do not output any message
+      --silent                   Do not output any message
+  -q, --quiet                    Only errors are displayed. All other output is suppressed
   -V, --version                  Display this application version
       --ansi|--no-ansi           Force (or disable --no-ansi) ANSI output
   -n, --no-interaction           Do not ask any interactive question
@@ -126,7 +135,7 @@ php ./vendor/bin/composer-graph  --show-dev
 ### Full Report
 
 All options are enabled but `--show-php` (too many packages).
- 
+
 ```shell
 php ./vendor/bin/composer-graph            \
                  --show-ext                \
@@ -159,6 +168,6 @@ MIT
 - [Mermaid-PHP](https://github.com/JBZoo/Mermaid-PHP) - Generate diagrams and flowcharts with the help of the mermaid script language.
 - [Utils](https://github.com/JBZoo/Utils) - Collection of useful PHP functions, mini-classes, and snippets for every day.
 - [Image](https://github.com/JBZoo/Image) - Package provides object-oriented way to manipulate with images as simple as possible.
-- [Data](https://github.com/JBZoo/Data) - Extended implementation of ArrayObject. Use files as config/array. 
+- [Data](https://github.com/JBZoo/Data) - Extended implementation of ArrayObject. Use files as config/array.
 - [Retry](https://github.com/JBZoo/Retry) - Tiny PHP library providing retry/backoff functionality with multiple backoff strategies and jitter support.
 - [SimpleTypes](https://github.com/JBZoo/SimpleTypes) - Converting any values and measures - money, weight, exchange rates, length, ...

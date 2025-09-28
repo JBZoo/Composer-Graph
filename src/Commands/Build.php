@@ -30,7 +30,7 @@ use function JBZoo\Data\json;
 /**
  * @psalm-suppress PropertyNotSetInConstructor
  */
-class Build extends CliCommand
+final class Build extends CliCommand
 {
     /**
      * {@inheritDoc}
@@ -50,8 +50,8 @@ class Build extends CliCommand
                 'root',
                 'r',
                 $required,
-                'The path has to contain ' .
-                '"composer.json" and "composer.lock" files',
+                'The path has to contain '
+                . '"composer.json" and "composer.lock" files',
                 './',
             )
             ->addOption('output', 'o', $required, 'Path to html output.', './build/composer-graph.html')
@@ -87,8 +87,8 @@ class Build extends CliCommand
                 'abc-order',
                 'O',
                 $none,
-                'Strict ABC ordering nodes in graph. ' .
-                "It's fine tuning, sometimes it useful.",
+                'Strict ABC ordering nodes in graph. '
+                . "It's fine tuning, sometimes it useful.",
             );
 
         parent::configure();

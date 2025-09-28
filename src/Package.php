@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace JBZoo\ComposerGraph;
 
-class Package
+final class Package
 {
     public const MAIN         = 'main';
     public const DIRECT       = 'direct';
@@ -29,16 +29,11 @@ class Package
     public const INSTALLED    = 'installed';
 
     private string $name;
-
-    private string $version = '*';
-
-    private array $required = [];
-
-    private array $requiredDev = [];
-
-    private array $suggests = [];
-
-    private array $tags = [];
+    private string $version     = '*';
+    private array  $required    = [];
+    private array  $requiredDev = [];
+    private array  $suggests    = [];
+    private array  $tags        = [];
 
     public function __construct(string $name, ?string $vendorDir = null)
     {
