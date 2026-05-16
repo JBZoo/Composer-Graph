@@ -35,7 +35,7 @@ foreach ($vendorPaths as $file) {
 
 require_once JBZOO_AUTOLOAD_FILE;
 
-$application = new CliApplication('JBZoo/CI-Report-Converter', '@git-version@');
+$application = new CliApplication('JBZoo/Composer-Graph', '@git-version@');
 $application->registerCommandsByPath(__DIR__ . '/src/Commands', __NAMESPACE__);
 $application->setDefaultCommand('build');
 $application->run();
