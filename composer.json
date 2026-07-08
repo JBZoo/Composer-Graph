@@ -27,12 +27,13 @@
         "jbzoo/utils"       : "^7.3.0",
         "jbzoo/cli"         : "^7.2.4",
 
-        "symfony/console"   : ">=7.3.4"
+        "symfony/console"   : "^7.3.4",
+        "symfony/string"    : "^7.3.4"
     },
 
     "require-dev"       : {
         "jbzoo/toolbox-dev" : "^7.3",
-        "symfony/process"   : ">=7.3.4"
+        "symfony/process"   : "^7.3.4"
     },
 
     "autoload"          : {
