@@ -20,7 +20,7 @@ use JBZoo\Utils\Cli;
 
 final class Helper
 {
-    public const HASH_LENGTH = 7;
+    public const int HASH_LENGTH = 7;
 
     public static function getGitVersion(): ?string
     {

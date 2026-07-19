@@ -68,7 +68,7 @@ Options:
       --timestamp                Show timestamp at the beginning of each message.It will be used only for text output format.
       --profile                  Display timing and memory usage information.
       --output-mode=OUTPUT-MODE  Output format. Available options:
-                                 text - Default text output format, userfriendly and easy to read.
+                                 text - Default text output format, user-friendly and easy to read.
                                  cron - Shortcut for crontab. It's basically focused on human-readable logs output.
                                  It's combination of --timestamp --profile --stdout-only --no-progress -vv.
                                  logstash - Logstash output format, for integration with ELK stack.

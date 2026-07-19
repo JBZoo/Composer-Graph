@@ -20,20 +20,19 @@
     "prefer-stable"     : true,
 
     "require"           : {
-        "php"               : "^8.2",
+        "php"               : "^8.3",
 
-        "jbzoo/data"        : "^7.2",
-        "jbzoo/mermaid-php" : "^7.2.4",
-        "jbzoo/utils"       : "^7.3.0",
-        "jbzoo/cli"         : "^7.2.4",
+        "jbzoo/data"        : "^8.0",
+        "jbzoo/mermaid-php" : "^8.0",
+        "jbzoo/utils"       : "^8.0",
+        "jbzoo/cli"         : "^8.0",
 
-        "symfony/console"   : "^7.3.4",
-        "symfony/string"    : "^7.3.4"
+        "symfony/console"   : ">=7.3.4"
     },
 
     "require-dev"       : {
-        "jbzoo/toolbox-dev" : "^7.3",
-        "symfony/process"   : "^7.3.4"
+        "jbzoo/toolbox-dev" : "^8.0",
+        "symfony/process"   : ">=7.3.4"
     },
 
     "autoload"          : {
@@ -54,7 +53,7 @@
 
     "extra"             : {
         "branch-alias" : {
-            "dev-master" : "7.x-dev"
+            "dev-master" : "8.x-dev"
         }
     }
 }
