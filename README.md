@@ -29,7 +29,7 @@
 
 ## Installation
 
-**Requirements:** PHP 8.2+
+**Requirements:** PHP 8.3+
 
 ```shell
 composer require        jbzoo/composer-graph # For a specific project
