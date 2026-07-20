@@ -22,7 +22,7 @@ use JBZoo\Utils\Env;
 
 use function JBZoo\Data\json;
 
-class GraphBuildTest extends AbstractGraphTest
+class GraphBuildTest extends AbstractGraphTestCase
 {
     public function testHelpInReadme(): void
     {

@@ -29,8 +29,8 @@ use function JBZoo\Utils\bool;
  */
 final class ComposerGraph
 {
-    public const FORMAT_HTML    = 'html';
-    public const FORMAT_MERMAID = 'mermaid';
+    public const string FORMAT_HTML    = 'html';
+    public const string FORMAT_MERMAID = 'mermaid';
 
     private Data       $params;
     private Graph      $graphWrapper;

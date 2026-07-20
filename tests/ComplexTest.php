@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace JBZoo\PHPUnit;
 
-class ComplexTest extends AbstractGraphTest
+class ComplexTest extends AbstractGraphTestCase
 {
     public function testMinimal(): void
     {

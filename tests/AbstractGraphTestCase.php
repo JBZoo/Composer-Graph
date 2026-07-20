@@ -24,14 +24,15 @@ use JBZoo\Utils\Sys;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-abstract class AbstractGraphTest extends PHPUnit
+abstract class AbstractGraphTestCase extends PHPUnit
 {
     public function task(array $params = []): string
     {
         $params['--no-ansi'] = null;
 
         $application = new CliApplication();
-        $application->add(new Build());
+        // Symfony Console 8.0 removed Application::add(); addCommands() exists on 7.3+/8.x.
+        $application->addCommands([new Build()]);
         $application->setDefaultCommand('build');
         $command = $application->find('build');
 
@@ -53,7 +54,11 @@ abstract class AbstractGraphTest extends PHPUnit
 
         return Cli::exec(
             \implode(' ', [
-                Sys::getBinary(),
+                // -d error_reporting mutes E_DEPRECATED in the child: the --prefer-lowest CI leg pulls
+                // old transitive dev-tool deps (amphp/*, sabre/event via php-coveralls) whose files-
+                // autoload emits "implicitly nullable" deprecations on PHP 8.5+ that Cli::exec captures
+                // into the report/help output. Production (the phar or a no-dev install) never loads them.
+                Sys::getBinary() . ' -d error_reporting=' . (\E_ALL & ~\E_DEPRECATED),
                 "{$rootDir}/composer-graph.php",
             ]),
             $params,

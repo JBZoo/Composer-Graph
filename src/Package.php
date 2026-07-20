@@ -18,15 +18,15 @@ namespace JBZoo\ComposerGraph;
 
 final class Package
 {
-    public const MAIN         = 'main';
-    public const DIRECT       = 'direct';
-    public const PHP          = 'php';
-    public const EXT          = 'ext';
-    public const REQUIRED     = 'require';
-    public const REQUIRED_DEV = 'require-dev';
-    public const SUGGEST      = 'suggest';
-    public const HAS_META     = 'has-meta';
-    public const INSTALLED    = 'installed';
+    public const string MAIN         = 'main';
+    public const string DIRECT       = 'direct';
+    public const string PHP          = 'php';
+    public const string EXT          = 'ext';
+    public const string REQUIRED     = 'require';
+    public const string REQUIRED_DEV = 'require-dev';
+    public const string SUGGEST      = 'suggest';
+    public const string HAS_META     = 'has-meta';
+    public const string INSTALLED    = 'installed';
 
     private string $name;
     private string $version     = '*';
